@@ -20,13 +20,13 @@ import {UserManagementComponent} from './userApp/components/user-management.comp
 
 //ReservationApp
 
-import { ReservationMainComponent } from './reservationApp/components/reservation-main.component';
+import { ReservationMainComponent } from './shopApp/components/reservation-main.component';
 
 //Pagination
 import {NgxPaginationModule} from 'ngx-pagination';
 
 //Directives
-import { InputValidationDirective } from './reservationApp/directives/input-validation.directive';
+import { InputValidationDirective } from './shopApp/directives/input-validation.directive';
 
 //Currency mask
 import { CurrencyMaskModule } from "ng2-currency-mask";

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserMainComponent } from './../../userApp/components/user-main.component';
-import { ReservationMainComponent } from './../../reservationApp/components/reservation-main.component';
+import { ReservationMainComponent } from './../../shopApp/components/reservation-main.component';
 
 const appRoutes: Routes = [
   {path:'', redirectTo: '/reservationApp', pathMatch: 'full'},
