@@ -1,0 +1,38 @@
+<div class="container well">
+  <fieldset>
+    <legend>Login</legend>
+    <form #userLogginForm="ngForm" (ngSubmit)="connection()">
+      <div class="form-group">
+        <input type="text"  id="nick" name="nick" #nick="ngModel" class="form-control"
+                [(ngModel)]="userConnected.nick" placeholder="User" required />
+        <div [hidden]="nick.valid || nick.pristine"
+                      class="alert alert-danger">
+            Nick is required
+        </div>
+        <input type="password" id="password" name="password" #password="ngModel"  class="form-control"
+              [(ngModel)]="userConnected.password" placeholder="Password" required />
+        <div [hidden]="password.valid || password.pristine"
+                      class="alert alert-danger">
+            Password is required
+        </div>
+      </div>
+      <div [hidden]="validUserData"
+                    class="alert alert-danger">
+          Either user nick or password is not correcte, try again
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label>
+          <input class="btn btn-success btn-default btn-primary btn-block"
+                [disabled]="userLogginForm.invalid || userLogginForm.pristine"
+                 type="submit"
+                 value="Login" />
+        </label>
+        <label>
+          <input class="btn btn-default btn-primary btn-block" type="button"
+          (click)="goBack.emit(1)" value="Register" >
+        </label>
+      </div>
+    </form>
+  </fieldset>
+</div>

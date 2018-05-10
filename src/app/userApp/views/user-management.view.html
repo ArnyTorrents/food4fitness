@@ -1,0 +1,101 @@
+<form name="useManagementForm" #useManagementForm="ngForm"
+      (ngSubmit)="registerUser()"
+      novalidate>
+  <div class="container well">
+    <div class="form-horizontal" >
+      <div class="row" *ngIf="userOption == 1">
+        <div class="col-xs-12"><h2>Add new User</h2></div>
+      </div>
+      <div class="row" *ngIf="userOption == 2">
+        <div class="col-xs-12"><h2>Modify your data</h2></div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="formGroup">Name:</label>
+        <div class="col-sm-4">
+          <input class="form-control"
+              type="text"  #name="ngModel" name="name"
+              [(ngModel)]="user.name" required />
+        </div>
+        <label class="col-sm-2 control-label" for="formGroup">Last name:</label>
+        <div class="col-sm-4">
+          <input class="form-control" type="text" #surname1="ngModel" name="surname1"
+          [(ngModel)]="user.surname1" required/>
+        </div>
+        <label class="col-sm-2 control-label" for="formGroup">Nick:</label>
+        <div class="col-sm-4">
+          <input class="form-control" type="text" id="userNick" #nick="ngModel" name="nick"
+          [(ngModel)]="user.nick" required/>
+          <!--<p class="help-block" *ngIf="!nickValid" >
+            <b>It already exists a user with this nick, try another one.</b>
+          </p>-->
+        </div>
+        <label class="col-sm-2 control-label" for="formGroup">Password:</label>
+        <div class="col-sm-4">
+          <input class="form-control" type="password" #password="ngModel" name="password"
+          [(ngModel)]="user.password" name="password" minlength="6"
+          (keyup)="checkPassword();null"
+          required/>
+          <p class="help-block" *ngIf="password.invalid && (password.dirty || password.touched)" >
+            Password must be at least 6 characters
+          </p>
+        </div>
+        <label class="col-sm-2 control-label" for="formGroup">Repeat password:</label>
+        <div class="col-sm-4">
+          <input class="form-control" type="password"
+            id="password2"
+            #password2="ngModel"
+            name="password2"
+            [(ngModel)]="passControl" minlength="6"
+            (keyup)="checkPassword();null"
+            required/>
+          <p class="help-block" *ngIf="password2.invalid && password2.touched" >
+            Password not match
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="formGroup">Image:</label>
+        <div class="col-sm-4" *ngIf="userOption == 2">
+          <label class="col-sm-2 control-label" for="formGroup">
+            Image: <img src="{{user.getImage()}}" width="50" height="50"/>
+          </label>
+          <label class="col-sm-6 control-label" for="formGroup">
+            <input class="form-control" type="file" accept="image/*"
+            id="imageUserMod"
+            name="imageName"
+            #imageName="ngModel"
+            (change)="angular.element(this).scope().setFile(this)"
+            [(ngModel)]="imageUserMod" />
+          </label>
+          <label class="col-sm-2 control-label" for="formGroup">New Image:
+            <img src="{{userImage}}">
+          </label>
+        </div>
+        <div class="col-sm-4" *ngIf="userOption == 1">
+            <input class="form-control" type="file" file="image" accept="image/*"
+                  id="imageUser"
+                  name="imageName"
+                  ngModel
+                  (change)="getFiles($event)"/>
+            <p class="help-block" *ngIf="!validFile" >
+              Your picture must be uploaded
+            </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="formGroup"></label>
+        <div class="col-sm-4">
+          <button [disabled]="useManagementForm.invalid || !validFile" class="btn btn-success">          
+            Submit
+          </button>
+        </div>
+        <div class="form-group col-sm-6">
+          <label>
+            <input class="btn btn-default btn-primary btn-block" type="button"
+            value="Back" (click)="goBack.emit(0)">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

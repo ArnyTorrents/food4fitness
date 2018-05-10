@@ -1,0 +1,5 @@
+<user-login *ngIf="userAction==0"
+(goBack)="goBack($event)"></user-login>
+<user-management *ngIf="userAction==1"
+ (goBack)="goBack($event)">
+</user-management>
