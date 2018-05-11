@@ -6,9 +6,9 @@ import { UserMainComponent } from './../../userApp/components/user-main.componen
 import { ReservationMainComponent } from './../../shopApp/components/reservation-main.component';
 
 const appRoutes: Routes = [
-  {path:'', redirectTo: '/reservationApp', pathMatch: 'full'},
+  {path:'', redirectTo: '/shopApp', pathMatch: 'full'},
   {path: 'userApp', component: UserMainComponent},
-  {path: 'reservationApp', component: ReservationMainComponent}
+  {path: 'shopApp', component: ReservationMainComponent}
 ];
 
 @NgModule({
