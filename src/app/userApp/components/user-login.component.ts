@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { User } from './../model/user';
 import {UserDataService} from './../services/user-data.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'user-login',
@@ -19,8 +20,9 @@ export class UserLoginComponent implements OnInit {
   @Output() goBack = new EventEmitter<number>();
 
 
-  constructor(private router: Router,
-          private userDataService: UserDataService
+  constructor(private cookieService: CookieService,
+              private router: Router,
+              private userDataService: UserDataService
   ) { }
 
 
@@ -33,7 +35,9 @@ export class UserLoginComponent implements OnInit {
           {
             if(outPutData[0]=== true)
             {
-              this.router.navigate(["shopApp"]);
+              //console.log("log");
+              //console.log(outPutData[1]);
+              //this.router.navigate(["shopApp"]);
             }
           } else {
             alert("There has been an error, try later");
@@ -59,8 +63,13 @@ export class UserLoginComponent implements OnInit {
               {
                 sessionStorage.setItem("connectedUser",
                           JSON.stringify(outPutData[1][0]));
+                //console.log(outPutData[1][0]);
+                this.cookieService.set('user',
+                JSON.stringify(outPutData[1][0]));
+
+                location.reload();
                 this.router.navigate(["shopApp"]);
-                //alert("connected");
+
               } else {
                 this.validUserData = false;
               }

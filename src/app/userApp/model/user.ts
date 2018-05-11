@@ -2,7 +2,7 @@
   id: number;
   name: string;
   surname: string;
-  adress: string;
+  address: string;
   role: string;
   country: string;
   province: string;
@@ -12,11 +12,11 @@
   password: string;
   img: string;
   //constructor
-  constructor(id?: number, name?: string, surname?: string, adress?: string, role?: string, country?: string,province?:string,door?:string,phone?:string,nickName?:string,password?:string,img?:string) {
+  constructor(id?: number, name?: string, surname?: string, address?: string, role?: string, country?: string,province?:string,door?:string,phone?:string,nickName?:string,password?:string,img?:string) {
         this.setId(id);
         this.setName(name);
         this.setSurname(surname);
-        this.setAdress(adress);
+        this.setAddress(address);
         this.setRole(role);
         this.setCountry(country);
         this.setProvince(province);
@@ -39,8 +39,8 @@
     return this.surname;
   }
 
-  getAdress(): string {
-    return this.adress;
+  getAddress(): string {
+    return this.address;
   }
 
   getRole():string{
@@ -87,8 +87,8 @@
     this.surname = surname;
   }
 
-  setAdress(adress):void{
-    this.adress = adress;
+  setAddress(address):void{
+    this.address = address;
   }
 
   setRole(role):void{

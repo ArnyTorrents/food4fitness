@@ -15,7 +15,7 @@ class UserADO implements EntityInterfaceADO {
   private static $colNameId = "id";
   private static $colNameName = "name";
   private static $colNameSurname = "surname";
-  private static $colNameAdress = "adress";
+  private static $colNameAdress = "address";
   private static $colNameRole = "role";
   private static $colNameCountry = "country";
   private static $colNameProvince = "province";
@@ -75,7 +75,7 @@ class UserADO implements EntityInterfaceADO {
     $entity->setId($id);
     $entity->setName($name);
     $entity->setSurname($surname);
-    $entity->setAdress($adress);
+    $entity->setAddress($adress);
     $entity->setRole($role);
     $entity->setCountry($country);
     $entity->setProvince($province);
