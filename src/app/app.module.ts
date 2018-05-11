@@ -21,6 +21,7 @@ import {UserManagementComponent} from './userApp/components/user-management.comp
 //ReservationApp
 
 import { ReservationMainComponent } from './shopApp/components/reservation-main.component';
+import { ProductsMainComponent } from './shopApp/components/products-main.component'
 
 //Pagination
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -35,7 +36,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CookieService } from 'ngx-cookie-service';
 
 //Routing
-import {AppRoutingModule} from './mainApp/routing/app.routing'
+import {AppRoutingModule} from './mainApp/routing/app.routing';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {AppRoutingModule} from './mainApp/routing/app.routing'
     UserLoginComponent,
     UserManagementComponent,
     ReservationMainComponent,
-    InputValidationDirective
+    InputValidationDirective,
+    ProductsMainComponent
   ],
   imports: [
     BrowserModule,
