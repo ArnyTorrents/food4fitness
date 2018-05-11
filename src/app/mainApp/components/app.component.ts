@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { User } from './../../userApp/model/user';
 
 import {UserDataService} from './../../userApp/services/user-data.service';
+//CookieService
+import { CookieService } from 'ngx-cookie-service';
+
 //123456
 @Component({
   selector: 'app-main',
@@ -16,13 +19,27 @@ export class AppComponent implements OnInit {
   title = 'Welcome to the best resturant ever';
 
   userConnected:User;
+  userLogged: number;
 
-  constructor(private router : Router,
-    private userDataService : UserDataService
+  constructor(private cookieService: CookieService,
+              private router : Router,
+              private userDataService : UserDataService
   ) { }
 
   ngOnInit(): void {
-
+    if(this.cookieService.check("user")){
+      let cookieObj:any =
+            JSON.parse(this.cookieService.get("user"));
+      let userConnected = new User();
+      Object.assign(userConnected,cookieObj);
+      console.log(cookieObj.name);
+      //this.user.id = cookieObj.id;
+      //this.user.setName(cookieObj.name);
+      this.userConnected = userConnected;
+      this.userLogged = 1;
+    }else{
+      this.userLogged = 0;
+    }
   }
 
   logOut(): void {
@@ -47,6 +64,8 @@ export class AppComponent implements OnInit {
                     +JSON.stringify(error));
       }
     );
+    this.userLogged = 0;
+    this.cookieService.deleteAll();
   }
   logIn():void{
     this.router.navigate(["userApp"]);

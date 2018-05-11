@@ -10,7 +10,7 @@ class User implements EntityInterface {
     private $id;
     private $name;
     private $surname;
-    private $adress;
+    private $address;
     private $role;
     private $country;
     private $province;
@@ -35,8 +35,8 @@ class User implements EntityInterface {
         return $this->surname;
     }
 
-    public function getAdress(){
-        return $this->adress;
+    public function getAddress(){
+        return $this->address;
     }
 
     public function getCountry(){
@@ -74,8 +74,8 @@ class User implements EntityInterface {
         $this->surname = $surname;
     }
 
-    public function setAdress($adress){
-        $this->adress = $adress;
+    public function setAddress($address){
+        $this->address = $address;
     }
 
     public function setRole($role){
@@ -115,29 +115,29 @@ class User implements EntityInterface {
 		$data["id"] = $this->id;
 		$data["name"] = $this->name;
 		$data["surname"] = $this->surname;
-    $data["adress"] = $this->adress;
+    $data["address"] = $this->address;
     $data["role"] = $this->role;
     $data["country"] = $this->country;
     $data["province"] = $this->province;
     $data["door"] = $this->door;
     $data["phone"] = $this->phone;
-		$data["nick"] = $this->nick;
+		$data["nickName"] = $this->nickName;
 		$data["password"] = $this->password;
 		$data["img"] = $this->img;
 		return $data;
     }
 
-    public function setAll($id,$name,$surname,$adress,$role,$country,$province,$door,$phone,$nick,$password,$img) {
+    public function setAll($id,$name,$surname,$address,$role,$country,$province,$door,$phone,$nick,$password,$img) {
 		$this->setId($id);
 		$this->setName($name);
 		$this->setSurname($surname);
-    $this->setAdress($adress);
+    $this->setAddress($address);
     $this->setRole($role);
     $this->setCountry($country);
     $this->setProvince($province);
     $this->setDoor($door);
     $this->setPhone($phone);
-		$this->setNick($nick);
+		$this->setNickName($nick);
 		$this->setPassword($password);
 		$this->setImg($img);
     }

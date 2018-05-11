@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 //Model
 import {Comanda} from "./../model/comanda"
 
-//Servicies
+//CookieService
+import { CookieService } from 'ngx-cookie-service';
 //import {ReservationDataService} from './../services/reservation-data.service';
 import {UserDataService} from './../../userApp/services/user-data.service';
-
+import {User} from './../model/user'
 
 @Component({
   selector: 'restaurant-main',
@@ -19,36 +20,26 @@ export class ReservationMainComponent implements OnInit {
 
   //Properties
   restaurantAction: number;
+  user: User;
 
-  constructor(private userDataService : UserDataService,
+  constructor(private cookieService: CookieService,
+              private userDataService : UserDataService,
               private router : Router) { }
 
   ngOnInit() {
     this.restaurantAction=0;
 
-    /*this.userDataService.sessionControl().subscribe(
-      outPutData => {
-        if(Array.isArray(outPutData) && outPutData.length > 0)
-        {
-          outPutData[0] = true;
-          if(outPutData[0]=== true)
-          {
-            this.downloadInitData();
-          } else {
-            this.router.navigate(["userApp"]);
-          }
-        } else {
-          alert("There has been an error, try later");
-          console.log("Error in ReservationMainComponent (ngOnInit): outPutData is not array"
-                  + JSON.stringify(outPutData));
-        }
-      },
-      error => {
-        alert("There has been an error, try later");
-        console.log("Error in ReservationMainComponent (ngOnInit): "
-                    +JSON.stringify(error));
-      }
-    );*/
+    /*if(this.cookieService.check("user")){
+      let cookieObj:any =
+            JSON.parse(this.cookieService.get("user"));
+      let userConnected = new User();
+      Object.assign(userConnected,cookieObj);
+      console.log(cookieObj.name);
+      //this.user.id = cookieObj.id;
+      //this.user.setName(cookieObj.name);
+      console.log(userConnected);
+      this.user = userConnected;
+    }*/
   }
 
   private downloadInitData () : void {
