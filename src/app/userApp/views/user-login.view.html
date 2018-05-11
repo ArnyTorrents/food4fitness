@@ -3,9 +3,9 @@
     <legend>Login</legend>
     <form #userLogginForm="ngForm" (ngSubmit)="connection()">
       <div class="form-group">
-        <input type="text"  id="nick" name="nick" #nick="ngModel" class="form-control"
-                [(ngModel)]="userConnected.nick" placeholder="User" required />
-        <div [hidden]="nick.valid || nick.pristine"
+        <input type="text"  id="nickName" name="nickName" #nickName="ngModel" class="form-control"
+                [(ngModel)]="userConnected.nickName" placeholder="User" required />
+        <div [hidden]="nickName.valid || nickName.pristine"
                       class="alert alert-danger">
             Nick is required
         </div>

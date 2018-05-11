@@ -22,7 +22,7 @@ class DBConnect{
   private function setConnection(){
 
     $this->server='localhost';
-    $this->dataBase='restaurant';
+    $this->dataBase='food4fitness';
     $this->user='root';
     $this->password='rootroot';
   }

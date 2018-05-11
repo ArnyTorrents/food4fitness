@@ -33,7 +33,7 @@ export class UserLoginComponent implements OnInit {
           {
             if(outPutData[0]=== true)
             {
-              this.router.navigate(["reservationApp"]);
+              this.router.navigate(["shopApp"]);
             }
           } else {
             alert("There has been an error, try later");
@@ -59,7 +59,8 @@ export class UserLoginComponent implements OnInit {
               {
                 sessionStorage.setItem("connectedUser",
                           JSON.stringify(outPutData[1][0]));
-                this.router.navigate(["reservationApp"]);
+                this.router.navigate(["shopApp"]);
+                //alert("connected");
               } else {
                 this.validUserData = false;
               }

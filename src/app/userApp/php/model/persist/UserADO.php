@@ -11,7 +11,7 @@ require_once "../model/User.php";
 class UserADO implements EntityInterfaceADO {
 
   //----------Data base Values---------------------------------------
-  private static $tableName = "users";
+  private static $tableName = "User";
   private static $colNameId = "id";
   private static $colNameName = "name";
   private static $colNameSurname = "surname";
@@ -23,7 +23,7 @@ class UserADO implements EntityInterfaceADO {
   private static $colNamePhone = "phone";
   private static $colNameNickName = "nickName";
   private static $colNamePassword = "password";
-  private static $colNameImage = "image";
+  private static $colNameImg = "img";
 
   //---Databese management section-----------------------
   /**
@@ -68,7 +68,7 @@ class UserADO implements EntityInterfaceADO {
     $phone = $row[ UserADO::$colNamePhone];
     $nickName = $row[ UserADO::$colNameNickName ];
     $password = $row[ UserADO::$colNamePassword ];
-    $image = $row[ UserADO::$colNameImage ];
+    $img = $row[ UserADO::$colNameImg ];
 
     //Object construction
     $entity = new User();
@@ -83,7 +83,7 @@ class UserADO implements EntityInterfaceADO {
     $entity->setPhone($phone);
     $entity->setNickName($nickName);
     $entity->setPassword($password);
-    $entity->setImage($image);
+    $entity->setImg($img);
 
     return $entity;
   }
@@ -206,8 +206,8 @@ class UserADO implements EntityInterfaceADO {
       die();
     }
 
-    $cons="insert into ".UserADO::$tableName." (`name`,`surname`,`adress`,`role`,`country`,`province`,`door`,`phone`,`nickName`,`password`,`image`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $arrayValues= [$user->getName(),$user->getSurname(),$user->getAdress(),$user->getRole(),$user->getCountry(),$user->getProvince(),$user->getDoor(),$user->getPhone() ,$user->getNickName(), $user->getPassword(),$user->getImage()];
+    $cons="insert into ".UserADO::$tableName." (`name`,`surname`,`adress`,`role`,`country`,`province`,`door`,`phone`,`nickName`,`password`,`img`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $arrayValues= [$user->getName(),$user->getSurname(),$user->getAdress(),$user->getRole(),$user->getCountry(),$user->getProvince(),$user->getDoor(),$user->getPhone() ,$user->getNickName(), $user->getPassword(),$user->getimg()];
 
     $id = $conn->executionInsert($cons, $arrayValues);
 
@@ -252,8 +252,8 @@ class UserADO implements EntityInterfaceADO {
       die();
     }
 
-    $cons="update `".UserADO::$tableName."` set ".UserADO::$colNameName." = ?, ".UserADO::$colNameSurname." = ?,".UserADO::$colNameAdress.", ".UserADO::$colNameRole.",".UserADO::$colNameCountry.",".UserADO::$colNameProvince.",".UserADO::$colNameDoor.",".UserADO::$colNamePhone.",".UserADO::$colNameNickName." = ?, ".UserADO::$colNamePassword." = ?,".UserADO::$colNameImage." = ? where ".UserADO::$colNameId." = ?" ;
-    $arrayValues= [$user->getName(),$user->getSurname(),$user->getAdress(),$user->getRole(),$user->getCountry(),$user->getProvince(),$user->getDoor(),$user->getPhone() ,$user->getNickName(), $user->getPassword(),$user->getImage(),$user->getId()];
+    $cons="update `".UserADO::$tableName."` set ".UserADO::$colNameName." = ?, ".UserADO::$colNameSurname." = ?,".UserADO::$colNameAdress.", ".UserADO::$colNameRole.",".UserADO::$colNameCountry.",".UserADO::$colNameProvince.",".UserADO::$colNameDoor.",".UserADO::$colNamePhone.",".UserADO::$colNameNickName." = ?, ".UserADO::$colNamePassword." = ?,".UserADO::$colNameImg." = ? where ".UserADO::$colNameId." = ?" ;
+    $arrayValues= [$user->getName(),$user->getSurname(),$user->getAdress(),$user->getRole(),$user->getCountry(),$user->getProvince(),$user->getDoor(),$user->getPhone() ,$user->getNickName(), $user->getPassword(),$user->getimg(),$user->getId()];
 
     $conn->execution($cons, $arrayValues);
 
