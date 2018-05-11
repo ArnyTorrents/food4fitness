@@ -1,4 +1,4 @@
-export class User {
+  export class User {
   id: number;
   name: string;
   surname: string;
@@ -10,9 +10,9 @@ export class User {
   phone:string;
   nickName: string;
   password: string;
-  image: string;
+  img: string;
   //constructor
-  constructor(id?: number, name?: string, surname?: string, adress?: string, role?: string, country?: string,province?:string,door?:string,phone?:string,nickName?:string,password?:string,image?:string) {
+  constructor(id?: number, name?: string, surname?: string, adress?: string, role?: string, country?: string,province?:string,door?:string,phone?:string,nickName?:string,password?:string,img?:string) {
         this.setId(id);
         this.setName(name);
         this.setSurname(surname);
@@ -24,7 +24,7 @@ export class User {
         this.setPhone(phone);
         this.setNickName(nickName);
         this.setPassword(password);
-        this.setImage(image);
+        this.setImg(img);
   }
   //getters
   getId(): number {
@@ -71,8 +71,8 @@ export class User {
     return this.password;
   }
 
-  getImage(): string {
-    return this.image;
+  getImg(): string {
+    return this.img;
   }
   //setters
   setId(id): void {
@@ -119,7 +119,7 @@ export class User {
     this.password = password;
   }
 
-  setImage(image: string): void {
-    this.image= image;
+  setImg(img: string): void {
+    this.img= img;
   }
 }

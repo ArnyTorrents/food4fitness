@@ -142,7 +142,7 @@ class UserControllerClass implements ControllerInterface {
 
 
 		$user = new User();
-		$user->setNick($userObj->nick);
+		$user->setNickName($userObj->nickName);
 		$user->setPassword($userObj->password);
 
 

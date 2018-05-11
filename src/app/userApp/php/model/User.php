@@ -18,7 +18,7 @@ class User implements EntityInterface {
     private $phone;
     private $nickName;
     private $password;
-    private $image;
+    private $img;
     //constructor
     function __construct() {
     }
@@ -59,8 +59,8 @@ class User implements EntityInterface {
         return $this->password;
     }
 
-    public function getImage() {
-        return $this->image;
+    public function getImg() {
+        return $this->img;
     }
     //setters
     public function setId($id) {
@@ -106,8 +106,8 @@ class User implements EntityInterface {
         $this->password = $password;
     }
 
-    public function setImage($image) {
-		$this->image = $image;
+    public function setImg($img) {
+		$this->img = $img;
     }
 
     public function getAll() {
@@ -123,11 +123,11 @@ class User implements EntityInterface {
     $data["phone"] = $this->phone;
 		$data["nick"] = $this->nick;
 		$data["password"] = $this->password;
-		$data["image"] = $this->image;
+		$data["img"] = $this->img;
 		return $data;
     }
 
-    public function setAll($id,$name,$surname,$adress,$role,$country,$province,$door,$phone,$nick,$password,$image) {
+    public function setAll($id,$name,$surname,$adress,$role,$country,$province,$door,$phone,$nick,$password,$img) {
 		$this->setId($id);
 		$this->setName($name);
 		$this->setSurname($surname);
@@ -139,7 +139,7 @@ class User implements EntityInterface {
     $this->setPhone($phone);
 		$this->setNick($nick);
 		$this->setPassword($password);
-		$this->setImage($image);
+		$this->setImg($img);
     }
 
     public function toString() {
