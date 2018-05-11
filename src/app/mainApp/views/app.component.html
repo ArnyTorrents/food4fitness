@@ -9,8 +9,11 @@
           <li class="active" ><a href="#">Quienes Somos</a></li>
           <li href="#"><a href="#">Nuestros Productos</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a (click)="logIn()">Login</a></li>        
+        <ul class="nav navbar-nav navbar-right" *ngIf="userLogged==1">
+          <li><a>Bienvenido: {{userConnected.name}}</a></li>
+          <li><a class="btn btn-warning" (click)="logOut()">Desconectar</a></li>       </ul>
+       <ul class="nav navbar-nav navbar-right" *ngIf="userLogged==0">
+        <li><a (click)="logIn()">Logearse</a></li>
         </ul>
       </div>
     </div>
