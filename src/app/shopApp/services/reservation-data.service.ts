@@ -24,6 +24,14 @@ export class ReservationDataService {
       return this.accessServer();
   }
 
+  getAllProducts(): Observable<any[]> {
+    this.body = {
+         action: "10020",
+         jsonData: ""
+    }
+
+    return this.accessServer();
+  }
   /*insertReservation(reservation : Reservation) : Observable<any[]> {
       this.body = {
         action: '10010',
