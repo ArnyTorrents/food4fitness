@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class ReservationDataService {
 
-  private mainUrl : string = "http://localhost/food4fitness2/src/app/reservationApp/php/controllers/MainController.php";
+  private mainUrl : string = "http://localhost/food4fitness/src/app/reservationApp/php/controllers/MainController.php";
 
   private httpParams: HttpParams;
   private body: any;
