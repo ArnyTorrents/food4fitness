@@ -26,10 +26,15 @@ nav a:hover {
 nav a.active {
   color: #039be5;
 */
+
+.container {
+    margin-top: 1%;
+}
 body{
 
 }
 .whoWeAre{
   font-family: Raleway,sans-serif;
   font-size: 20px;
+  margin: 0 5% 10px;
 }
