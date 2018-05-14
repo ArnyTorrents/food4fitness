@@ -1,5 +1,11 @@
-<user-login *ngIf="userAction==0"
+<user-login *ngIf="userAction==1"
 (goBack)="goBack($event)"></user-login>
-<user-management *ngIf="userAction==1"
+<!--<user-management *ngIf="userAction==1"
  (goBack)="goBack($event)">
-</user-management>
+</user-management>-->
+<div *ngIf="userAction==2">
+  <div *ngIf="user.role=='master'">
+    <h1>Usuarios Management</h1>
+    <user-crud [user]="user"></user-crud>
+  </div>
+</div>

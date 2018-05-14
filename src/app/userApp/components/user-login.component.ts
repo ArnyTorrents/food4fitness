@@ -66,10 +66,8 @@ export class UserLoginComponent implements OnInit {
                 //console.log(outPutData[1][0]);
                 this.cookieService.set('user',
                 JSON.stringify(outPutData[1][0]));
-
                 location.reload();
                 this.router.navigate(["shopApp"]);
-
               } else {
                 this.validUserData = false;
               }
@@ -85,6 +83,5 @@ export class UserLoginComponent implements OnInit {
                         +JSON.stringify(error));
           }
         );
-
   }
 }

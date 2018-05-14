@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
   }
 
   logOut(): void {
+
     this.userDataService.logOut().subscribe(
       outPutData => {
         if(Array.isArray(outPutData) && outPutData.length > 0)
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit {
           //outPutData[0] = true;
           if(outPutData[0]=== true)
           {
+            location.reload();
             this.router.navigate(["userApp"]);
           }
         } else {
@@ -68,6 +70,10 @@ export class AppComponent implements OnInit {
     this.cookieService.deleteAll();
   }
   logIn():void{
+    this.router.navigate(["userApp"]);
+  }
+
+  usersCrud():void{
     this.router.navigate(["userApp"]);
   }
 }

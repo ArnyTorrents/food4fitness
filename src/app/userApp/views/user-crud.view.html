@@ -1,0 +1,30 @@
+<table class="table" *ngIf="actionUser==0">
+  <tr>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Address</th>
+    <th>Role</th>
+    <th>Phone</th>
+    <th>OPTIONS</th>
+  </tr>
+  <tr *ngFor="let userArr of usersArray; let i=index">
+    <td>{{userArr.name}}</td>
+    <td>{{userArr.surname}}</td>
+    <td>{{userArr.address}}</td>
+    <td>{{userArr.role}}</td>
+    <td>{{userArr.phone}}</td>
+    <td>
+        <button class="btn btn-danger"
+          *ngIf="userArr.id!=user.id"
+          (click)="delete(user)">X</button>
+        <button class="btn btn-primary"
+          (click)="details(user)">Details</button>
+    </td>
+  </tr>
+</table>
+
+<user-management *ngIf="actionUser==1"
+[userOption]="userOption"
+[userDetails]="userDetails"
+[user]="user"
+></user-management>
