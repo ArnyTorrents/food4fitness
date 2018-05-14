@@ -27,7 +27,7 @@
 
 		$productController = new ProductControllerClass( $action, $jsonData);
 
-		$outPutData = $reservationController->doAction();
+		$outPutData = $productController->doAction();
 
 		echo json_encode($outPutData);
 	}

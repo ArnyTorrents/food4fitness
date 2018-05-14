@@ -23,6 +23,7 @@ import {UsersCrudComponent} from './userApp/components/user-crud.component';
 
 import { ReservationMainComponent } from './shopApp/components/reservation-main.component';
 import { ProductsMainComponent } from './shopApp/components/products-main.component'
+import { ProductManagmentComponent } from './shopApp/components/product-managment/product-managment.component';
 
 //Pagination
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -50,6 +51,7 @@ import {AppRoutingModule} from './mainApp/routing/app.routing';
     ReservationMainComponent,
     InputValidationDirective,
     ProductsMainComponent
+    ProductManagmentComponent
   ],
   imports: [
     BrowserModule,
