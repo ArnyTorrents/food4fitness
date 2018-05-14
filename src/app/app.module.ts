@@ -17,6 +17,7 @@ import {AppComponent} from './mainApp/components/app.component';
 import {UserMainComponent} from './userApp/components/user-main.component';
 import {UserLoginComponent} from './userApp/components/user-login.component';
 import {UserManagementComponent} from './userApp/components/user-management.component';
+import {UsersCrudComponent} from './userApp/components/user-crud.component';
 
 //ReservationApp
 
@@ -45,6 +46,7 @@ import {AppRoutingModule} from './mainApp/routing/app.routing';
     UserMainComponent,
     UserLoginComponent,
     UserManagementComponent,
+    UsersCrudComponent,
     ReservationMainComponent,
     InputValidationDirective,
     ProductsMainComponent

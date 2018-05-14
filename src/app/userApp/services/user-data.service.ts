@@ -42,6 +42,17 @@ export class UserDataService {
       return this.accessServer();
   }
 
+  downloadInitData():Observable<any[]> {
+      this.body = {
+        action: '10070',
+        jsonData: ''
+      }
+
+      return this.accessServer();
+  }
+
+
+
   uploadFiles (file : File, filesNames: string[]): Observable<any[]> {
     this.httpParams = new HttpParams()
       .append('action', "10050")

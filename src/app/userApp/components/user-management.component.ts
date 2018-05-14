@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
+import { Component, OnInit, Output, Input,EventEmitter, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from './../model/user';
@@ -12,11 +12,16 @@ import {UserDataService} from './../services/user-data.service';
 })
 
 export class UserManagementComponent implements OnInit {
-  user: User;
-  userOption: number = 1;
+  userNew: User;
+  userOptions: number = 1;
   userImageFile: File;
   validFile: boolean = false;
   passControl: string;
+  roleArray: string[]=[];
+
+  @Input() userDetails : User;
+  @Input() userOption : number;
+  @Input() user : number;
 
   @ViewChild('useManagementForm') useManagementForm: HTMLFormElement;
 
@@ -29,11 +34,17 @@ export class UserManagementComponent implements OnInit {
 
 
   ngOnInit(): void {
-      this.user = new User();
+    this.roleArray = ["Master","Admin","User"];
+      this.userNew = new User();
+      this.userOptions = this.userOption;
+      if(this.userOptions==2){
+        this.userNew = this.userDetails;
+
+      }
   }
 
   checkPassword(): void {
-    if(this.user.getPassword()!=this.passControl)
+    if(this.userNew.getPassword()!=this.passControl)
     {
       this.useManagementForm.controls["password2"].setErrors({incorrect:true});
     } else {
@@ -54,7 +65,7 @@ export class UserManagementComponent implements OnInit {
 
   registerUser (): void {
     let filesNames : string [] = [];
-    filesNames.push(this.user.nickName);
+    filesNames.push(this.userNew.nickName);
 
     this.userDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
       outPutData => {

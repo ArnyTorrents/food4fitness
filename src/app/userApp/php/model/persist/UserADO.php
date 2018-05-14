@@ -88,6 +88,8 @@ class UserADO implements EntityInterfaceADO {
     return $entity;
   }
 
+
+
   /**
   * findByQuery()
   * It runs a particular query and returns the result

@@ -8,6 +8,9 @@
         <ul class="nav navbar-nav">
           <li class="active" ><a href="#">Quienes Somos</a></li>
           <li href="#"><a href="#">Nuestros Productos</a></li>
+          <li href="#" *ngIf="userLogged==1">
+            <a *ngIf="userConnected.role=='master'" (click)="usersCrud()">Nuestros Usuarios</a>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="userLogged==1">
           <li><a>Bienvenido: {{userConnected.name}}</a></li>

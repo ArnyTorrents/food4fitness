@@ -60,18 +60,44 @@ class UserControllerClass implements ControllerInterface {
 				$outPutData = $this->uploadUsersImages();
 				break;
 			case 10060:
-				$otuPutData = $this->removeUsersImages();
+				$outPutData = $this->removeUsersImages();
+				break;
+			case 10070:
+				$outPutData = $this->downloadUsers();
 				break;
 			default:
-			/*
-				$errors = array();
-				$outPutData[0]=false;
-				$errors[]="Sorry, there has been an error. Try later";
-				$outPutData[]=$errors;
-				*/
 				echo "There has been an error in the server";
 				error_log("Action not correct in UserControllerClass, value: ".$this->getAction());
 				break;
+		}
+
+		return $outPutData;
+	}
+
+	private function downloadUsers(){
+		$outPutData = array();
+		$outPutData[]=true;
+		$errors = array();
+
+		$listUsers = userADO::findAll();
+
+		if(count($listUsers)==0){
+			$outPutData[0]=false;
+			$errors[]="No Users found in database";
+		}
+		else{
+			$usersArray=array();
+
+			foreach ($listUsers as $user){
+				$usersArray[]=$user->getAll();
+			}
+		}
+
+		if($outPutData[0]){
+			$outPutData[]=$usersArray;
+		}
+		else{
+			$outPutData[]=$errors;
 		}
 
 		return $outPutData;
