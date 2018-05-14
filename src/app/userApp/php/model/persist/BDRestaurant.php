@@ -23,8 +23,8 @@ class DBConnect{
 
     $this->server='localhost';
     $this->dataBase='food4fitness';
-    $this->user='root';
-    $this->password='rootroot';
+    $this->user='admin';
+    $this->password='admin';
   }
 
   /*Evitem el clonatge de l'obejcte: Patró Singleton*/

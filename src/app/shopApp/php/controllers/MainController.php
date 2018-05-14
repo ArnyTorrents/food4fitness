@@ -25,7 +25,7 @@
 		if(isset($inputData->jsonData)) {$jsonData = $inputData->jsonData;}
 		else {$jsonData = $_REQUEST['jsonData'];}
 
-		$reservationController = new ReservationControllerClass( $action, $jsonData);
+		$productController = new ProductControllerClass( $action, $jsonData);
 
 		$outPutData = $reservationController->doAction();
 

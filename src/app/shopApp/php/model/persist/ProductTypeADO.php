@@ -1,19 +1,20 @@
 <?php
-/** ReservationTime.php
-* Entity reservationClass
-* autor  Roberto Plana
+/** ProductTypeADO.php
+* Entity:  ProductType
+* autors:   Arnau T & Julian M
 * version 2012/09
 */
 require_once "BDRestaurant.php";
 require_once "EntityInterfaceADO.php";
-require_once "../model/ReservationTime.php";
+require_once "../model/ProductType.php";
 
-class ReservationTimeADO implements EntityInterfaceADO {
+class ProductTypeADO implements EntityInterfaceADO {
 
   //----------Data base Values---------------------------------------
-  private static $tableName = "reservationTimes";
+  private static $tableName = "ProductType";
   private static $colNameId = "id";
-  private static $colNameTime = "time";
+  private static $colNameName = "name";
+  private static $colNameDescription = "description";
 
   //---Databese management section-----------------------
   /**
@@ -29,7 +30,7 @@ class ReservationTimeADO implements EntityInterfaceADO {
     foreach ( $res as $row)
     {
       //We get all the values an add into the array
-      $entity = ReservationTimeADO::fromResultSet( $row );
+      $entity = ProductTypeADO::fromResultSet( $row );
 
       $entityList[$i]= $entity;
       $i++;
@@ -45,14 +46,16 @@ class ReservationTimeADO implements EntityInterfaceADO {
   */
   public static function fromResultSet( $res ) {
     //We get all the values form the query
-    $id = $res[ ReservationTimeADO::$colNameId];
-    $time = $res[ ReservationTimeADO::$colNameTime ];
+    $id = $res[ ProductTypeADO::$colNameId];
+    $name = $res[ ProductTypeADO::$colNameName ];
+    $description = $res[ ProductTypeADO::$colNameDescription ];
 
 
     //Object construction
-    $entity = new ReservationTime();
+    $entity = new ProductType();
     $entity->setId($id);
-    $entity->setTime($time);
+    $entity->setName($name);
+    $entity->setDescription($description);
 
 
     return $entity;
@@ -71,14 +74,14 @@ class ReservationTimeADO implements EntityInterfaceADO {
     }
     catch (PDOException $e) {
       echo "Error executing query.";
-      error_log("Error executing query in ReservationTimeADO: " . $e->getMessage() . " ");
+      error_log("Error executing query in ProductTypeADO: " . $e->getMessage() . " ");
       die();
     }
 
     //Run the query
     $res = $conn->execution($cons, $vector);
 
-    return ReservationTimeADO::fromResultSetList( $res );
+    return ProductTypeADO::fromResultSetList( $res );
   }
 
   /**
@@ -87,38 +90,38 @@ class ReservationTimeADO implements EntityInterfaceADO {
   * @param id
   * @return object with the query results
   */
-  public static function findById( $reservationTime ) {
-    $cons = "select * from `".ReservationTimeADO::$tableName."` where ".ReservationTimeADO::$colNameId." = ?";
-    $arrayValues = [$reservationTime->getId()];
+  public static function findById( $productType ) {
+    $cons = "select * from `".ProductTypeADO::$tableName."` where ".ProductTypeADO::$colNameId." = ?";
+    $arrayValues = [$productType->getId()];
 
-    return ReservationTimeADO::findByQuery( $cons, $arrayValues );
+    return ProductTypeADO::findByQuery( $cons, $arrayValues );
   }
 
   /**
   * findlikeName()
   * It runs a query and returns an object array
-  * @param time
+  * @param preference
   * @return object with the query results
   */
-  public static function findlikeTime( $reservationTime ) {
-    $cons = "select * from `".ReservationTimeADO::$tableName."` where ".ReservationTimeADO::$colNameTime." like ?";
-    $arrayValues = ["%".$reservationTime->getTime()."%"];
+  public static function findlikeName( $productType ) {
+    $cons = "select * from `".ProductTypeADO::$tableName."` where ".ProductTypeADO::$colNameName." like ?";
+    $arrayValues = ["%".$productType->getName()."%"];
 
-    return ReservationTimeADO::findByQuery( $cons, $arrayValues );
+    return ProductTypeADO::findByQuery( $cons, $arrayValues );
   }
 
 
   /**
   * findByName()
   * It runs a query and returns an object array
-  * @param time
+  * @param preference
   * @return object with the query results
   */
-  public static function findByTime( $reservationTime ) {
-    $cons = "select * from `".ReservationTimeADO::$tableName."` where ".ReservationTimeADO::$colNameTime." = ?";
-    $arrayValues = [$reservationTime->getTime()];
+  public static function findByName( $productType ) {
+    $cons = "select * from `".ProductTypeADO::$tableName."` where ".ProductTypeADO::$colNameName." = ?";
+    $arrayValues = [$productType->getName()];
 
-    return ReservationTimeADO::findByQuery( $cons, $arrayValues );
+    return ProductTypeADO::findByQuery( $cons, $arrayValues );
   }
 
   /**
@@ -128,10 +131,10 @@ class ReservationTimeADO implements EntityInterfaceADO {
   * @return object with the query results
   */
   public static function findAll() {
-    $cons = "select * from `".ReservationTimeADO::$tableName."`";
+    $cons = "select * from `".ProductTypeADO::$tableName."`";
     $arrayValues = [];
 
-    return ReservationTimeADO::findByQuery( $cons, $arrayValues );
+    return ProductTypeADO::findByQuery( $cons, $arrayValues );
   }
 
 
@@ -139,7 +142,7 @@ class ReservationTimeADO implements EntityInterfaceADO {
   * create()
   * insert a new row into the database
   */
-  public function create($reservationTime) {
+  public function create($productType) {
     //Connection with the database
     try {
       $conn = DBConnect::getInstance();
@@ -149,21 +152,21 @@ class ReservationTimeADO implements EntityInterfaceADO {
       die();
     }
 
-    $cons="insert into ".ReservationTimeADO::$tableName." values (?)";
-    $arrayValues= [$reservationTime->getTime()];
+    $cons="insert into ".ProductTypeADO::$tableName." values (?,?)";
+    $arrayValues= [$productType->getName(), $productType->getDescription()];
 
     $id = $conn->executionInsert($cons, $arrayValues);
 
-    $reservationTime->setId($id);
+    $productType->setId($id);
 
-    return $reservationTime->getId();
+    return $productType->getId();
   }
 
   /**
   * delete()
   * it deletes a row from the database
   */
-  public function delete($reservationTime) {
+  public function delete($productType) {
     //Connection with the database
     try {
       $conn = DBConnect::getInstance();
@@ -174,8 +177,8 @@ class ReservationTimeADO implements EntityInterfaceADO {
     }
 
 
-    $cons="delete from `".ReservationTimeADO::$tableName."` where ".ReservationTimeADO::$colNameId." = ?";
-    $arrayValues= [$reservationTime->getId()];
+    $cons="delete from `".ProductTypeADO::$tableName."` where ".ProductTypeADO::$colNameId." = ?";
+    $arrayValues= [$productType->getId()];
 
     $conn->execution($cons, $arrayValues);
   }
@@ -185,7 +188,7 @@ class ReservationTimeADO implements EntityInterfaceADO {
   * update()
   * it updates a row of the database
   */
-  public function update($reservationTime) {
+  public function update($productType) {
     //Connection with the database
 
     try {
@@ -196,8 +199,10 @@ class ReservationTimeADO implements EntityInterfaceADO {
       die();
     }
 
-    $cons="update `".ReservationTimeADO::$tableName."` set ".ReservationTimeADO::$colNameTime." = ? where ".ReservationTimeADO::$colNameId." = ?";
-    $arrayValues= [$reservationTime->getTime(), $reservationTime->getId()];
+    $cons="update `".ProductTypeADO::$tableName."` set ".ProductTypeADO::$colNameName." = ?,".ProductTypeADO::$colNameDescription." = ? where ".ProductTypeADO::$colNameId." = ?";
+    $arrayValues= [$productType->getName(),
+                   $productType->getDescription(),
+                   $productType->getId()];
 
     $conn->execution($cons, $arrayValues);
 

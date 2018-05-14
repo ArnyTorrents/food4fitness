@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserMainComponent } from './../../userApp/components/user-main.component';
-import { ReservationMainComponent } from './../../shopApp/components/reservation-main.component';
+import { ProductsMainComponent } from './../../shopApp/components/products-main.component';
 
 const appRoutes: Routes = [
   {path:'', redirectTo: '/shopApp', pathMatch: 'full'},
   {path: 'userApp', component: UserMainComponent},
-  {path: 'shopApp', component: ReservationMainComponent}
+  {path: 'shopApp', component: ProductsMainComponent}
 ];
 
 @NgModule({

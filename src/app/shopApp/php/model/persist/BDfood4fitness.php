@@ -22,9 +22,9 @@ class DBConnect{
   private function setConnection(){
 
     $this->server='localhost';
-    $this->dataBase='restaurant';
-    $this->user='root';
-    $this->password='alumne';
+    $this->dataBase='food4fitness';
+    $this->user='admin';
+    $this->password='admin';
   }
 
   /*Evitem el clonatge de l'obejcte: Patró Singleton*/
@@ -76,7 +76,7 @@ class DBConnect{
   //si necessitem altres coses, com per exemple, saber el darrer id insertat, l'hem de codificar a banda
   public function executionInsert($sql,$vector){
     $id=null;
-    
+
     if($this->link !=null){
       $this->stmt=$this->link->prepare($sql);
       try

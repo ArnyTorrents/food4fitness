@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Products } from './../model/products'
+//Model
+import { Comanda } from "./../model/comanda";
+import { Products } from './../model/products';
+
+
+import { ProductDataService } from './../services/product-data.service';
 
 @Component({
-  selector: 'app-products-main',
+  selector: 'products-main',
   templateUrl: './../views/products-main.view.html',
-  styleUrls: ['./../css/products-main.style.css']
+  styleUrls: ['./../css/products-main.style.css'],
+  providers: [ProductDataService]
 })
 export class ProductsMainComponent implements OnInit {
 
@@ -15,13 +22,26 @@ export class ProductsMainComponent implements OnInit {
   showImage: boolean = false;
   listFilter: string;
   errorMessage: string;
+  productDetail: Products;
+
+  //Pagination properties
+  itemsPerPage: number;
+  currentPage: number;
+  totalItems: number;
+
+  //Filter properties
+  nameFilter:string;
+  typeFilter:string[];
 
   product: Products[];
 
-  constructor() { }
+  constructor(private productDataService : ProductDataService,
+              private router : Router) { }
 
   ngOnInit() {
+
   }
+
 
 
 }

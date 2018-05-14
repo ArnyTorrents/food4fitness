@@ -13,6 +13,8 @@ class Products implements EntityInterface {
   private $totalFat;
   private $stock;
   private $goodFor;
+  private $img;
+
   //constructor
   function __construct() {
   }
@@ -50,6 +52,10 @@ class Products implements EntityInterface {
   public function getGoodFor(){
     return $this->goodFor;
   }
+  public function getImg(){
+    return $this->img;
+  }
+
   //setters
   public function setId($id){
     $this->id = $id;
@@ -84,6 +90,9 @@ class Products implements EntityInterface {
   public function setGoodFor($goodFor){
     $this->goodFor = $goodFor;
   }
+  public function setImg($img){
+    $this->img = $img;
+  }
   //getAllFunction
   public function getAll(){
     $data = array();
@@ -98,10 +107,11 @@ class Products implements EntityInterface {
     $data["totalFat"] = $this->totalFat;
     $data["stock"] = $this->stock;
     $data["goodFor"] = $this->goodFor;
+    $data["img"] = $this->img;
     return $data;
   }
   //setAllFunction
-  public function setAll($id,$productType,$name,$price,$description,$calories,$proteins,$carbohydrates,$totalFat,$stock,$goodFor){
+  public function setAll($id,$productType,$name,$price,$description,$calories,$proteins,$carbohydrates,$totalFat,$stock,$goodFor,$img){
     $this->setId($id);
     $this->setProductType($productType);
     $this->setName($name);
@@ -113,6 +123,7 @@ class Products implements EntityInterface {
     $this->setTotalFat($totalFat);
     $this->setStock($stock);
     $this->setGoodFor($goodFor);
+    $this->setImg($img);
   }
 
 
