@@ -30,10 +30,13 @@ export class UsersCrudComponent implements OnInit {
           for (let i:number = 0; i < outPutData[1].length; i++) {
               let user = new User();
               Object.assign(user,outPutData[1][i]);
-              this.usersArray.push(user);
+              if(this.user.role=="master"){
+                this.usersArray.push(user);
+              }else if(user.role!="master"){
+                this.usersArray.push(user);
+              }
 
           }
-          console.log(this.usersArray);
         } else {
           alert("There has been an error, try later");
           console.log("Error in Login Crud Component (downloadInitData): outPutData is false: "
