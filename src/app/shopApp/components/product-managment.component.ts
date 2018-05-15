@@ -8,6 +8,8 @@ import { Products } from './../model/products';
 
 import { ProductDataService } from './../services/product-data.service';
 
+import { ProductType} from './../model/productType';
+
 @Component({
   selector: 'product-managment',
   templateUrl: './../views/product-managment.view.html',
@@ -19,7 +21,7 @@ export class ProductManagmentComponent implements OnInit {
 
   //properties
   productAction: number;
-  productsType : ProductsType[]=[];
+  productsType : ProductType[]=[];
 
   product: Products[];
 
