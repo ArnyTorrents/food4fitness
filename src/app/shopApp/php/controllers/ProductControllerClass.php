@@ -5,11 +5,11 @@
 */
 require_once "ControllerInterface.php";
 require_once "../model/products.php";
-require_once "../model/productsType.php";
+require_once "../model/productType.php";
 require_once "../model/productsComanda.php";
 require_once "../model/comanda.php";
 require_once "../model/persist/ProductADO.php";
-require_once "../model/persist/ProductsTypeADO.php";
+require_once "../model/persist/ProductTypeADO.php";
 
 class ProductControllerClass implements ControllerInterface {
 	private $action;
@@ -89,62 +89,29 @@ class ProductControllerClass implements ControllerInterface {
 	{
 			$outPutData = array();
 			$errors = array();
-			$ProductTimes = array();
-			$tablePreferences = array();
-			$specialRequests = array();
+			$ProductType = array();
+
 
 			$outPutData[]=true;
 
-			$ProductTimesList = ProductTimeADO::findAll();
+			$ProductTypeList = ProductTypeADO::findAll();
 
-			if (count($ProductTimesList)!=0)
+			if (count($ProductTypeList)!=0)
 			{
 
-				foreach ($ProductTimesList as $ProductTime)
+				foreach ($ProductTypeList as $PType)
 				{
-					$ProductTimes[]=$ProductTime->getAll();
+					$ProductType[]=$PType->getAll();
 				}
 			} else {
 				$outPutData[0] = false;
-				$errors[]="No Product times found in the data base";
-				error_log("ProductControllerClass (downloadInitData): No Product times found in the data base");
-			}
-
-			$tablePreferencesList = TablePreferenceADO::findAll();
-
-			if (count($tablePreferencesList)!=0)
-			{
-
-				foreach ($tablePreferencesList as $tablePreference)
-				{
-					$tablePreferences[]=$tablePreference->getAll();
-				}
-			} else {
-				$outPutData[0] = false;
-				$errors[]="No table preferences found in the data base";
-				error_log("ProductControllerClass (downloadInitData): No table preferences found in the data base");
-			}
-
-			$specialRequestsList = specialRequestADO::findAll();
-
-			if (count($specialRequestsList)!=0)
-			{
-
-				foreach ($specialRequestsList as $specialRequest)
-				{
-					$specialRequests[]=$specialRequest->getAll();
-				}
-			} else {
-				$outPutData[0] = false;
-				$errors[]="No especial requests found in the data base";
-				error_log("ProductControllerClass (downloadInitData): No especial requests found in the data base");
+				$errors[]="No ProductType found in the data base";
+				error_log("ProductControllerClass (downloadInitData): No ProductType found in the data base");
 			}
 
 			if($outPutData[0])
 			{
-				$outPutData[]=$ProductTimes;
-				$outPutData[]=$tablePreferences;
-				$outPutData[]=$specialRequests;
+				$outPutData[]=$ProductType;
 			} else {
 				$outPutData[]=$errors;
 			}
@@ -156,61 +123,43 @@ class ProductControllerClass implements ControllerInterface {
 		//We get all data from client
 		$ProductObj = json_decode(stripslashes($this->getJsonData()));
 
-		$Product = new Product();
+		$product = new Products();
 
-		$ProductDate =date_create(
-		$ProductObj->ProductDate->date->year ."-".
-		$ProductObj->ProductDate->date->month ."-".
-		$ProductObj->ProductDate->date->day);
+		$productType = new ProductType();
+		$productType->setAll(
+			$ProductObj->productType->id,
+			$ProductObj->productType->name,
+			$ProductObj->productType->description);
 
-		$ProductTime = new ProductTime();
-		$ProductTime->setAll(
-			$ProductObj->ProductTime->id,
-			$ProductObj->ProductTime->time);
-
-		$tablePreference = new TablePreference();
-		$tablePreference->setAll(
-			$ProductObj->tablePreference->id,
-			$ProductObj->tablePreference->preference,
-			$ProductObj->tablePreference->price);
-
-		$especialrequests = array();
-		foreach ($ProductObj->specialRequests as $specialRequestObj) {
-			$specialRequest = new SpecialRequest();
-			$specialRequest->setAll(
-				$specialRequestObj->id,
-				$specialRequestObj->request,
-				$specialRequestObj->price);
-
-				$especialrequests[] = $specialRequest;
-		}
-
-		$Product->setAll(0, $ProductObj->name,
-									$ProductObj->surname,
-									$ProductObj->email,
-									$ProductDate,
-									$ProductTime,
-									$ProductObj->totalPrice,
-									$tablePreference,
-									$especialrequests,
-									$ProductObj->phone
+		$product->setAll(0, $ProductObj->id,
+									$productType,
+									$ProductObj->name,
+									$ProductObj->price,
+									$ProductObj->description,
+									$ProductObj->calories,
+									$ProductObj->proteins,
+									$ProductObj->carbohydrates,
+									$ProductObj->totalFat,
+									$ProductObj->stock,
+									$ProductObj->goodFor,
+									$ProductObj->img
 		);
 
-		$Product->setId(ProductADO::create($Product));
+		$product->setId(ProductADO::create($product));
 
-		foreach ($Product->getSpecialRequests() as $specialRequest) {
-			$ProductsSpecialRequests = new ProductsSpecialRequests();
-			$ProductsSpecialRequests->setAll(0,
-				$Product->getId(),
-				$specialRequest->getId()
-			);
-
-			ProductsSpecialRequestsADO::create($ProductsSpecialRequests);
-		}
+		// foreach ($product->getSpecialRequests() as $specialRequest) {
+		// 	$ProductsSpecialRequests = new ProductsSpecialRequests();
+		// 	$ProductsSpecialRequests->setAll(0,
+		// 		$Product->getId(),
+		// 		$specialRequest->getId()
+		// 	);
+		//
+		// 	ProductsSpecialRequestsADO::create($ProductsSpecialRequests);
+		// }
 
 		$outPutData = array();
 		$outPutData[]= true;
-		$outPutData[]= array($Product->getAll());
+		$outPutData[]= array($product->getAll());
 
 		return $outPutData;
 	}
@@ -221,47 +170,29 @@ class ProductControllerClass implements ControllerInterface {
 		$outPutData = array();
 
 		$ProductObj = json_decode(stripslashes($this->getJsonData()));
-		$ProductDate=date_create($ProductObj->ProductDate->date->year."-".$ProductObj->ProductDate->date->month."-".$ProductObj->ProductDate->date->day);
 
-		$ProductTime = new ProductTime();
-		$ProductTime->setAll($ProductObj->ProductTime->id, $ProductObj->ProductTime->time);
+		$ProductType = new ProductType();
+		$ProductType->setAll($ProductObj->ProductType->id, $ProductObj->ProductType->name,$ProductObj->ProductType->description);
 
-		$tablePreference = new TablePreference();
-		$tablePreference->setAll($ProductObj->tablePreference->id, $ProductObj->tablePreference->preference, $ProductObj->tablePreference->price);
+		$product = new Products();
+		$product->setAll(0, $ProductObj->id,
+											$ProductType,
+											$ProductObj->name,
+											$ProductObj->price,
+											$ProductObj->description,
+											$ProductObj->calories,
+											$ProductObj->proteins,
+											$ProductObj->carbohydrates,
+											$ProductObj->totalFat,
+											$ProductObj->stock,
+											$ProductObj->goodFor,
+											$ProductObj->img);
 
-		$specialRequests = array();
-		foreach($ProductObj->specialRequests as $specialRequestObj)
-		{
-			$specialRequest = new SpecialRequest();
-			$specialRequest->setAll($specialRequestObj->id, $specialRequestObj->request, $specialRequestObj->price);
-
-			$specialRequests[] = $specialRequest;
-		}
-
-		$Product = new Product();
-		$Product->setAll($ProductObj->id, $ProductObj->name, $ProductObj->surname, $ProductObj->email, $ProductDate, $ProductTime, $ProductObj->totalPrice, $tablePreference, $specialRequests, $ProductObj->telephone);
-
-		ProductADO::update($Product);
-
-		$ProductsSpecialRequests= new ProductsSpecialRequests();
-		$ProductsSpecialRequests->setProductId($Product->getId());
-		ProductsSpecialRequestsADO::deleteByProductId($ProductsSpecialRequests);
-
-
-		$i = 0;
-		foreach($Product->getSpecialRequests() as $specialRequest)
-		{
-			$ProductsSpecialRequests= new ProductsSpecialRequests();
-			$ProductsSpecialRequests->setAll(0,$Product->getId(), $Product->getSpecialRequests()[$i]->getId());
-
-			ProductsSpecialRequestsADO::create($ProductsSpecialRequests);
-			$i++;
-		}
-
+		ProductADO::update($product);
 
 		//the senetnce returns de id of the Product inserted
 		$outPutData[]= "true";
-		$outPutData[]= $Product->getAll();
+		$outPutData[]= $product->getAll();
 
 		return $outPutData;
 	}
@@ -274,31 +205,29 @@ class ProductControllerClass implements ControllerInterface {
 		$ProductObj = json_decode(stripslashes($this->getJsonData()));
 
 		try {
-			$ProductDate=date_create($ProductObj->ProductDate->date->year."-".$ProductObj->ProductDate->date->month."-".$ProductObj->ProductDate->date->day);
 
-			$ProductTime = new ProductTime();
-			$ProductTime->setAll($ProductObj->ProductTime->id, $ProductObj->ProductTime->time);
+			$ProductType = new ProductType();
+			$ProductType->setAll($ProductObj->ProductType->id, $ProductObj->ProductType->name,$ProductObj->ProductType->description);
 
-			$tablePreference = new TablePreference();
-			$tablePreference->setAll($ProductObj->tablePreference->id, $ProductObj->tablePreference->preference, $ProductObj->tablePreference->price);
+			$product = new Products();
+			$product->setAll(0, $ProductObj->id,
+												$ProductType,
+												$ProductObj->name,
+												$ProductObj->price,
+												$ProductObj->description,
+												$ProductObj->calories,
+												$ProductObj->proteins,
+												$ProductObj->carbohydrates,
+												$ProductObj->totalFat,
+												$ProductObj->stock,
+												$ProductObj->goodFor,
+												$ProductObj->img);
 
-			$specialRequests = array();
-			foreach($ProductObj->specialRequests as $specialRequestObj)
-			{
-				$specialRequest = new SpecialRequest();
-				$specialRequest->setAll($specialRequestObj->id, $specialRequestObj->request, $specialRequestObj->price);
-
-				$specialRequests[] = $specialRequest;
-			}
-
-			$Product = new Product();
-			$Product->setAll($ProductObj->id, $ProductObj->name, $ProductObj->surname, $ProductObj->email, $ProductDate, $ProductTime, $ProductObj->totalPrice, $tablePreference, $specialRequests, $ProductObj->telephone);
-
-			ProductADO::delete($Product);
+			ProductADO::delete($product);
 
 			//the senetnce returns de id of the Product inserted
 			$outPutData[]= "true";
-			$outPutData[]= $Product->getAll();
+			$outPutData[]= $product->getAll();
 
 		} catch (Exception $e) {
 			$outPutData[]= "false";
@@ -311,20 +240,20 @@ class ProductControllerClass implements ControllerInterface {
 	private function getAllProducts()
 	{
 		$outPutData = array();
-		$Products = array();
+		$products = array();
 
 		$ProductsList = ProductADO::findAll();
 
 		if (count($ProductsList)!=0)
 		{
-
-			foreach ($ProductsList as $Product)
+			foreach ($ProductsList as $product)
 			{
-				$Products[]=$Product->getAll();
+				$products[]=$product->getAll();
 			}
 		}
 		$outPutData[] = "true";
-		$outPutData[] = $Products;
+		//$outPutData[]=count($ProductsList);
+		$outPutData[] = $products;
 
 		return $outPutData;
 	}

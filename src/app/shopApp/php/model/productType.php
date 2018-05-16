@@ -32,7 +32,7 @@ class ProductType implements EntityInterface {
     $data = array();
     $data["id"] = $this->id;
     $data["name"] = $this->name;
-    $data["description"] = $description;
+    $data["description"] = $this->description;
 
     return $data;
   }

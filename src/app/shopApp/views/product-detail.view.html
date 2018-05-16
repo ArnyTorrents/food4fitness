@@ -1,0 +1,57 @@
+<div class="panel panel-primary" *ngIf="product">
+    <div class="panel-heading" style="font-size:large">
+        {{pageTitle + ": " + product.productName}}
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">Name:</div>
+                    <div class="col-md-6">{{product.productName}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Price:</div>
+                    <div class="col-md-6">{{product.price}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Description:</div>
+                    <div class="col-md-6">{{product.description}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Calories:</div>
+                    <div class="col-md-6">{{product.calories}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Proteines:</div>
+                    <div class="col-md-6">{{product.proteines}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Carbohydrates:</div>
+                    <div class="col-md-6">{{product.carbohydrates}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Total Fat:</div>
+                    <div class="col-md-6">{{product.totalFat}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Good For:</div>
+                    <div class="col-md-6">{{product.goodFor}}</div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-3">:</div>
+                    <div class="col-md-6">{{product.}}</div>
+                </div> -->
+            </div>
+
+            <div class="col-md-6" *ngIf="product.imageUrl">
+                <img class="center-block img-responsive"
+                     [style.width.px]="200"
+                     [style.margin.px]="2"
+                     [src]="product.imageUrl"
+                     [title]="product.productName">
+            </div>
+        </div>
+        <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
+    </div>
+</div>

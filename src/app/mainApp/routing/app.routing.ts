@@ -4,11 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { UserMainComponent } from './../../userApp/components/user-main.component';
 import { ProductsMainComponent } from './../../shopApp/components/products-main.component';
+import { ProductManagmentComponent } from './../../shopApp/components/product-managment.component';
 
 const appRoutes: Routes = [
-  {path:'', redirectTo: '/shopApp', pathMatch: 'full'},
+  {path:'', redirectTo: '/products', pathMatch: 'full'},
   {path: 'userApp', component: UserMainComponent},
-  {path: 'shopApp', component: ProductsMainComponent}
+  {path: 'shopApp', component: ProductsMainComponent},
+  {path: 'products', component: ProductManagmentComponent}
 ];
 
 @NgModule({

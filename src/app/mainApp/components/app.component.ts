@@ -73,6 +73,11 @@ export class AppComponent implements OnInit {
     this.router.navigate(["userApp"]);
   }
 
+  productManagment():void {
+    this.router.navigate(["products"]);
+
+  }
+
   usersCrud():void{
     this.router.navigate(["userApp"]);
   }

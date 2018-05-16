@@ -4,14 +4,14 @@
 * autors:   Arnau T & Julian M
 * version 2012/09
 */
-require_once "BDRestaurant.php";
+require_once "BDfood4fitness.php";
 require_once "EntityInterfaceADO.php";
-require_once "../model/ProductType.php";
+require_once "../model/productType.php";
 
 class ProductTypeADO implements EntityInterfaceADO {
 
   //----------Data base Values---------------------------------------
-  private static $tableName = "ProductType";
+  private static $tableName = "ProductsType";
   private static $colNameId = "id";
   private static $colNameName = "name";
   private static $colNameDescription = "description";

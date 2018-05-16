@@ -19,11 +19,12 @@ import {UserLoginComponent} from './userApp/components/user-login.component';
 import {UserManagementComponent} from './userApp/components/user-management.component';
 import {UsersCrudComponent} from './userApp/components/user-crud.component';
 
-//ReservationApp
+//ShopApp
 
 import { ReservationMainComponent } from './shopApp/components/reservation-main.component';
 import { ProductsMainComponent } from './shopApp/components/products-main.component'
 import { ProductManagmentComponent } from './shopApp/components/product-managment.component';
+import { ProductDetailComponent } from './shopApp/components/product-detail.component';
 
 //Pagination
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -51,7 +52,9 @@ import {AppRoutingModule} from './mainApp/routing/app.routing';
     ReservationMainComponent,
     InputValidationDirective,
     ProductsMainComponent,
-    ProductManagmentComponent
+    ProductManagmentComponent,
+    ProductDetailComponent,
+
   ],
   imports: [
     BrowserModule,
