@@ -21,11 +21,14 @@ export class UserManagementComponent implements OnInit {
 
   @Input() userDetails : User;
   @Input() userOption : number;
-  @Input() user : number;
+  @Input() user : User;
 
   @ViewChild('useManagementForm') useManagementForm: HTMLFormElement;
 
-  @Output() goBack = new EventEmitter<number>();
+  @Output() goBack:EventEmitter<number>
+              = new EventEmitter<number>();
+
+
 
 
   constructor(private router: Router,
@@ -34,16 +37,19 @@ export class UserManagementComponent implements OnInit {
 
 
   ngOnInit(): void {
-
       this.userNew = new User();
       this.userOptions = this.userOption;
       if(this.userOptions==2){
         this.userNew = this.userDetails;
+      }if(this.userOptions==1){
+        this.userNew.role = "user";
       }
-      if(this.userNew.role == "master"){
-        this.roleArray = ["Master","Admin","User"];
-      }else{
-        this.roleArray = ["Admin","User"];
+      if(this.user!=undefined){
+        if(this.user.role == "master"){
+          this.roleArray = ["admin","user","master",];
+        }else{
+          this.roleArray = ["admin","user"];
+        }
       }
   }
 
@@ -68,21 +74,38 @@ export class UserManagementComponent implements OnInit {
   }
 
   registeruserNew (): void {
+    //regist User
     if(this.userOptions==1){
-      let filesNames : string [] = [];
-      filesNames.push(this.userNew.nickName);
-      this.userDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
+      this.userDataService.createUser(this.userNew).subscribe(
         outPutData => {
-          if(Array.isArray(outPutData) && outPutData.length > 0)
-          {
-            if(outPutData[0]=== true)
-            {
-                //We will go again to the server in order to
-                //insert user details in database
+          if(Array.isArray(outPutData) && outPutData.length > 0){
+            if(outPutData[0]=== true){
+                alert("Usuario Registrado Correctamente");
             }
           } else {
             alert("There has been an error, try later");
-            console.log("Error in UserManagementComponent (registerUser - uploadFiles): outPutData is not array"
+            console.log("Error in UserManagementComponent (registerUser ): outPutData is not array"
+                    + JSON.stringify(outPutData));
+          }
+        },
+        error => {
+          alert("There has been an error, try later");
+          console.log("Error in UserManagementComponent (registerUser): "
+                      +JSON.stringify(error));
+        }
+      );
+    }else{
+      //modify User
+      this.userDataService.modifyUser(this.userNew).subscribe(
+        outPutData =>{
+          if(Array.isArray(outPutData) && outPutData.length > 0){
+            if(outPutData[0]===true){
+              alert("Data Correctly modified");
+              console.log(outPutData[1]);
+            }
+          }else {
+            alert("There has been an error, try later");
+            console.log("Error in UserManagementComponent (Modify): outPutData is not array"
                     + JSON.stringify(outPutData));
           }
         },
@@ -92,8 +115,6 @@ export class UserManagementComponent implements OnInit {
                       +JSON.stringify(error));
         }
       );
-    }else{
-      alert("modify");
     }
 
   }

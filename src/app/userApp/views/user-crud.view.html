@@ -16,9 +16,9 @@
     <td>
         <button class="btn btn-danger"
           *ngIf="userArr.id!=user.id"
-          (click)="delete(user)">X</button>
+          (click)="delete(userArr)">X</button>
         <button class="btn btn-primary"
-          (click)="details(user)">Details</button>
+          (click)="details(userArr)">Details</button>
     </td>
   </tr>
   <!--<button type="button" class="btn btn-primary" >Back to the index</button>-->
@@ -28,4 +28,5 @@
 [userOption]="userOption"
 [userDetails]="userDetails"
 [user]="user"
+(goBack) = "goBack($event)"
 ></user-management>

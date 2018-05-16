@@ -1,8 +1,8 @@
 <user-login *ngIf="userAction==1"
 (goBack)="goBack($event)"></user-login>
-<!--<user-management *ngIf="userAction==1"
+<user-management *ngIf="userAction==3"
  (goBack)="goBack($event)">
-</user-management>-->
+</user-management>
 <div *ngIf="userAction==2">
   <div *ngIf="user.role=='master' || user.role=='admin'">
     <h1>Usuarios Management</h1>
