@@ -61,7 +61,7 @@ class Products implements EntityInterface {
     $this->id = $id;
   }
   public function setProductType($productType){
-    $this->productType = $productsType;
+    $this->productType = $productType;
   }
   public function setName($name){
     $this->name = $name;
@@ -97,7 +97,7 @@ class Products implements EntityInterface {
   public function getAll(){
     $data = array();
     $data["id"] = $this->id;
-    $data["productType"] = $this->productType;
+    $data["productType"] = $this->productType->getAll();
     $data["name"] = $this->name;
     $data["price"] = $this->price;
     $data["description"] = $this->description;

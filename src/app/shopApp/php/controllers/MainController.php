@@ -1,5 +1,5 @@
 <?php
-	require_once "ReservationControllerClass.php";
+	require_once "ProductControllerClass.php";
 
 	function is_session_started()
 	{

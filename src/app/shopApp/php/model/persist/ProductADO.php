@@ -8,9 +8,8 @@
 require_once "BDfood4fitness.php";
 
 require_once "ProductTypeADO.php";
-
 require_once "../model/products.php";
-require_once "../model/productsType.php";
+require_once "../model/productType.php";
 
 
 
@@ -24,12 +23,12 @@ class ProductADO implements EntityInterfaceADO {
   private static $colNameName = "name";
   private static $colNamePrice = "price";
   private static $colNameDescription = "description";
-  private static $colNameCalories = "caloreis";
+  private static $colNameCalories = "calories";
   private static $colNameProteines = "proteines";
   private static $colNameCarbohydrates = "carbohydrates";
-  private static $colNameTotalFat = "	total Fat";
+  private static $colNameTotalFat = "	totalFat";
   private static $colNameStock = "stock";
-  private static $colNameGoodFor = "good For";
+  private static $colNameGoodFor = "goodFor";
   private static $colNameImg = "img";
 
   //---Databese management section-----------------------
@@ -49,7 +48,6 @@ class ProductADO implements EntityInterfaceADO {
     {
       //We get all the values an add into the array
       $entity = ProductADO::fromResultSet( $row );
-
       $entityList[$i]= $entity;
       $i++;
     }
@@ -66,16 +64,16 @@ class ProductADO implements EntityInterfaceADO {
 
     //We get all the values form the query
     $id = $row[ ProductADO::$colNameId];
-    $productTypeId = $row[ ProductADO::$colNameProductType ];
+    $productTypeId = $row[ ProductADO::$colNameProductTypeId ];
     $name = $row[ ProductADO::$colNameName ];
     $price = $row[ ProductADO::$colNamePrice ];
     $description = $row[ ProductADO::$colNameDescription ];
-    $caloreis = $row[ ProductADO::$colNameCaloreis ];
-    $proteines = $row[ ProductADO::$colNameProteines ];
+    $calories = $row[ ProductADO::$colNameCalories ];
+    $proteins = $row[ ProductADO::$colNameProteines ];
     $carbohydrates = $row[ ProductADO::$colNameCarbohydrates ];
-    $totalFat	 = $row[ ProductADO::$colNameTotalFat ];
+    //$totalFat	 = $row[ ProductADO::$colNameTotalFat ];
     $stock	 = $row[ ProductADO::$colNameStock ];
-    $goodFor $row[ ProductADO::$colNameGoodFor ];
+    $goodFor = $row[ ProductADO::$colNameGoodFor ];
     $img = $row[ ProductADO::$colNameImg];
 
     //Object construction
@@ -84,17 +82,16 @@ class ProductADO implements EntityInterfaceADO {
 
     $productType = new ProductType();
     $productType->setId($productTypeId);
-    $productTypeName = ProductTypeADO::findById($productTypeId);
+    $productTypeName = ProductTypeADO::findById($productType);
 
     $entity->setProductType($productTypeName[0]);
-
     $entity->setName($name);
     $entity->setPrice($price);
     $entity->setDescription($description);
     $entity->setCalories($calories);
     $entity->setProteins($proteins);
     $entity->setCarbohydrates($carbohydrates);
-    $entity->setTotalFat($totalFat);
+    $entity->setTotalFat(0);
     $entity->setStock($stock);
     $entity->setGoodFor($goodFor);
     $entity->setImg($img);
@@ -141,7 +138,7 @@ class ProductADO implements EntityInterfaceADO {
   * findlikeName()
   * It runs a query and returns an object array
   * @param name
-  * @return object with the query results
+  * @return object with the query results$outPutData
   */
   public static function findlikeName( $product ) {
     $cons = "select * from `".ProductADO::$tableName."` where ".ProductADO::$colNameName." like ?";
@@ -354,7 +351,7 @@ class ProductADO implements EntityInterfaceADO {
                     .ProductADO::$colNameCarbohydrates." = ?, "
                     .ProductADO::$colNameTotalFat." = ?, "
                     .ProductADO::$colNameGoodFor." = ? where "
-                    .ProductADO::$colNameImg." = ?" ;
+                    .ProductADO::$colNameImg." = ?"
                     .ProductADO::$colNameId." = ?" ;
 
     $arrayValues= [$product->getProductType(),
