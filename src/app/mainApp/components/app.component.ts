@@ -43,7 +43,6 @@ export class AppComponent implements OnInit {
   }
 
   logOut(): void {
-
     this.userDataService.logOut().subscribe(
       outPutData => {
         if(Array.isArray(outPutData) && outPutData.length > 0)

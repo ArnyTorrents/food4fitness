@@ -4,7 +4,7 @@
  (goBack)="goBack($event)">
 </user-management>-->
 <div *ngIf="userAction==2">
-  <div *ngIf="user.role=='master'">
+  <div *ngIf="user.role=='master' || user.role=='admin'">
     <h1>Usuarios Management</h1>
     <user-crud [user]="user"></user-crud>
   </div>

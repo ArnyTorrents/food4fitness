@@ -34,12 +34,16 @@ export class UserManagementComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.roleArray = ["Master","Admin","User"];
+
       this.userNew = new User();
       this.userOptions = this.userOption;
       if(this.userOptions==2){
         this.userNew = this.userDetails;
-
+      }
+      if(this.userNew.role == "master"){
+        this.roleArray = ["Master","Admin","User"];
+      }else{
+        this.roleArray = ["Admin","User"];
       }
   }
 
@@ -63,30 +67,34 @@ export class UserManagementComponent implements OnInit {
     }
   }
 
-  registerUser (): void {
-    let filesNames : string [] = [];
-    filesNames.push(this.userNew.nickName);
-
-    this.userDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
-      outPutData => {
-        if(Array.isArray(outPutData) && outPutData.length > 0)
-        {
-          if(outPutData[0]=== true)
+  registeruserNew (): void {
+    if(this.userOptions==1){
+      let filesNames : string [] = [];
+      filesNames.push(this.userNew.nickName);
+      this.userDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
+        outPutData => {
+          if(Array.isArray(outPutData) && outPutData.length > 0)
           {
-              //We will go again to the server in order to
-              //insert user details in database
+            if(outPutData[0]=== true)
+            {
+                //We will go again to the server in order to
+                //insert user details in database
+            }
+          } else {
+            alert("There has been an error, try later");
+            console.log("Error in UserManagementComponent (registerUser - uploadFiles): outPutData is not array"
+                    + JSON.stringify(outPutData));
           }
-        } else {
+        },
+        error => {
           alert("There has been an error, try later");
-          console.log("Error in UserManagementComponent (registerUser - uploadFiles): outPutData is not array"
-                  + JSON.stringify(outPutData));
+          console.log("Error in UserManagementComponent (registerUser - uploadFiles): "
+                      +JSON.stringify(error));
         }
-      },
-      error => {
-        alert("There has been an error, try later");
-        console.log("Error in UserManagementComponent (registerUser - uploadFiles): "
-                    +JSON.stringify(error));
-      }
-    );
+      );
+    }else{
+      alert("modify");
+    }
+
   }
 }
