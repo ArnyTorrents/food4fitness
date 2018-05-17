@@ -20,8 +20,9 @@ export class UserManagementComponent implements OnInit {
   roleArray: string[]=[];
 
   @Input() userDetails : User;
-  @Input() userOption : number;
+  @Input() userAction : number;
   @Input() user : User;
+  //@Input() userOption : number;
 
   @ViewChild('useManagementForm') useManagementForm: HTMLFormElement;
 
@@ -38,7 +39,7 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
       this.userNew = new User();
-      this.userOptions = this.userOption;
+      this.userOptions = this.userAction;
       if(this.userOptions==2){
         this.userNew = this.userDetails;
       }if(this.userOptions==1){
@@ -74,8 +75,10 @@ export class UserManagementComponent implements OnInit {
   }
 
   registeruserNew (): void {
-    //regist User
-    if(this.userOptions==1){
+    console.log(this.userAction);
+    if(this.userAction==3){
+      this.userNew.role = "user";
+      console.log(this.userNew);
       this.userDataService.createUser(this.userNew).subscribe(
         outPutData => {
           if(Array.isArray(outPutData) && outPutData.length > 0){

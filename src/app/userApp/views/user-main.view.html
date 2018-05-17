@@ -1,6 +1,7 @@
 <user-login *ngIf="userAction==1"
 (goBack)="goBack($event)"></user-login>
 <user-management *ngIf="userAction==3"
+ [userAction]="userAction"
  (goBack)="goBack($event)">
 </user-management>
 <div *ngIf="userAction==2">
