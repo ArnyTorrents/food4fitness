@@ -26,13 +26,8 @@ export class ProductManagmentComponent implements OnInit {
   productDetail: Products;
   products: Products[]=[];
   productsFiltered: Products[]=[];
-<<<<<<< HEAD
   shopAction: number;
   typeView: number = 0 ;
-=======
-  shopAction: number=0;
-  typeView: string = "list" ;
->>>>>>> 6e3a0f4772dd0cedfa481d6a42b9a5db580e2870
 
   //Cart
   cartCont:number;
