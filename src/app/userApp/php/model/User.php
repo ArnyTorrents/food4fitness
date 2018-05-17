@@ -39,8 +39,16 @@ class User implements EntityInterface {
         return $this->address;
     }
 
+    public function getRole(){
+        return  $this->role;
+    }
+
     public function getCountry(){
         return $this->country;
+    }
+
+    public function getProvince(){
+        return $this->province;
     }
 
     public function getDoor(){

@@ -50,6 +50,9 @@ class UserControllerClass implements ControllerInterface {
 			case 10030:
 				$outPutData = $this->sessionControl();
 				break;
+			case 10080:
+				$outPutData = $this->deleteUser();
+				break;
 			case 10040:
 				//Closing session
 				session_unset();
@@ -106,28 +109,21 @@ class UserControllerClass implements ControllerInterface {
 
 	private function entryUser()
 	{
-		$userObj = json_decode(stripslashes($this->getJsonData()));
+		$usersArray = json_decode(stripslashes($this->getJsonData()));
 
 		$user = new User();
-		/*
-		$user->setAll(0, $userObj->name, $userObj->surname1, $userObj->nick, $userObj->password,
-								$userObj->address,
-								$userObj->telephone,
-								$userObj->mail,
-								$userObj->birthDate, date("Y-m-d h:i:sa"),
-								"0000-00-00",
-								$userObj->active,
-								$userObj->image);*/
-
-		$user->setAll(0, $userObj->name, $userObj->surname1, $userObj->nick, $userObj->password,
-								"address",
-								933333333,
-								"mail",
-								"birthDate",
-								date("Y-m-d"),
-								"0000-00-00",
-								1,
-								$userObj->image);
+		$user->setId($usersArray->id);
+		$user->setName($usersArray->name);
+		$user->setSurname($usersArray->surname);
+		$user->setAddress($usersArray->address);
+		$user->setRole($usersArray->role);
+		$user->setCountry($usersArray->country);
+		$user->setProvince($usersArray->province);
+		$user->setDoor($usersArray->door);
+		$user->setPhone($usersArray->phone);
+		$user->setNickName($usersArray->nickName);
+		$user->setPassword($usersArray->password);
+		$user->setImg($usersArray->img);
 
 		$outPutData = array();
 		$outPutData[]= true;
@@ -145,18 +141,43 @@ class UserControllerClass implements ControllerInterface {
 		$usersArray = json_decode(stripslashes($this->getJsonData()));
 		$outPutData = array();
 		$outPutData[]= true;
-
-		foreach($usersArray as $userObj)
-		{
 			$user = new User();
-			$user->setAll($userObj->id, $userObj->name, $userObj->surname1, $userObj->nick, $userObj->password, $userObj->address, $userObj->telephone, $userObj->mail, $userObj->birthDate, $userObj->entryDate, $userObj->dropOutDate, $userObj->active, $userObj->image);
-			userADO::update($user);
-		}
-
+			$user->setId($usersArray->id);
+			$user->setName($usersArray->name);
+			$user->setSurname($usersArray->surname);
+			$user->setAddress($usersArray->address);
+			$user->setRole($usersArray->role);
+			$user->setCountry($usersArray->country);
+			$user->setProvince($usersArray->province);
+			$user->setDoor($usersArray->door);
+			$user->setPhone($usersArray->phone);
+			$user->setNickName($usersArray->nickName);
+			$user->setPassword($usersArray->password);
+			$user->setImg($usersArray->img);
+			$outPutData[1] = userADO::update($user);
 		return $outPutData;
 	}
 
-
+	private function deleteUser(){
+		$usersArray = json_decode(stripslashes($this->getJsonData()));
+		$outPutData = array();
+		$outPutData[]= true;
+			$user = new User();
+			$user->setId($usersArray->id);
+			$user->setName($usersArray->name);
+			$user->setSurname($usersArray->surname);
+			$user->setAddress($usersArray->address);
+			$user->setRole($usersArray->role);
+			$user->setCountry($usersArray->country);
+			$user->setProvince($usersArray->province);
+			$user->setDoor($usersArray->door);
+			$user->setPhone($usersArray->phone);
+			$user->setNickName($usersArray->nickName);
+			$user->setPassword($usersArray->password);
+			$user->setImg($usersArray->img);
+			$outPutData[1] = userADO::delete($user);
+		return $outPutData;
+	}
 	private function userConnection()
 	{
 		$userObj = json_decode(stripslashes($this->getJsonData()));

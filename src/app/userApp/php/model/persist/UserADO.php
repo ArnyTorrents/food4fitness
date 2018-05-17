@@ -244,6 +244,7 @@ class UserADO implements EntityInterfaceADO {
   * update()
   * it updates a row of the database
   */
+
   public function update($user) {
     //Connection with the database
     try {
@@ -254,11 +255,29 @@ class UserADO implements EntityInterfaceADO {
       die();
     }
 
-    $cons="update `".UserADO::$tableName."` set ".UserADO::$colNameName." = ?, ".UserADO::$colNameSurname." = ?,".UserADO::$colNameAdress.", ".UserADO::$colNameRole.",".UserADO::$colNameCountry.",".UserADO::$colNameProvince.",".UserADO::$colNameDoor.",".UserADO::$colNamePhone.",".UserADO::$colNameNickName." = ?, ".UserADO::$colNamePassword." = ?,".UserADO::$colNameImg." = ? where ".UserADO::$colNameId." = ?" ;
-    $arrayValues= [$user->getName(),$user->getSurname(),$user->getAdress(),$user->getRole(),$user->getCountry(),$user->getProvince(),$user->getDoor(),$user->getPhone() ,$user->getNickName(), $user->getPassword(),$user->getimg(),$user->getId()];
+    $cons  = "update `".UserADO::$tableName."` set ".UserADO::$colNameName." = ?,";
+    $cons .= UserADO::$colNameSurname." = ?,".UserADO::$colNameAdress." = ?,";
+    $cons .= UserADO::$colNameRole." = ?,".UserADO::$colNameCountry." = ?,";
+    $cons .= UserADO::$colNameProvince." = ?,".UserADO::$colNameDoor." = ?,";
+    $cons .= UserADO::$colNamePhone." = ?,".UserADO::$colNameNickName." = ?,";
+    $cons .= UserADO::$colNamePassword." = ?,".UserADO::$colNameImg." = ?";
+    $cons .= " where ".UserADO::$colNameId." = ?" ;
+    $arrayValues= [$user->getName(),
+                   $user->getSurname(),
+                   $user->getAddress(),
+                   $user->getRole(),
+                   $user->getCountry(),
+                   $user->getProvince(),
+                   $user->getDoor(),
+                   $user->getPhone() ,
+                   $user->getNickName(),
+                   $user->getPassword(),
+                   $user->getimg(),
+                   $user->getId()];
 
-    $conn->execution($cons, $arrayValues);
-
+    $result = $conn->execution($cons, $arrayValues);
+    return $result;
   }
+
 }
 ?>

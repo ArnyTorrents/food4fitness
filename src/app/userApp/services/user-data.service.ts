@@ -24,6 +24,15 @@ export class UserDataService {
       return this.accessServer();
   }
 
+  createUser(user:User): Observable<any[]> {
+      this.body = {
+        action: '10010',
+        jsonData: JSON.stringify(user)
+      }
+
+      return this.accessServer();
+  }
+
   sessionControl (): Observable<any[]> {
       this.body = {
         action: '10030',
@@ -51,7 +60,21 @@ export class UserDataService {
       return this.accessServer();
   }
 
+  modifyUser(user:User):Observable<any[]>{
+    this.body = {
+      action: '10020',
+      jsonData: JSON.stringify(user)
+    }
+    return this.accessServer();
+  }
 
+  deleteUser(user:User):Observable<any[]>{
+    this.body = {
+      action: '10080',
+      jsonData: JSON.stringify(user)
+    }
+    return this.accessServer();
+  }
 
   uploadFiles (file : File, filesNames: string[]): Observable<any[]> {
     this.httpParams = new HttpParams()

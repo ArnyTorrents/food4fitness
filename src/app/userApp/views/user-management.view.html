@@ -35,7 +35,7 @@
           [(ngModel)]="userNew.password" name="password" minlength="6"
           (keyup)="checkPassword();null"
           required/>
-          <p class="help-block" *ngIf="password.invalid && (password.dirty || password.touched)" >
+          <p class="help-block" *ngIf="password.invalid && password.dirty || password.touched" >
             Password must be at least 6 characters
           </p>
         </div>
@@ -76,7 +76,7 @@
         </div>
         <label class="col-sm-2 control-label" for="formGroup">Door:</label>
         <div class="col-sm-4">
-          <input class="form-control" type="number" #password="ngModel" name="door"
+          <input class="form-control" type="text" #password="ngModel" name="door"
           [(ngModel)]="userNew.door" name="door" min="0" max="100"
           required/>
         </div>
@@ -86,16 +86,19 @@
           [(ngModel)]="userNew.phone" name="phone" minlength="9"
           required/>
         </div>
+        <div *ngIf="userOptions == 1">
         <label class="col-sm-2 control-label" for="formGroup">Role:</label>
         <div class="col-sm-4">
           <select class="form-control" id="role" name="role"
             #role="ngModel"
             [(ngModel)]="userNew.role"
             required>
-            <option *ngFor="let roles of roleArray; let i = index" [ngValue]="userNew.role" >
+            <option *ngFor="let roles of roleArray; let i = index"
+              value="{{roles}}">
                       {{roles}}
             </option>
             </select>
+        </div>
         </div>
       </div>
 
