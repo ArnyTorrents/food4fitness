@@ -6,15 +6,10 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-<<<<<<< HEAD
           <li class="active" ><a href="#">Quienes Somos</a></li>
           <li href="#">
             <a (click)="productManagment()">Nuestros Productos</a>
           </li>
-=======
-          <li><a href="#">Quienes Somos</a></li>
-          <li href="#"><a href="#">Nuestros Productos</a></li>
->>>>>>> 36b5a905f19a646c237c4481ef7b8fd1d14d2da0
           <li href="#" *ngIf="userLogged==1">
             <a *ngIf="userConnected.role=='master' || userConnected.role=='admin'" (click)="usersCrud()">
               Nuestros Usuarios
