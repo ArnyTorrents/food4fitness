@@ -25,7 +25,7 @@ export class ProductManagmentComponent implements OnInit {
   products: Products[]=[];
   productsFiltered: Products[]=[];
   shopAction: number;
-  typeView: string = "list" ;
+  typeView: number = 0 ;
 
   //Pagination properties
   itemsPerPage: number;
@@ -49,6 +49,7 @@ export class ProductManagmentComponent implements OnInit {
               private productDataService: ProductDataService ) { }
 
   ngOnInit() {
+    this.typeView = 0;
     this.productDataService.getAllProducts().subscribe(
       outPutData => {
          if(outPutData.length > 0 && Array.isArray(outPutData) && JSON.parse(outPutData[0]) == true) {
