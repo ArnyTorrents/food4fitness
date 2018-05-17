@@ -1,9 +1,9 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         {{pageTitle}}
-        <div>
-          <a class="btn btn-primary" (click)="typeview=list"></a>
-          <a class="btn btn-primary" (click)="typeview=icon"></a>
+        <div class="btn-list">
+          <a class="btn btn-primary" (click)="typeView=list">List Detail</a>
+          <a class="btn btn-primary" (click)="typeView=icon">List Icons</a>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
 
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
 
-        <div  class="table-responsive">
+        <div *ngIf="typeView=='list'" class="table-responsive">
             <table class="table"
                    *ngIf="products && products.length">
                 <thead>
@@ -47,33 +47,36 @@
                             {{product.name}}
                             </a>
                         </td>
-                        <td>{{ product.price }}</td>
+                        <td>{{ product.price | currency: "€" }}</td>
                        <td>
                             <a class="btn btn-primary"
                             (click)="goToDetail(product)">
-                                Go to detail
+                              More Info
                             </a>
                         </td>
+                        <td>
+                             <a class="btn btn-success"
+                             (click)="addCart(product)">
+                               Add Cart
+                             </a>
+                         </td>
+
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div>
+        <div *ngIf="typeView=='icon'"  class="table-responsive">
           <div *ngIf="products && products.length">
             <div *ngFor="let product of products">
-                <div class="product-single">
-                  <a href="#">Image {{product.id}}</a><br>
-                  <a href="#"><strong>{{product.name}}</strong></a>
-                  <div>
-                    {{ product.price | currency:"€" }}
-                  </div>
-                  <a class="btn btn-primary"
-                  (click)="goToDetail(product)">
-                      Go to detail
-                  </a>
-                </div>
+              <a><img></a>
             </div>
           </div>
         </div>
     </div>
 </div>
+
+<!-- <product-detail
+[ProductType]="productsType"
+[Products]="productDetail"
+(setShopAction) = "setShopActionManagement($event)">
+</product-detail> -->

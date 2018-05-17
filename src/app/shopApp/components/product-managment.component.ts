@@ -37,7 +37,7 @@ export class ProductManagmentComponent implements OnInit {
   nameFilter:string;
 
   //@Input() means this variables come from another component
-  @Input() productsType : ProductType[]=[];
+  @Input() productsType : ProductType[];
 
   // We'll use
   //setShopAction.emit(variable Content to comunicate)
@@ -57,13 +57,13 @@ export class ProductManagmentComponent implements OnInit {
 
              Object.assign(product,productJSON);
 
-             console.log(product.getProductType().id);
+             // console.log(product.getProductType());
 
-             let productType = new ProductType();
-             productType = this.productsType.find(productType =>
-               productType.getId()==product.getProductType().id);
+             // let productType = new ProductType();
+             // productType = this.productsType.find(productType =>
+             //   productType.getId()==product.getProductType().id);
 
-             product.setProductType(productType);
+             product.setProductType(product.getProductType());
 
              this.products.push(product);
 

@@ -55,7 +55,7 @@ class ProductControllerClass implements ControllerInterface {
 				break;
 			case 10040:
 				$outPutData = $this->removeProduct();
-				break;
+				break;			
 			default:
 				echo "There has been an error in the server";
 				error_log("Action not correct in ShopControllerClass, value: ".$this->getAction());
