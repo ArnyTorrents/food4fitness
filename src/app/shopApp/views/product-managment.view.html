@@ -2,8 +2,8 @@
     <div class="panel-heading">
         {{pageTitle}}
         <div>
-          <a class="fas fa-list"></a>
-          <a class="flaticon-small_grid" (click)="typeview=icon"></a>
+          <a class="btn btn-primary" (click)="typeview=list"></a>
+          <a class="btn btn-primary" (click)="typeview=icon"></a>
         </div>
     </div>
 
@@ -23,7 +23,11 @@
 
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
 
+<<<<<<< HEAD
         <div class="table-responsive">
+=======
+        <div  class="table-responsive">
+>>>>>>> 07e34200b318e667fe389193193f4bd30fae3d3b
             <table class="table"
                    *ngIf="products && products.length">
                 <thead>
@@ -57,6 +61,23 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div>
+          <div *ngIf="products && products.length">
+            <div *ngFor="let product of products">
+                <div class="product-single">
+                  <a href="#">Image {{product.id}}</a><br>
+                  <a href="#"><strong>{{product.name}}</strong></a>
+                  <div>
+                    {{ product.price | currency:"€" }}
+                  </div>
+                  <a class="btn btn-primary"
+                  (click)="goToDetail(product)">
+                      Go to detail
+                  </a>
+                </div>
+            </div>
+          </div>
         </div>
     </div>
 </div>
