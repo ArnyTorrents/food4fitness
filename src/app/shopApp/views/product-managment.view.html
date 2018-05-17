@@ -1,15 +1,11 @@
-<div class="panel panel-primary" *ngIf="shopAction==0">
+<div class="panel panel-primary">
     <div class="panel-heading">
         {{pageTitle}}
         <div class="btn-list">
           <a class="btn btn-primary" (click)="typeView=0">List Detail</a>
           <a class="btn btn-primary" (click)="typeView=1">List Icons</a>
         </div>
-        <div class="btn-list">
-          <a class="btn btn-primary" (click)="shopAction=2">Show Cart</a>
-        </div>
     </div>
-
 
     <!-- Filter the Products   -->
     <div class="panel-body">
@@ -88,14 +84,10 @@
                  </a>
               </div>
           </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
-<main-comanda *ngIf="shopAction==2"></main-comanda>
 <!-- <product-detail
 [ProductType]="productsType"
 [Products]="productDetail"
