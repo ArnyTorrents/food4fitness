@@ -10,11 +10,8 @@
           <li href="#">
             <a (click)="productManagment()">Nuestros Productos</a>
           </li>
-<<<<<<< HEAD
           <li><a href="#">Quienes Somos</a></li>
           <li href="#"><a href="#">Nuestros Productos</a></li>
-=======
->>>>>>> 07e34200b318e667fe389193193f4bd30fae3d3b
           <li href="#" *ngIf="userLogged==1">
             <a *ngIf="userConnected.role=='master' || userConnected.role=='admin'" (click)="usersCrud()">
               Nuestros Usuarios

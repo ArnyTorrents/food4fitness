@@ -1,11 +1,15 @@
-<div class="panel panel-primary">
+<div class="panel panel-primary" *ngIf="shopAction==0">
     <div class="panel-heading">
         {{pageTitle}}
         <div class="btn-list">
           <a class="btn btn-primary" (click)="typeView=list">List Detail</a>
           <a class="btn btn-primary" (click)="typeView=icon">List Icons</a>
         </div>
+        <div class="btn-list">
+          <a class="btn btn-primary" (click)="shopAction=2">Show Cart</a>
+        </div>
     </div>
+
 
     <!-- Filter the Products   -->
     <div class="panel-body">
@@ -22,16 +26,9 @@
         </div>
 
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
-
-<<<<<<< HEAD
         <div *ngIf="typeView=='list'" class="table-responsive">
-=======
-<<<<<<< HEAD
         <div class="table-responsive">
-=======
         <div  class="table-responsive">
->>>>>>> 07e34200b318e667fe389193193f4bd30fae3d3b
->>>>>>> 23680a071fa0a11b417e93d734e40bcb6cfba17a
             <table class="table"
                    *ngIf="products && products.length">
                 <thead>
@@ -80,9 +77,12 @@
             </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
+<main-comanda *ngIf="shopAction==2"></main-comanda>
 <!-- <product-detail
 [ProductType]="productsType"
 [Products]="productDetail"

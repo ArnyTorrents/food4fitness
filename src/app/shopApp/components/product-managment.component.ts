@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 //Model
 import { Comanda } from "./../model/comanda";
+import { ComandaProducts} from "./../model/comanda-products";
+
 import { Products } from './../model/products';
 import { ProductType} from './../model/productType';
 
@@ -24,8 +26,12 @@ export class ProductManagmentComponent implements OnInit {
   productDetail: Products;
   products: Products[]=[];
   productsFiltered: Products[]=[];
-  shopAction: number;
+  shopAction: number=0;
   typeView: string = "list" ;
+
+  //Cart
+  cartCont:number;
+
 
   //Pagination properties
   itemsPerPage: number;
@@ -92,5 +98,13 @@ export class ProductManagmentComponent implements OnInit {
   setShopActionManagement(action:number): void
   {
     this.shopAction=action;
+  }
+
+  isertToComand():void{
+    this.cartCont++;
+  }
+
+  goToCommand():void{
+    this.shopAction = 2;
   }
 }

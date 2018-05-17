@@ -23,7 +23,7 @@ import {UsersCrudComponent} from './userApp/components/user-crud.component';
 import { ProductsMainComponent } from './shopApp/components/products-main.component'
 import { ProductManagmentComponent } from './shopApp/components/product-managment.component';
 import { ProductDetailComponent } from './shopApp/components/product-detail.component';
-
+import { ComandaManagement } from './shopApp/components/comanda-management.component';
 //Pagination
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -40,6 +40,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {AppRoutingModule} from './mainApp/routing/app.routing';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,7 @@ import {AppRoutingModule} from './mainApp/routing/app.routing';
     ProductsMainComponent,
     ProductManagmentComponent,
     ProductDetailComponent,
+    ComandaManagement,
 
   ],
   imports: [
