@@ -20,8 +20,6 @@ import {UserManagementComponent} from './userApp/components/user-management.comp
 import {UsersCrudComponent} from './userApp/components/user-crud.component';
 
 //ShopApp
-
-import { ReservationMainComponent } from './shopApp/components/reservation-main.component';
 import { ProductsMainComponent } from './shopApp/components/products-main.component'
 import { ProductManagmentComponent } from './shopApp/components/product-managment.component';
 import { ProductDetailComponent } from './shopApp/components/product-detail.component';
@@ -49,7 +47,6 @@ import {AppRoutingModule} from './mainApp/routing/app.routing';
     UserLoginComponent,
     UserManagementComponent,
     UsersCrudComponent,
-    ReservationMainComponent,
     InputValidationDirective,
     ProductsMainComponent,
     ProductManagmentComponent,

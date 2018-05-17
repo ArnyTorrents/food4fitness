@@ -3,10 +3,10 @@
       novalidate>
   <div class="container well">
     <div class="form-horizontal" >
-      <div class="row" *ngIf="userOptions == 1">
+      <div class="row" *ngIf="userAction == 1">
         <div class="col-xs-12"><h2>Add new userNew</h2></div>
       </div>
-      <div class="row" *ngIf="userOptions == 2">
+      <div class="row" *ngIf="userAction == 2">
         <div class="col-xs-12"><h2>Modify your data</h2></div>
       </div>
       <div class="form-group">
@@ -18,12 +18,12 @@
         </div>
         <label class="col-sm-2 control-label" for="formGroup">Last name:</label>
         <div class="col-sm-4">
-          <input class="form-control" type="text" #surname1="ngModel" name="surname1"
+          <input class="form-control" type="text" #surname="ngModel" name="surname"
           [(ngModel)]="userNew.surname" required/>
         </div>
         <label class="col-sm-2 control-label" for="formGroup">Nick:</label>
         <div class="col-sm-4">
-          <input class="form-control" type="text" id="userNewNick" #nick="ngModel" name="nick"
+          <input class="form-control" type="text" id="userNewNick" #nickName="ngModel" name="nickName"
           [(ngModel)]="userNew.nickName" required/>
           <!--<p class="help-block" *ngIf="!nickValid" >
             <b>It already exists a userNew with this nick, try another one.</b>
@@ -35,11 +35,11 @@
           [(ngModel)]="userNew.password" name="password" minlength="6"
           (keyup)="checkPassword();null"
           required/>
-          <p class="help-block" *ngIf="password.invalid && password.dirty || password.touched" >
+          <p class="help-block" *ngIf="password.invalid && password.dirty &&  password.touched" >
             Password must be at least 6 characters
           </p>
         </div>
-        <div class="row" *ngIf="userOptions == 1">
+        <div *ngIf="userAction!=2">
           <label class="col-sm-2 control-label" for="formGroup">Repeat password:</label>
           <div class="col-sm-4">
             <input class="form-control" type="password"
@@ -58,25 +58,25 @@
       <div class="form-group">
         <label class="col-sm-2 control-label" for="formGroup">Address:</label>
         <div class="col-sm-4">
-          <input class="form-control" type="text" #password="ngModel" name="address"
+          <input class="form-control" type="text" #address="ngModel" name="address"
           [(ngModel)]="userNew.address" name="address" minlength="6"
           required/>
         </div>
         <label class="col-sm-2 control-label" for="formGroup">Province:</label>
         <div class="col-sm-4">
-          <input class="form-control" type="text" #password="ngModel" name="province"
+          <input class="form-control" type="text" #province="ngModel" name="province"
           [(ngModel)]="userNew.province" name="province" minlength="6"
           required/>
         </div>
         <label class="col-sm-2 control-label" for="formGroup">Country:</label>
         <div class="col-sm-4">
-          <input class="form-control" type="text" #password="ngModel" name="country"
+          <input class="form-control" type="text" #country="ngModel" name="country"
           [(ngModel)]="userNew.country" name="country" minlength="5"
           required/>
         </div>
         <label class="col-sm-2 control-label" for="formGroup">Door:</label>
         <div class="col-sm-4">
-          <input class="form-control" type="text" #password="ngModel" name="door"
+          <input class="form-control" type="text" #door="ngModel" name="door"
           [(ngModel)]="userNew.door" name="door" min="0" max="100"
           required/>
         </div>
@@ -86,7 +86,7 @@
           [(ngModel)]="userNew.phone" name="phone" minlength="9"
           required/>
         </div>
-        <div *ngIf="userOptions == 1">
+        <div *ngIf="userAction == 1">
         <label class="col-sm-2 control-label" for="formGroup">Role:</label>
         <div class="col-sm-4">
           <select class="form-control" id="role" name="role"
