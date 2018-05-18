@@ -1,32 +1,18 @@
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        {{pageTitle}}
-        <div class="btn-list">
-          <a class="btn btn-primary" (click)="typeView=0">List Detail</a>
-          <a class="btn btn-primary" (click)="typeView=1">List Icons</a>
-        </div>
-    </div>
+<nav class="nav d-flex justify-content-between">
+  <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
+  <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
+  <a class="p-2 text-muted" href="#">
+    {{cartCont}}
+    <img src="http://icons-for-free.com/icon/download-basket_cart_purchase_shop_shopping_shopping_cart_shopping_trolleys_icon-603390.ico" width="50 " height="auto">
+  </a>
+</nav>
 
-    <!-- Filter the Products   -->
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-2">Filter by:</div>
-            <div class="col-md-4">
-                <input type="text" [(ngModel)]="listFilter" />
-            </div>
-        </div>
-        <div class="row" *ngIf="listFilter">
-            <div class="col-md-6">
-                <h3>Filtered by: {{listFilter}} </h3>
-            </div>
-        </div>
 
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
-
          <div *ngIf="typeView==0" > <!--class="table-responsive" -->
             <table class="table"
                    *ngIf="products && products.length">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                         <th>
                           Image
@@ -37,7 +23,8 @@
                         </th>
                         <th>Name</th>
                         <th>Price</th>
-
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,7 +38,7 @@
                        <td>
                             <a class="btn btn-primary"
                             (click)="goToDetail(product)">
-                              More Info
+                              +
                             </a>
                         </td>
                         <td>
@@ -85,15 +72,14 @@
               </div>
           </div>
         </div>
-    </div>
-</div>
+      </div>
 
-<<<<<<< HEAD
+
+
 <main-comanda *ngIf="shopAction==2"
 
 ></main-comanda>
-=======
->>>>>>> d8395fca39e0b1d190c04b48756603383cb59139
+
 <!-- <product-detail
 [ProductType]="productsType"
 [Products]="productDetail"

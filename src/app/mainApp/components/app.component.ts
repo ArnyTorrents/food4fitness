@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
   }
 
   logOut(): void {
+    this.userLogged = 0;
     this.userDataService.logOut().subscribe(
       outPutData => {
         if(Array.isArray(outPutData) && outPutData.length > 0)
@@ -75,6 +76,10 @@ export class AppComponent implements OnInit {
   productManagment():void {
     this.router.navigate(["products"]);
 
+  }
+
+  home():void{
+    this.router.navigate(["shopApp"]);
   }
 
   usersCrud():void{
