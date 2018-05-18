@@ -1,15 +1,11 @@
-<div class="panel panel-primary" *ngIf="shopAction==0">
+<div class="panel panel-primary">
     <div class="panel-heading">
         {{pageTitle}}
         <div class="btn-list">
-          <a class="btn btn-primary" (click)="typeView=list">List Detail</a>
-          <a class="btn btn-primary" (click)="typeView=icon">List Icons</a>
-        </div>
-        <div class="btn-list">
-          <a class="btn btn-primary" (click)="shopAction=2">Show Cart</a>
+          <a class="btn btn-primary" (click)="typeView=0">List Detail</a>
+          <a class="btn btn-primary" (click)="typeView=1">List Icons</a>
         </div>
     </div>
-
 
     <!-- Filter the Products   -->
     <div class="panel-body">
@@ -27,15 +23,7 @@
 
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
 
-
-        <div *ngIf="typeView=='list'" class="table-responsive">
-
-
-        <div class="table-responsive">
-
-        <div  class="table-responsive">
-
-
+         <div *ngIf="typeView==0" > <!--class="table-responsive" -->
             <table class="table"
                    *ngIf="products && products.length">
                 <thead>
@@ -77,21 +65,35 @@
                 </tbody>
             </table>
         </div>
-        <div *ngIf="typeView=='icon'"  class="table-responsive">
+        <div *ngIf="typeView==1" >
           <div *ngIf="products && products.length">
             <div *ngFor="let product of products">
-              <a><img></a>
-            </div>
+              <div class="product-single" >
+                 <a href="#">Image {{product.id}}</a><br>
+                 <a href="#"><strong>{{product.name}}</strong></a>
+                 <div>
+                   {{ product.price | currency:"€" }}
+                 </div>
+                 <a class="btn btn-primary"
+                 (click)="goToDetail(product)">
+                     Go to detail
+                 </a>
+                 <a class="btn btn-success"
+                 (click)="addCart(product)">
+                   Add Cart
+                 </a>
+              </div>
           </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
+<<<<<<< HEAD
 <main-comanda *ngIf="shopAction==2"
 
 ></main-comanda>
+=======
+>>>>>>> d8395fca39e0b1d190c04b48756603383cb59139
 <!-- <product-detail
 [ProductType]="productsType"
 [Products]="productDetail"

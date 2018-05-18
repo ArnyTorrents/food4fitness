@@ -26,8 +26,8 @@ export class ProductManagmentComponent implements OnInit {
   productDetail: Products;
   products: Products[]=[];
   productsFiltered: Products[]=[];
-  shopAction: number=0;
-  typeView: string = "list" ;
+  shopAction: number;
+  typeView: number = 0 ;
 
   //Cart
   cartCont:number;
@@ -56,6 +56,7 @@ export class ProductManagmentComponent implements OnInit {
               private productDataService: ProductDataService ) { }
 
   ngOnInit() {
+    this.typeView = 0;
     this.productDataService.getAllProducts().subscribe(
       outPutData => {
          if(outPutData.length > 0 && Array.isArray(outPutData) && JSON.parse(outPutData[0]) == true) {
