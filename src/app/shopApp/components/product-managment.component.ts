@@ -31,7 +31,8 @@ export class ProductManagmentComponent implements OnInit {
 
   //Cart
   cartCont:number;
-
+  comanda: Comanda;
+  ComandaProducts: ComandaProducts[]=[];
 
   //Pagination properties
   itemsPerPage: number;
