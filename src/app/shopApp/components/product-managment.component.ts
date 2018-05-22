@@ -31,8 +31,8 @@ export class ProductManagmentComponent implements OnInit {
 
   //Cart
   cartCont:number=0;
-  comanda: Comanda;
-  //comandaPs: ComandaProducts;
+  comanda: Comanda
+  comandaPs: ComandaProducts;
   comandaProducts: ComandaProducts[]=[];
 
   //Pagination properties
@@ -105,21 +105,25 @@ export class ProductManagmentComponent implements OnInit {
   }
 
   addCart(product: Products):void{
+    this.comandaPs = new ComandaProducts();
+    this.comanda = new Comanda();
+
     this.cartCont++;
-    this.comandaPs.idComanda = 0;
-    this.comandaPs.idProducto = product.id;
-    this.comandaPs.quantitat = 1;
+
+    this.comandaPs.setIdComanda(0);
+    this.comandaPs.setIdProducto(product.id);
+    this.comandaPs.setQuantitat(1);
 
     //comanda=>id,idUser,productsComanda,totalPrice,date,status
-    this.comanda.id = 0;
-    this.comanda.idUser = 0;
-    this.comanda.productsComanda = this.comandaPs;
-    this.comanda.totalPrice = this.calculateTotalPrice();
-    this.comanda.date = new Date();
-    this.comanda.status = "To Delivery";
-    //this.comanda.setId(1);
+    this.comanda.setId(0);
+    this.comanda.setIdUser(0);
+    this.comanda.setProductsComanda(this.comandaPs);
+    this.comanda.setTotalPrice(this.calculateTotalPrice());
+    let date = new Date();
+    this.comanda.setDate(date);
+    this.comanda.setStatus("To Delivery");
     this.comandaProducts.push(this.comandaPs);
-    console.log(this.comandaProducts);
+
   }
 
   calculateTotalPrice(){
