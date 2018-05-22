@@ -33,15 +33,14 @@ export class ProductManagmentComponent implements OnInit {
   typeView: number = 0 ;
   roleUser: string;
 
+
+  quantitat: number=0;
   //Cart
-<<<<<<< HEAD
-  cartCont:number;
-=======
   cartCont:number=0;
   comanda: Comanda
   comandaPs: ComandaProducts;
   comandaProducts: ComandaProducts[]=[];
->>>>>>> f7524225767d8e93e98bf391af5acf0e1c77b421
+
 
   //Pagination properties
   itemsPerPage: number;
@@ -117,6 +116,16 @@ export class ProductManagmentComponent implements OnInit {
    }else{
      console.log("No cookie created")
    }
+
+
+   ///CREATE COMANDA OBJECT
+   this.comanda = new Comanda();
+   this.comanda.setId(0);
+   this.comanda.setIdUser(0);
+   let date = new Date();
+   this.comanda.setDate(date);
+   this.comanda.setStatus("To Delivery");
+
 }
 
   filter (): void {
@@ -169,34 +178,71 @@ export class ProductManagmentComponent implements OnInit {
     this.shopAction = 1;
   }
 
-<<<<<<< HEAD
-  setShopActionManagement(action:number): void {
-=======
+
+
   setShopActionManagement(action:number): void{
->>>>>>> f7524225767d8e93e98bf391af5acf0e1c77b421
+
     this.shopAction=action;
   }
 
   addCart(product: Products):void{
     this.comandaPs = new ComandaProducts();
-    this.comanda = new Comanda();
+    let flag = false;
 
+    //cart cont items
     this.cartCont++;
-
+    //select the values of the comanda values
     this.comandaPs.setIdComanda(0);
-    this.comandaPs.setIdProducto(product.id);
-    this.comandaPs.setQuantitat(1);
+    //comprove if the product its in the comanda
+    if(this.comandaProducts.length>0){
+      for(let i = 0;i<this.comandaProducts.length;i++){
+        if(this.comandaProducts[i].idProducto == product.id){
+          this.quantitat = this.comandaProducts[i].quantitat;
+          this.quantitat = this.quantitat + 1;
+          this.comandaProducts[i].setQuantitat(this.quantitat);
+          flag = false;
+          break;
+        }else{
+          this.comandaPs.setQuantitat(1);
+          this.comandaPs.setIdProducto(product.id);
+          //comanda=>id,idUser,productsComanda,totalPrice,date,status
+          //this.comanda.setProductsComanda(this.comandaPs);
+          /*let totalPrice = this.calculateTotalPrice();
+          this.comanda.setTotalPrice(totalPrice);*/
+          //this.comandaProducts.push(this.comandaPs);
+          flag = true;
+        }
+      }
+      if(flag){
+        /*let contArr = 0;
+        for(let j = 0;j<this.comandaProducts.length;j++){
+          if(this.comandaProducts[j].idProducto == product.id){
+            contArr++;
+          }
+        }*/
 
-    //comanda=>id,idUser,productsComanda,totalPrice,date,status
-    this.comanda.setId(0);
-    this.comanda.setIdUser(0);
-    this.comanda.setProductsComanda(this.comandaPs);
-    this.comanda.setTotalPrice(this.calculateTotalPrice());
-    let date = new Date();
-    this.comanda.setDate(date);
-    this.comanda.setStatus("To Delivery");
-    this.comandaProducts.push(this.comandaPs);
 
+        console.log(flag);
+        this.comanda.setProductsComanda(this.comandaPs);
+        this.comandaProducts.push(this.comandaPs);
+      }
+    }else{
+      this.comandaPs.setQuantitat(1);
+      this.comandaPs.setIdProducto(product.id);
+      this.comanda.setProductsComanda(this.comandaPs);
+
+      this.comandaProducts.push(this.comandaPs);
+    }
+
+
+
+
+
+
+
+
+
+    console.log(this.comandaProducts);
   }
 
   calculateTotalPrice(){
