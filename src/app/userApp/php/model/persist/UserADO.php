@@ -21,7 +21,7 @@ class UserADO implements EntityInterfaceADO {
   private static $colNameProvince = "province";
   private static $colNameDoor = "door";
   private static $colNamePhone = "phone";
-  private static $colNameNickName = "nickName";
+  private static $colNameNickName = "nickname";
   private static $colNamePassword = "password";
   private static $colNameImg = "img";
 

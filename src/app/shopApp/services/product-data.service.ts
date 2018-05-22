@@ -33,28 +33,28 @@ export class ProductDataService {
     return this.accessServer();
   }
 
-  insertProducts(Products : Products) : Observable<any[]> {
+  insertProducts(product : Products) : Observable<any[]> {
       this.body = {
         action: '10010',
-        jsonData: JSON.stringify(Products)
+        jsonData: JSON.stringify(product)
       }
 
       return this.accessServer();
   }
 
-  modifyProducts(Products:Products): Observable<any[]> {
+  modifyProducts(product:Products): Observable<any[]> {
     this.body = {
           action: "10030",
-          jsonData: JSON.stringify(Products)
+          jsonData: JSON.stringify(product)
     }
 
     return this.accessServer();
   }
 
-  removeProducts(Products:Products): Observable<any[]> {
+  removeProducts(product:Products): Observable<any[]> {
     this.body = {
           action: "10040",
-          jsonData: JSON.stringify(Products)
+          jsonData: JSON.stringify(product)
     }
 
     return this.accessServer();
