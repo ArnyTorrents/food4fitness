@@ -1,12 +1,13 @@
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        {{pageTitle}}
-        <div class="btn-list">
-          <a class="btn btn-primary" (click)="typeView=0">List Detail</a>
-          <a class="btn btn-primary" (click)="typeView=1">List Icons</a>
-        </div>
-    </div>
+<nav class="nav d-flex justify-content-between">
+  <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
+  <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
+  <a class="p-2 text-muted" href="#">
+    {{cartCont}}
+    <img src="http://icons-for-free.com/icon/download-basket_cart_purchase_shop_shopping_shopping_cart_shopping_trolleys_icon-603390.ico" width="50 " height="auto">
+  </a>
+</nav>
 
+<<<<<<< HEAD
     <!-- Filter the Products   -->
     <div class="panel-body">
         <div class="row">
@@ -32,13 +33,14 @@
                 <h3>Filtered by: {{listFilter}} </h3>
             </div>
         </div>
+=======
+>>>>>>> f7524225767d8e93e98bf391af5acf0e1c77b421
 
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
-
          <div *ngIf="typeView==0" > <!--class="table-responsive" -->
             <table class="table"
                    *ngIf="products && products.length">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                         <th>
                           Image
@@ -49,7 +51,8 @@
                         </th>
                         <th>Name</th>
                         <th>Price</th>
-
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +66,7 @@
                        <td>
                             <a class="btn btn-primary"
                             (click)="goToDetail(product)">
-                              More Info
+                              +
                             </a>
                         </td>
                         <td>
@@ -101,8 +104,13 @@
               </div>
           </div>
         </div>
-    </div>
-</div>
+      </div>
+
+
+
+<main-comanda *ngIf="shopAction==2"
+
+></main-comanda>
 
 <product-detail *ngIf="shopAction==1"
 [productsType]="productsType"

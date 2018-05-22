@@ -1,36 +1,39 @@
 <form name="useManagementForm" #useManagementForm="ngForm"
       (ngSubmit)="registeruserNew()"
       novalidate>
-  <div class="container well">
-    <div class="form-horizontal" >
-      <div class="row" *ngIf="userAction == 1">
-        <div class="col-xs-12"><h2>Add new userNew</h2></div>
+  <div class="">
+    <div class="" >
+      <div class="" *ngIf="userAction == 1">
+        <div class=""><h2>Add new userNew</h2></div>
       </div>
-      <div class="row" *ngIf="userAction == 2">
-        <div class="col-xs-12"><h2>Modify your data</h2></div>
+      <div class="" *ngIf="userAction == 2">
+        <div class=""><h2>Modify your data</h2></div>
       </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label" for="formGroup">Name:</label>
-        <div class="col-sm-4">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="name">Name:</label>
           <input class="form-control"
               type="text"  #name="ngModel" name="name"
               [(ngModel)]="userNew.name" required />
         </div>
-        <label class="col-sm-2 control-label" for="formGroup">Last name:</label>
-        <div class="col-sm-4">
-          <input class="form-control" type="text" #surname="ngModel" name="surname"
+        <div class="form-group col-md-6">
+        <label for="surname">Last name:</label>
+          <input class="form-control"
+          type="text" #surname="ngModel" name="surname"
           [(ngModel)]="userNew.surname" required/>
         </div>
-        <label class="col-sm-2 control-label" for="formGroup">Nick:</label>
-        <div class="col-sm-4">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="formGroup">Nick:</label>
           <input class="form-control" type="text" id="userNewNick" #nickName="ngModel" name="nickName"
           [(ngModel)]="userNew.nickName" required/>
           <!--<p class="help-block" *ngIf="!nickValid" >
             <b>It already exists a userNew with this nick, try another one.</b>
           </p>-->
         </div>
+        <div class="form-group col-md-6">
         <label class="col-sm-2 control-label" for="formGroup">Password:</label>
-        <div class="col-sm-4">
           <input class="form-control" type="password" #password="ngModel" name="password"
           [(ngModel)]="userNew.password" name="password" minlength="6"
           (keyup)="checkPassword();null"
@@ -39,6 +42,7 @@
             Password must be at least 6 characters
           </p>
         </div>
+
         <div *ngIf="userAction!=2">
           <label class="col-sm-2 control-label" for="formGroup">Repeat password:</label>
           <div class="col-sm-4">
@@ -55,50 +59,52 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-row">
+        <div class="form-group col-md-6">
         <label class="col-sm-2 control-label" for="formGroup">Address:</label>
-        <div class="col-sm-4">
           <input class="form-control" type="text" #address="ngModel" name="address"
           [(ngModel)]="userNew.address" name="address" minlength="6"
           required/>
         </div>
+        <div class="form-group col-md-6">
         <label class="col-sm-2 control-label" for="formGroup">Province:</label>
-        <div class="col-sm-4">
           <input class="form-control" type="text" #province="ngModel" name="province"
           [(ngModel)]="userNew.province" name="province" minlength="6"
           required/>
         </div>
+        <div class="form-group col-md-6">
         <label class="col-sm-2 control-label" for="formGroup">Country:</label>
-        <div class="col-sm-4">
           <input class="form-control" type="text" #country="ngModel" name="country"
           [(ngModel)]="userNew.country" name="country" minlength="5"
           required/>
         </div>
+        <div class="form-group col-md-6">
         <label class="col-sm-2 control-label" for="formGroup">Door:</label>
-        <div class="col-sm-4">
           <input class="form-control" type="text" #door="ngModel" name="door"
           [(ngModel)]="userNew.door" name="door" min="0" max="100"
           required/>
         </div>
+        <div class="form-group col-md-6">
         <label class="col-sm-2 control-label" for="formGroup">Phone:</label>
-        <div class="col-sm-4">
           <input class="form-control" type="text" #phone="ngModel" name="phone"
           [(ngModel)]="userNew.phone" name="phone" minlength="9"
           required/>
         </div>
-        <div *ngIf="userAction == 1">
-        <label class="col-sm-2 control-label" for="formGroup">Role:</label>
-        <div class="col-sm-4">
-          <select class="form-control" id="role" name="role"
-            #role="ngModel"
-            [(ngModel)]="userNew.role"
-            required>
-            <option *ngFor="let roles of roleArray; let i = index"
-              value="{{roles}}">
-                      {{roles}}
-            </option>
-            </select>
-        </div>
+      </div>
+      <div>
+        <div class="" *ngIf="userAction == 2">
+            <div class="form-group col-md-6">
+              <label class="col-sm-2 control-label" for="formGroup">Role:</label>
+              <select class="custom-select" id="role" name="role"
+              #role="ngModel"
+              [(ngModel)]="userNew.role"
+              required>
+                <option *ngFor="let roles of roleArray; let i = index"
+                  value="{{roles}}">
+                          {{roles}}
+                </option>
+              </select>
+            </div>
         </div>
       </div>
 
@@ -132,16 +138,20 @@
         </div>
       </div>-->
       <div class="form-group">
-        <label class="col-sm-2 control-label" for="formGroup"></label>
-        <div class="col-sm-4">
-          <button [disabled]="useManagementForm.invalid " class="btn btn-success">
-            Submit
+        <div class="form-group col-md-6">
+          <button *ngIf="userAction==1"  [disabled]="useManagementForm.invalid " class="btn btn-success">
+              Regist New User
           </button>
+          <button *ngIf="userAction==2"  [disabled]="useManagementForm.invalid " class="btn btn-primary">
+              Modify User
+          </button>
+
+          <input class="btn btn-dark" type="button"
+          value="Back" (click)="goBack.emit(0)">
         </div>
         <div class="form-group col-sm-6">
           <label>
-            <input class="btn btn-default btn-primary btn-block" type="button"
-            value="Back" (click)="goBack.emit(0)">
+
           </label>
         </div>
       </div>

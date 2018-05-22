@@ -38,6 +38,7 @@ export class UserManagementComponent implements OnInit {
 
 
   ngOnInit(): void {
+      console.log(this.userOptions);
       this.userNew = new User();
       this.userOptions = this.userAction;
       if(this.userOptions==2){

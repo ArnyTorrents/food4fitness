@@ -34,7 +34,14 @@ export class ProductManagmentComponent implements OnInit {
   roleUser: string;
 
   //Cart
+<<<<<<< HEAD
   cartCont:number;
+=======
+  cartCont:number=0;
+  comanda: Comanda;
+  //comandaPs: ComandaProducts;
+  comandaProducts: ComandaProducts[]=[];
+>>>>>>> f7524225767d8e93e98bf391af5acf0e1c77b421
 
   //Pagination properties
   itemsPerPage: number;
@@ -60,6 +67,8 @@ export class ProductManagmentComponent implements OnInit {
 
   ngOnInit() {
     this.typeView = 0;
+
+
     this.productDataService.getAllProducts().subscribe(
       outPutData => {
          if(outPutData.length > 0 && Array.isArray(outPutData) && JSON.parse(outPutData[0]) == true) {
@@ -160,12 +169,36 @@ export class ProductManagmentComponent implements OnInit {
     this.shopAction = 1;
   }
 
+<<<<<<< HEAD
   setShopActionManagement(action:number): void {
+=======
+  setShopActionManagement(action:number): void{
+>>>>>>> f7524225767d8e93e98bf391af5acf0e1c77b421
     this.shopAction=action;
   }
 
-  isertToComand():void{
+  addCart(product: Products):void{
     this.cartCont++;
+    this.comandaPs.idComanda = 0;
+    this.comandaPs.idProducto = product.id;
+    this.comandaPs.quantitat = 1;
+
+    //comanda=>id,idUser,productsComanda,totalPrice,date,status
+    this.comanda.id = 0;
+    this.comanda.idUser = 0;
+    this.comanda.productsComanda = this.comandaPs;
+    this.comanda.totalPrice = this.calculateTotalPrice();
+    this.comanda.date = new Date();
+    this.comanda.status = "To Delivery";
+    //this.comanda.setId(1);
+    this.comandaProducts.push(this.comandaPs);
+    console.log(this.comandaProducts);
+  }
+
+  calculateTotalPrice(){
+    let totalPrice = 0;
+
+    return totalPrice;
   }
 
   goToCommand():void{
