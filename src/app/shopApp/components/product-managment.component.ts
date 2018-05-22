@@ -33,6 +33,8 @@ export class ProductManagmentComponent implements OnInit {
   typeView: number = 0 ;
   roleUser: string;
 
+
+  quantitat: number=0;
   //Cart
   cartCont:number=0;
   comanda: Comanda;
@@ -112,6 +114,16 @@ export class ProductManagmentComponent implements OnInit {
    }else{
      console.log("No sessio Conectada")
    }
+
+
+   ///CREATE COMANDA OBJECT
+   this.comanda = new Comanda();
+   this.comanda.setId(0);
+   this.comanda.setIdUser(0);
+   let date = new Date();
+   this.comanda.setDate(date);
+   this.comanda.setStatus("To Delivery");
+
 }
 
   filter (): void {
@@ -165,25 +177,70 @@ export class ProductManagmentComponent implements OnInit {
     this.shopAction = 1;
   }
 
-  setShopActionManagement(action:number): void {
+
+
+  setShopActionManagement(action:number): void{
+
     this.shopAction=action;
   }
 
   addCart(product: Products):void{
-    this.cartCont++;
-    this.comandaPs.idComanda = 0;
-    this.comandaPs.idProducto = product.id;
-    this.comandaPs.quantitat = 1;
+    this.comandaPs = new ComandaProducts();
+    let flag = false;
 
-    //comanda=>id,idUser,productsComanda,totalPrice,date,status
-    this.comanda.id = 0;
-    this.comanda.idUser = 0;
-    this.comanda.productsComanda = this.comandaPs;
-    this.comanda.totalPrice = this.calculateTotalPrice();
-    this.comanda.date = new Date();
-    this.comanda.status = "To Delivery";
-    //this.comanda.setId(1);
-    this.comandaProducts.push(this.comandaPs);
+    //cart cont items
+    this.cartCont++;
+    //select the values of the comanda values
+    this.comandaPs.setIdComanda(0);
+    //comprove if the product its in the comanda
+    if(this.comandaProducts.length>0){
+      for(let i = 0;i<this.comandaProducts.length;i++){
+        if(this.comandaProducts[i].idProducto == product.id){
+          this.quantitat = this.comandaProducts[i].quantitat;
+          this.quantitat = this.quantitat + 1;
+          this.comandaProducts[i].setQuantitat(this.quantitat);
+          flag = false;
+          break;
+        }else{
+          this.comandaPs.setQuantitat(1);
+          this.comandaPs.setIdProducto(product.id);
+          //comanda=>id,idUser,productsComanda,totalPrice,date,status
+          //this.comanda.setProductsComanda(this.comandaPs);
+          /*let totalPrice = this.calculateTotalPrice();
+          this.comanda.setTotalPrice(totalPrice);*/
+          //this.comandaProducts.push(this.comandaPs);
+          flag = true;
+        }
+      }
+      if(flag){
+        /*let contArr = 0;
+        for(let j = 0;j<this.comandaProducts.length;j++){
+          if(this.comandaProducts[j].idProducto == product.id){
+            contArr++;
+          }
+        }*/
+
+
+        console.log(flag);
+        this.comanda.setProductsComanda(this.comandaPs);
+        this.comandaProducts.push(this.comandaPs);
+      }
+    }else{
+      this.comandaPs.setQuantitat(1);
+      this.comandaPs.setIdProducto(product.id);
+      this.comanda.setProductsComanda(this.comandaPs);
+
+      this.comandaProducts.push(this.comandaPs);
+    }
+
+
+
+
+
+
+
+
+
     console.log(this.comandaProducts);
   }
 
