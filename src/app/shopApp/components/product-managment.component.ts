@@ -32,7 +32,7 @@ export class ProductManagmentComponent implements OnInit {
   //Cart
   cartCont:number=0;
   comanda: Comanda;
-  comandaPs: ComandaProducts;
+  //comandaPs: ComandaProducts;
   comandaProducts: ComandaProducts[]=[];
 
   //Pagination properties
@@ -58,6 +58,8 @@ export class ProductManagmentComponent implements OnInit {
 
   ngOnInit() {
     this.typeView = 0;
+
+
     this.productDataService.getAllProducts().subscribe(
       outPutData => {
          if(outPutData.length > 0 && Array.isArray(outPutData) && JSON.parse(outPutData[0]) == true) {
