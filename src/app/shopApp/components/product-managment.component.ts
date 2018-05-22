@@ -34,14 +34,10 @@ export class ProductManagmentComponent implements OnInit {
   roleUser: string;
 
   //Cart
-<<<<<<< HEAD
-  cartCont:number;
-=======
   cartCont:number=0;
   comanda: Comanda;
-  //comandaPs: ComandaProducts;
+  comandaPs: ComandaProducts;
   comandaProducts: ComandaProducts[]=[];
->>>>>>> f7524225767d8e93e98bf391af5acf0e1c77b421
 
   //Pagination properties
   itemsPerPage: number;
@@ -67,8 +63,7 @@ export class ProductManagmentComponent implements OnInit {
 
   ngOnInit() {
     this.typeView = 0;
-
-
+    // this.shopAction = 0;
     this.productDataService.getAllProducts().subscribe(
       outPutData => {
          if(outPutData.length > 0 && Array.isArray(outPutData) && JSON.parse(outPutData[0]) == true) {
@@ -101,7 +96,7 @@ export class ProductManagmentComponent implements OnInit {
        }
    );
 
-   this.itemsPerPage = 10;
+   this.itemsPerPage = 3;
    this.currentPage = 1;
    this.totalItems= this.products.length;
    this.priceFilter = 500;
@@ -115,7 +110,7 @@ export class ProductManagmentComponent implements OnInit {
      Object.assign(userConnected,cookieObj);
      this.roleUser = cookieObj.role;
    }else{
-     console.log("No cookie created")
+     console.log("No sessio Conectada")
    }
 }
 
@@ -165,15 +160,12 @@ export class ProductManagmentComponent implements OnInit {
   }
 
   goToDetail (product : Products) : void {
+    console.log("Detail");
     this.productDetail = product;
     this.shopAction = 1;
   }
 
-<<<<<<< HEAD
   setShopActionManagement(action:number): void {
-=======
-  setShopActionManagement(action:number): void{
->>>>>>> f7524225767d8e93e98bf391af5acf0e1c77b421
     this.shopAction=action;
   }
 
