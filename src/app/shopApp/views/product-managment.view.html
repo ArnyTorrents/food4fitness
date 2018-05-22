@@ -14,6 +14,18 @@
             <div class="col-md-4">
                 <input type="text" [(ngModel)]="listFilter" />
             </div>
+            <div class="col-md-4"><!--price-range-->
+							<h2>Price Range</h2>
+              <input type="range"
+                min="0"
+                max="500"
+                (change)="filter()"
+                name="priceFilter"
+                [(ngModel)]="priceFilter" />
+                 {{priceFilter | currency: "€"}}
+						</div>
+
+
         </div>
         <div class="row" *ngIf="listFilter">
             <div class="col-md-6">
@@ -60,6 +72,10 @@
                                Add Cart
                              </a>
                          </td>
+                         <td *ngIf="roleUser=='admin' || roleUser=='master'">
+                           <button class="btn btn-danger"
+                             (click)="removeProduct(product)">X</button>
+                         </td>
 
                     </tr>
                 </tbody>
@@ -88,8 +104,8 @@
     </div>
 </div>
 
-<!-- <product-detail
-[ProductType]="productsType"
-[Products]="productDetail"
+<product-detail *ngIf="shopAction==1"
+[productsType]="productsType"
+[productDetail]="productDetail"
 (setShopAction) = "setShopActionManagement($event)">
-</product-detail> -->
+</product-detail>

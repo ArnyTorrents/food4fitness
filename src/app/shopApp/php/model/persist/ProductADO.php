@@ -26,7 +26,7 @@ class ProductADO implements EntityInterfaceADO {
   private static $colNameCalories = "calories";
   private static $colNameProteines = "proteines";
   private static $colNameCarbohydrates = "carbohydrates";
-  private static $colNameTotalFat = "	totalFat";
+  private static $colNameTotalFat = "totalFat";
   private static $colNameStock = "stock";
   private static $colNameGoodFor = "goodFor";
   private static $colNameImg = "img";
@@ -71,7 +71,7 @@ class ProductADO implements EntityInterfaceADO {
     $calories = $row[ ProductADO::$colNameCalories ];
     $proteins = $row[ ProductADO::$colNameProteines ];
     $carbohydrates = $row[ ProductADO::$colNameCarbohydrates ];
-    //$totalFat	 = $row[ ProductADO::$colNameTotalFat ];
+    $totalFat	 = $row[ ProductADO::$colNameTotalFat ];
     $stock	 = $row[ ProductADO::$colNameStock ];
     $goodFor = $row[ ProductADO::$colNameGoodFor ];
     $img = $row[ ProductADO::$colNameImg];
@@ -83,7 +83,7 @@ class ProductADO implements EntityInterfaceADO {
     $productType = new ProductType();
     $productType->setId($productTypeId);
     $productTypeName = ProductTypeADO::findById($productType);
-
+    // echo serialize($productTypeName[0]);
     $entity->setProductType($productTypeName[0]);
     $entity->setName($name);
     $entity->setPrice($price);
@@ -91,7 +91,7 @@ class ProductADO implements EntityInterfaceADO {
     $entity->setCalories($calories);
     $entity->setProteins($proteins);
     $entity->setCarbohydrates($carbohydrates);
-    $entity->setTotalFat(0);
+    $entity->setTotalFat($totalFat);
     $entity->setStock($stock);
     $entity->setGoodFor($goodFor);
     $entity->setImg($img);

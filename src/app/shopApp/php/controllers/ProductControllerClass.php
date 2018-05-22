@@ -55,7 +55,7 @@ class ProductControllerClass implements ControllerInterface {
 				break;
 			case 10040:
 				$outPutData = $this->removeProduct();
-				break;			
+				break;
 			default:
 				echo "There has been an error in the server";
 				error_log("Action not correct in ShopControllerClass, value: ".$this->getAction());
@@ -197,21 +197,88 @@ class ProductControllerClass implements ControllerInterface {
 		return $outPutData;
 	}
 
+	// private function removeProduct()
+	// {
+	// 	//Product modification
+	// 	$outPutData = array();
+	//
+	// 	$ProductObj = json_decode(stripslashes($this->getJsonData()));
+	// 	try {
+	//
+	// 		$ProductType = new ProductType();
+	// 		$ProductType->setAll($ProductObj->ProductType->id, $ProductObj->ProductType->name,$ProductObj->ProductType->description);
+	//
+	// 		$outPutData[]= "true";
+	// 		$product = new Products();
+	//
+	// 		$product->setId($ProductObj->id);
+	// 		$product->setProductType($ProductType);
+	// 		$product->setName($ProductObj->name);
+	// 		$product->setPrice($ProductObj->price);
+	// 		$product->setDescription($ProductObj->description);
+	// 		$product->setCalories($ProductObj->calories);
+	// 		$product->setProteins($ProductObj->proteins);
+	// 		$product->setCarbohydrates($ProductObj->carbohydrates);
+	// 		$product->setTotalFat($ProductObj->totalFat);
+	// 		$product->setStock($ProductObj->stock);
+	// 		$product->setGoodFor($ProductObj->goodFor);
+	// 		$product->setImg($ProductObj->img);
+	//
+	// 		$outPutData[1] = ProductADO::delete($product);
+	//
+	//
+	// 	} catch (Exception $e) {
+	// 		$outPutData[]= "false";
+	// 		echo 'ProductControllerClass(removeProduct) Caught exception: ',  $e->getMessage(), "\n";
+	// 	}
+	//
+	// 	return $outPutData;
+	// }
+
+	private function getAllProducts()
+	{
+		$outPutData = array();
+		$products = array();
+
+		$ProductsList = ProductADO::findAll();
+
+		if (count($ProductsList)!=0)
+		{
+			foreach ($ProductsList as $product)
+			{
+				$products[]=$product->getAll();
+			}
+		}
+		$outPutData[] = "true";
+		//$outPutData[]=count($ProductsList);
+		$outPutData[] = $products;
+
+		return $outPutData;
+	}
+
 	private function removeProduct()
 	{
-		//Films modification
+		//Product modification
 		$outPutData = array();
 
 		$ProductObj = json_decode(stripslashes($this->getJsonData()));
-
 		try {
 
-			$ProductType = new ProductType();
-			$ProductType->setAll($ProductObj->ProductType->id, $ProductObj->ProductType->name,$ProductObj->ProductType->description);
+			$productType = new ProductType();
+
+			$productType->setId($ProductObj->ProductType->id);
+			$productType->setName($ProductObj->ProductType->name);
+			$productType->setDescription($ProductObj->ProductType->description);
+
+
+			// $productType->setAll($ProductObj->ProductType->id,
+			// 										 $ProductObj->ProductType->name,
+			// 										 $ProductObj->ProductType->description);
+
 
 			$product = new Products();
-			$product->setAll(0, $ProductObj->id,
-												$ProductType,
+			$product->setAll( $ProductObj->id,
+												$productType,
 												$ProductObj->name,
 												$ProductObj->price,
 												$ProductObj->description,
@@ -233,27 +300,6 @@ class ProductControllerClass implements ControllerInterface {
 			$outPutData[]= "false";
 			echo 'ProductControllerClass(removeProduct) Caught exception: ',  $e->getMessage(), "\n";
 		}
-
-		return $outPutData;
-	}
-
-	private function getAllProducts()
-	{
-		$outPutData = array();
-		$products = array();
-
-		$ProductsList = ProductADO::findAll();
-
-		if (count($ProductsList)!=0)
-		{
-			foreach ($ProductsList as $product)
-			{
-				$products[]=$product->getAll();
-			}
-		}
-		$outPutData[] = "true";
-		//$outPutData[]=count($ProductsList);
-		$outPutData[] = $products;
 
 		return $outPutData;
 	}
