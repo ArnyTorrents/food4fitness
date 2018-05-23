@@ -1,0 +1,24 @@
+.imgProduct {
+  height: 250px;
+  width: 250px;
+  padding-right: 10%;
+  padding-top: 25%;
+  vertical-align: top;
+  padding: 25% 10% 0 10%;
+}
+
+.back {
+  margin-left: 17%;
+}
+
+.productDetail {
+  text-align:center;
+}
+
+.tableCenter {
+  margin: 10px auto;
+}
+
+.insert {
+  margin-right: 1%;
+}

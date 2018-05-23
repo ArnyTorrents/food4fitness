@@ -98,7 +98,7 @@ export class ProductManagmentComponent implements OnInit {
        }
    );
 
-   this.itemsPerPage = 3;
+   this.itemsPerPage = 4;
    this.currentPage = 1;
    this.totalItems= this.products.length;
    this.priceFilter = 500;
@@ -164,6 +164,9 @@ export class ProductManagmentComponent implements OnInit {
         }
       },
       error => {
+        // if(error.text=="Error executing query"){
+        //   console.log("Prova");
+        // }
         alert("Sorry, there has been an error, try later");
         console.log("ProductManagmentComponent (removeProduct). Error happened: " + JSON.stringify(error));
         this.router.navigate(["products"]);
@@ -172,9 +175,10 @@ export class ProductManagmentComponent implements OnInit {
   }
 
   goToDetail (product : Products) : void {
-    console.log("Detail");
     this.productDetail = product;
     this.shopAction = 1;
+    console.log("Detail");
+
   }
 
 

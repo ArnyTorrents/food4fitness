@@ -29,6 +29,7 @@ export class ProductDetailComponent implements OnInit {
   roleUser: string;
 
 
+
   @Input() productDetail : Products;
   @Input() productsType : ProductType[];
 
