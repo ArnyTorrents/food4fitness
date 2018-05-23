@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { User } from './../../userApp/model/user';
 
 import {UserDataService} from './../../userApp/services/user-data.service';
+
+//
+import {ComandaProducts} from './../../shopApp/model/comanda-products';
 //CookieService
 import { CookieService } from 'ngx-cookie-service';
 
@@ -20,6 +23,7 @@ export class AppComponent implements OnInit {
 
   userConnected:User;
   userLogged: number;
+  comandaProducts: ComandaProducts[]=[];
 
   constructor(private cookieService: CookieService,
               private router : Router,
@@ -27,14 +31,25 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.cookieService.check("user")){
+    if(this.cookieService.check("cart")){
       let cookieObj:any =
-            JSON.parse(this.cookieService.get("user"));
-      let userConnected = new User();
-      Object.assign(userConnected,cookieObj);
-      console.log(cookieObj.name);
-      //this.user.id = cookieObj.id;
-      //this.user.setName(cookieObj.name);
+            JSON.parse(this.cookieService.get("cart"));
+      let comanda = new ComandaProducts();
+      Object.assign(comanda,cookieObj);
+      console.log(cookieObj);
+    }else{
+      console.log("no cart");
+    }
+
+    if(sessionStorage.getItem('connectedUser')){
+
+        let cookieObj:any =   JSON.parse(sessionStorage.getItem("connectedUser"));
+        //console.log(cookieObj);
+        let userConnected = new User();
+        Object.assign(userConnected,cookieObj);
+        //this.roleUser = cookieObj.role;
+
+
       this.userConnected = userConnected;
       this.userLogged = 1;
     }else{
@@ -53,6 +68,7 @@ export class AppComponent implements OnInit {
           {
             location.reload();
             this.router.navigate(["userApp"]);
+            sessionStorage.removeItem("connectedUser");
           }
         } else {
           alert("There has been an error, try later");
@@ -67,7 +83,7 @@ export class AppComponent implements OnInit {
       }
     );
     this.userLogged = 0;
-    this.cookieService.deleteAll();
+    //this.cookieService.deleteAll();
   }
   logIn():void{
     this.router.navigate(["userApp"]);

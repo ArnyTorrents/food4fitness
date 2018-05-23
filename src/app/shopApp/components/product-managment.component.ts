@@ -107,14 +107,31 @@ export class ProductManagmentComponent implements OnInit {
    this.productsFiltered = this.products;
    this.shopAction = 0;
 
-   if(this.cookieService.check("user")){
-     let cookieObj:any =
-           JSON.parse(this.cookieService.get("user"));
+   if(sessionStorage.getItem('connectedUser')){
+     let cookieObj:any =   JSON.parse(sessionStorage.getItem("connectedUser"));
      let userConnected = new User();
      Object.assign(userConnected,cookieObj);
      this.roleUser = cookieObj.role;
-   }else{
-     console.log("No cookie created")
+   }
+
+
+  if(this.cookieService.check("cart")){
+    this.comandaProducts = [];
+    this.cartCont = 0;
+     let cart:any =
+           JSON.parse(this.cookieService.get("cart"));
+     for(let i=0;i<cart.length;i++){
+        this.cartCont++;
+        let comandaProducts = new ComandaProducts();
+        Object.assign(comandaProducts,cart[i]);
+        this.comandaProducts.push(comandaProducts);
+     }
+
+     let cartCont:any =
+           JSON.parse(this.cookieService.get("cartCont"));
+
+     //Object.assign(this.cartCont,cartCont);
+     this.cartCont = cartCont;
    }
 
 
@@ -191,6 +208,7 @@ export class ProductManagmentComponent implements OnInit {
 
     //cart cont items
     this.cartCont++;
+    this.cookieService.set('cartCont',JSON.stringify(this.cartCont));
     //select the values of the comanda values
     this.comandaPs.setIdComanda(0);
     //comprove if the product its in the comanda
@@ -201,30 +219,19 @@ export class ProductManagmentComponent implements OnInit {
           this.quantitat = this.quantitat + 1;
           this.comandaProducts[i].setQuantitat(this.quantitat);
           flag = false;
+          this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
           break;
         }else{
           this.comandaPs.setQuantitat(1);
           this.comandaPs.setIdProducto(product.id);
-          //comanda=>id,idUser,productsComanda,totalPrice,date,status
-          //this.comanda.setProductsComanda(this.comandaPs);
-          /*let totalPrice = this.calculateTotalPrice();
-          this.comanda.setTotalPrice(totalPrice);*/
-          //this.comandaProducts.push(this.comandaPs);
           flag = true;
         }
       }
       if(flag){
-        /*let contArr = 0;
-        for(let j = 0;j<this.comandaProducts.length;j++){
-          if(this.comandaProducts[j].idProducto == product.id){
-            contArr++;
-          }
-        }*/
-
-
-        console.log(flag);
         this.comanda.setProductsComanda(this.comandaPs);
         this.comandaProducts.push(this.comandaPs);
+
+        this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
       }
     }else{
       this.comandaPs.setQuantitat(1);
@@ -232,17 +239,8 @@ export class ProductManagmentComponent implements OnInit {
       this.comanda.setProductsComanda(this.comandaPs);
 
       this.comandaProducts.push(this.comandaPs);
+      this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
     }
-
-
-
-
-
-
-
-
-
-    console.log(this.comandaProducts);
   }
 
   calculateTotalPrice(){

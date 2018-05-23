@@ -35,6 +35,7 @@ export class UserLoginComponent implements OnInit {
           {
             if(outPutData[0]=== true)
             {
+              //localStorage.setItem('currentUser', JSON.stringify(user));
               //console.log("log");
               //console.log(outPutData[1]);
               //this.router.navigate(["shopApp"]);
@@ -63,9 +64,9 @@ export class UserLoginComponent implements OnInit {
               {
                 sessionStorage.setItem("connectedUser",
                           JSON.stringify(outPutData[1][0]));
-                //console.log(outPutData[1][0]);
-                this.cookieService.set('user',
-                JSON.stringify(outPutData[1][0]));
+
+                /*this.cookieService.set('user',
+                JSON.stringify(outPutData[1][0]));*/
                 location.reload();
                 this.router.navigate(["shopApp"]);
               } else {

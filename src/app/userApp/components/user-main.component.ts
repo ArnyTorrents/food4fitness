@@ -20,11 +20,12 @@ export class UserMainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
-    if(this.cookieService.check("user")){
+
+    //if(this.cookieService.check("user")){
+    if(sessionStorage.getItem('connectedUser')){
       this.userAction = 0;
       let cookieObj:any =
-            JSON.parse(this.cookieService.get("user"));
+            JSON.parse(sessionStorage.getItem('connectedUser')); 
       let userConnected = new User();
       Object.assign(userConnected,cookieObj);
       console.log(userConnected);
