@@ -37,10 +37,9 @@ export class ProductManagmentComponent implements OnInit {
   quantitat: number=0;
   //Cart
   cartCont:number=0;
-  comanda: Comanda
+  comanda: Comanda;
   comandaPs: ComandaProducts;
   comandaProducts: ComandaProducts[]=[];
-
 
   //Pagination properties
   itemsPerPage: number;
@@ -66,8 +65,7 @@ export class ProductManagmentComponent implements OnInit {
 
   ngOnInit() {
     this.typeView = 0;
-
-
+    // this.shopAction = 0;
     this.productDataService.getAllProducts().subscribe(
       outPutData => {
          if(outPutData.length > 0 && Array.isArray(outPutData) && JSON.parse(outPutData[0]) == true) {
@@ -100,7 +98,7 @@ export class ProductManagmentComponent implements OnInit {
        }
    );
 
-   this.itemsPerPage = 10;
+   this.itemsPerPage = 4;
    this.currentPage = 1;
    this.totalItems= this.products.length;
    this.priceFilter = 500;
@@ -183,6 +181,9 @@ export class ProductManagmentComponent implements OnInit {
         }
       },
       error => {
+        // if(error.text=="Error executing query"){
+        //   console.log("Prova");
+        // }
         alert("Sorry, there has been an error, try later");
         console.log("ProductManagmentComponent (removeProduct). Error happened: " + JSON.stringify(error));
         this.router.navigate(["products"]);
@@ -193,6 +194,8 @@ export class ProductManagmentComponent implements OnInit {
   goToDetail (product : Products) : void {
     this.productDetail = product;
     this.shopAction = 1;
+    console.log("Detail");
+
   }
 
 

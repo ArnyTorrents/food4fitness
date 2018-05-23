@@ -29,6 +29,7 @@ export class ProductDetailComponent implements OnInit {
   roleUser: string;
 
 
+
   @Input() productDetail : Products;
   @Input() productsType : ProductType[];
 
@@ -49,7 +50,7 @@ export class ProductDetailComponent implements OnInit {
       Object.assign(userConnected,cookieObj);
       this.roleUser = cookieObj.role;
     }else{
-      console.log("No cookie created")
+      console.log("No sessio conectada")
     }
 
   }

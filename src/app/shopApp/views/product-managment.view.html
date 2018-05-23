@@ -1,3 +1,4 @@
+<div *ngIf="shopAction == 0">
 <nav class="nav d-flex justify-content-between">
   <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
   <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
@@ -6,30 +7,31 @@
     <img src="http://icons-for-free.com/icon/download-basket_cart_purchase_shop_shopping_shopping_cart_shopping_trolleys_icon-603390.ico" width="50 " height="auto">
   </a>
 </nav>
-
+</div>
     <!-- Filter the Products   -->
     <div class="panel-body" *ngIf="shopAction==0">
         <div class="row">
             <div class="col-md-2">Filter by:</div>
             <div class="col-md-4">
-                <input type="text" [(ngModel)]="listFilter" />
+                <input type="text"
+                       (keyup)="filter()"
+                       name="nameFilter"
+                       [(ngModel)]="nameFilter" />
             </div>
             <div class="col-md-4"><!--price-range-->
-							<h2>Price Range</h2>
+							<div>Price Range:</div>
               <input type="range"
-                min="0"
+                min="1"
                 max="500"
                 (change)="filter()"
                 name="priceFilter"
-                [(ngModel)]="priceFilter" />
+                [(ngModel)]="priceFilter"/>
                  {{priceFilter | currency: "€"}}
 						</div>
-
-
         </div>
         <div class="row" *ngIf="listFilter">
             <div class="col-md-6">
-                <h3>Filtered by: {{listFilter}} </h3>
+                <h3>Filtered by: {{nameFilter}} </h3>
             </div>
         </div>
 
@@ -49,31 +51,36 @@
                         </th>
                         <th>Name</th>
                         <th>Price</th>
-                        <th></th>
-                        <th></th>
+                        <th>More Info</th>
+                        <th>Add Cart</th>
+                        <th *ngIf="roleUser=='admin' || roleUser=='master'">Delete</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let product of products">
-                        <td> Image {{product.id}}</td>
-                        <td><a>
+                <tbody >
+                    <tr *ngFor="let product of productsFiltered
+                              | paginate: {itemsPerPage: itemsPerPage,
+                                currentPage:currentPage,
+                                id: '1'};
+                                let i = index;">
+                        <td><img class="imgProduct" style="height: 100px; width: 100px" src="app/shopApp/images/{{product.id}}.jpg"></td>
+                        <td class="productsTable"><a>
                             {{product.name}}
                             </a>
                         </td>
-                        <td>{{ product.price | currency: "€" }}</td>
-                       <td>
-                            <a class="btn btn-primary"
-                            (click)="goToDetail(product)">
-                              +
-                            </a>
+                        <td class="productsTable">{{ product.price | currency: "€" }}</td>
+                       <td class="productsTable">
+                         <a class="btn btn-primary"
+                         (click)="goToDetail(product)">
+                           +
+                         </a>
                         </td>
-                        <td>
+                        <td class="productsTable">
                              <a class="btn btn-success"
                              (click)="addCart(product)">
                                Add Cart
                              </a>
                          </td>
-                         <td *ngIf="roleUser=='admin' || roleUser=='master'">
+                         <td class="productsTable" *ngIf="roleUser=='admin' || roleUser=='master'">
                            <button class="btn btn-danger"
                              (click)="removeProduct(product)">X</button>
                          </td>
@@ -81,19 +88,29 @@
                     </tr>
                 </tbody>
             </table>
+            <pagination-controls (pageChange)="currentPage = $event"
+               id="1"
+               maxSize="5"
+               directionLinks="true"
+               autoHide="true">
+           </pagination-controls>
         </div>
         <div *ngIf="typeView==1" >
           <div *ngIf="products && products.length">
-            <div *ngFor="let product of products">
+            <div *ngFor="let product of productsFiltered
+                        | paginate: {itemsPerPage: itemsPerPage,
+                          currentPage:currentPage,
+                          id: '1'};
+                          let i = index;">
               <div class="product-single" >
-                 <a href="#">Image {{product.id}}</a><br>
+                 <a href="#"><img class="imgProduct" style="height: 100px; width: 100px" src="app/shopApp/images/{{product.id}}.jpg"></a><br>
                  <a href="#"><strong>{{product.name}}</strong></a>
                  <div>
                    {{ product.price | currency:"€" }}
                  </div>
                  <a class="btn btn-primary"
                  (click)="goToDetail(product)">
-                     Go to detail
+                   +
                  </a>
                  <a class="btn btn-success"
                  (click)="addCart(product)">
@@ -101,6 +118,12 @@
                  </a>
               </div>
           </div>
+          <pagination-controls (pageChange)="currentPage = $event"
+             id="1"
+             maxSize="5"
+             directionLinks="true"
+             autoHide="true">
+         </pagination-controls>
         </div>
       </div>
     </div>
