@@ -1,40 +1,46 @@
-<div *ngIf="shopAction==1">
-  <h1>Products in cart</h1>
-    <table class="table">
-      <tr>
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Remove</th>
-      </tr>
-      <tr *ngFor="let comanda of productsSelected">
-        <td>{{comanda.name}}</td>
-        <div *ngFor="let comand of comandaProducts">
-        <td *ngIf="comanda.id===comand.idProducto">
-            <input (ngModelChange)="calculateTotalPrice($event)" type="number" class="form-control" [(ngModel)]="comand.quantitat"/>
-        </td>
-        </div>
-        <td><input class="form-control"
-                name="price"
-                #price="ngModel"
-                currencyMask
-                [options]="{ prefix:'', suffix: ' €',
-                              thousands: '.', decimal: ',' }"
-                [(ngModel)]="comanda.price"
-                type="text"
-                disabled
-                readonly/></td>
-        <td><button class="btn btn-danger">X</button></td>
-      </tr>
-      <tr>
-        <th></th>
-        <th></th>
-        <th>Total Price</th>
-        <th>{{comanda.totalPrice}}</th>
-      </tr>
-    </table>
-    <input type="button" class="btn btn-success" (click)="checkandPay()" value="Pay" />
+<div class="container">
+  <div *ngIf="shopAction==1">
+    <h1>Products in cart</h1>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Remove</th>
+        </tr>
+        <tr *ngFor="let comanda of productsSelected">
+          <td>{{comanda.name}}</td>
+          <div *ngFor="let comand of comandaProducts">
+          <td *ngIf="comanda.id===comand.idProducto">
+              <input (ngModelChange)="calculateTotalPrice($event)" type="number" class="form-control" [(ngModel)]="comand.quantitat"/>
+          </td>
+          </div>
+          <td><input class="form-control"
+                  name="price"
+                  #price="ngModel"
+                  currencyMask
+                  [options]="{ prefix:'', suffix: ' €',
+                                thousands: '.', decimal: ',' }"
+                  [(ngModel)]="comanda.price"
+                  type="text"
+                  disabled
+                  readonly/></td>
+          <td><button class="btn btn-danger" (click)="deleteProduct(comanda)">X</button></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Total Price</th>
+          <th>{{comanda.totalPrice}}</th>
+        </tr>
+      </table>
+      <input type="button" class="btn btn-success" (click)="checkandPay()" value="Pay" />
+  </div>
+  <comanda-details
+  [comanda]="comanda"
+  *ngIf="shopAction==2"></comanda-details>
+  <div *ngIf="shopAction==3">
+    <h1>The Cart Is Empty</h1>
+  </div>
+  <button class="btn btn-primary" value="back To The Shop" (click)="setShopActionManagement.emit(0)">Back to the Shop</button>
 </div>
-<comanda-details
-[comanda]="comanda"
-*ngIf="shopAction==2"></comanda-details>

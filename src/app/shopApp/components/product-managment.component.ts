@@ -64,6 +64,10 @@ export class ProductManagmentComponent implements OnInit {
               private cookieService: CookieService ) { }
 
   ngOnInit() {
+
+    this.comandaProducts = [];
+    this.productsFiltered = [];
+    this.products = [];
     this.typeView = 0;
     // this.shopAction = 0;
     this.productDataService.getAllProducts().subscribe(
@@ -83,7 +87,7 @@ export class ProductManagmentComponent implements OnInit {
              this.products.push(product);
 
            }
-           console.log(this.products);
+
          } else {
            alert("Sorry, there has been an error, try later");
            console.log("ProductManagmentComponent (ngOnInit): outPutData is false or not array: "
@@ -114,7 +118,6 @@ export class ProductManagmentComponent implements OnInit {
 
 
   if(this.cookieService.check("cart")){
-    this.comandaProducts = [];
     this.cartCont = 0;
      let cart:any =
            JSON.parse(this.cookieService.get("cart"));
@@ -194,15 +197,13 @@ export class ProductManagmentComponent implements OnInit {
   goToDetail (product : Products) : void {
     this.productDetail = product;
     this.shopAction = 1;
-    console.log("Detail");
-
   }
 
 
 
   setShopActionManagement(action:number): void{
-
     this.shopAction=action;
+    this.ngOnInit();
   }
 
   addCart(product: Products):void{
@@ -231,17 +232,16 @@ export class ProductManagmentComponent implements OnInit {
         }
       }
       if(flag){
-        this.comanda.setProductsComanda(this.comandaPs);
-        this.comandaProducts.push(this.comandaPs);
 
+        this.comandaProducts.push(this.comandaPs);
+        this.comanda.setProductsComanda(this.comandaProducts);
         this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
       }
     }else{
       this.comandaPs.setQuantitat(1);
       this.comandaPs.setIdProducto(product.id);
-      this.comanda.setProductsComanda(this.comandaPs);
-
       this.comandaProducts.push(this.comandaPs);
+      this.comanda.setProductsComanda(this.comandaProducts);
       this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
     }
   }

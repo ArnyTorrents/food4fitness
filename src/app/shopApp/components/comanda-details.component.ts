@@ -24,16 +24,32 @@ export class ComandaDetails implements OnInit {
 
   @Input() comanda: Comanda;
   user: User;
+  cont: number;
+  methodsOfPayment: any[]=[];
 
-  constructor() { }
+  constructor(private cookieService: CookieService ) { }
 
   ngOnInit() {
-      let cookieObj:any =   JSON.parse(sessionStorage.getItem("connectedUser"));
-      this.user = cookieObj;
 
+      this.methodsOfPayment = ["Paypal","Credit Card","Cash on delivery"];
+
+      let cookieObj:any =   JSON.parse(sessionStorage.getItem("connectedUser"));
+      let cartCont:any =
+            JSON.parse(this.cookieService.get("cartCont"));
+      this.user = cookieObj;
+      this.cont = cartCont;
+
+
+      let userConnected = new User();
+      Object.assign(userConnected,cookieObj);
+      this.user = userConnected;
       console.log(this.comanda);
+
   }
 
+  addRemoveSpecialRequest(id: number): void {
+    console.log(id);
+  }
 
 
 
