@@ -41,7 +41,6 @@ import { CookieService } from 'ngx-cookie-service';
 import {AppRoutingModule} from './mainApp/routing/app.routing';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

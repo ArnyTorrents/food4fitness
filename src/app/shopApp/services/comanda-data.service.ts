@@ -3,10 +3,11 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import {Observable} from 'rxjs/Rx';
 
-import { Products } from './../model/products';
+import { Comanda } from './../model/comanda';
+
 
 @Injectable()
-export class ProductDataService {
+export class ComandaDataService {
 
   private mainUrl : string = "http://localhost/food4fitness/src/app/shopApp/php/controllers/MainController.php";
 
@@ -15,48 +16,29 @@ export class ProductDataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  downloadInitData() : Observable<any[]> {
+  insertComanda(comanda : Comanda) : Observable<any[]> {
       this.body = {
-        controller: 'product',
-        action: '10000',
-        jsonData: ""
-      }
-
-      return this.accessServer();
-  }
-
-  getAllProducts(): Observable<any[]> {
-    this.body = {
-         controller: 'product',
-         action: "10020",
-         jsonData: ""
-    }
-
-    return this.accessServer();
-  }
-
-  insertProducts(product : Products) : Observable<any[]> {
-      this.body = {
+        controller: 'comanda',
         action: '10010',
-        jsonData: JSON.stringify(product)
+        jsonData: JSON.stringify(comanda)
       }
 
       return this.accessServer();
   }
 
-  modifyProducts(product:Products): Observable<any[]> {
+  modifyComanda(comanda:Comanda): Observable<any[]> {
     this.body = {
           action: "10030",
-          jsonData: JSON.stringify(product)
+          jsonData: JSON.stringify(comanda)
     }
 
     return this.accessServer();
   }
 
-  removeProducts(product:Products): Observable<any[]> {
+  removeComanda(comanda:Comanda): Observable<any[]> {
     this.body = {
           action: "10040",
-          jsonData: JSON.stringify(product)
+          jsonData: JSON.stringify(comanda)
     }
 
     return this.accessServer();
@@ -73,4 +55,5 @@ export class ProductDataService {
                 {headers:httpHeaders,
                  params:this.httpParams});
   }
+
 }
