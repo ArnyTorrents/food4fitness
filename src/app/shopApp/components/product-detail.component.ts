@@ -30,7 +30,7 @@ export class ProductDetailComponent implements OnInit {
   edit: number;
   new: number;
   product: Products;
-  files: any[];
+  validFile: boolean = false;
 
 
 
@@ -48,7 +48,6 @@ export class ProductDetailComponent implements OnInit {
               private cookieService: CookieService) { }
 
   ngOnInit() {
-    this.files = [];
     this.edit = 0;
     this.new = 0;
     this.product = new Products();
@@ -67,16 +66,15 @@ export class ProductDetailComponent implements OnInit {
 
   }
 
-  onFileChanged(event: any) {
-    this.files = event.target.files;
-  }
-
-  onUpload() {
-    const formData = new FormData();
-    for (const file of this.files) {
-        formData.append(name, file, file.name);
+  getFiles(event): void{
+    if (event.target.files.length> 0)
+    {
+      this.userImageFile = event.target.files[0];
+      this.validFile = true;
     }
-    // this.http.post('url', formData).subscribe(x => ....);
+    else {
+      this.validFile = false;
+    }
   }
 
   productMangment() : void {
@@ -139,7 +137,7 @@ export class ProductDetailComponent implements OnInit {
     this.edit = 0;
 
     this.productDetail = new Products();
-    this.productDetail.setProductType (this.productsType[0]);
+    //this.productDetail.setProductType (this.productsType[0]);
     console.log(this.productsType);
     // this.productDetail.setId(this.products.length+1);
     console.log(this.productDetail);

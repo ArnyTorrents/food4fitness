@@ -27,8 +27,21 @@
         <table class="tableCenter">
           <th *ngIf="edit==1 || new==0"> <img class="imgProduct" src="app/shopApp/images/{{productDetail.id}}.jpg"></th>
           <th *ngIf="new==1">
-                <input type="file" name="imageProduct"
-                       id="file" (change)="onFileChanged($event)" /></th>
+              <input class="form-control" type="file" file="image"
+                   accept="image/*"
+                   id="img"
+                   name="imgProduct"
+                   ngModel
+                   (change)="getFiles($event)"/>
+             <p class="help-block" *ngIf="!validFile" >
+               Your picture must be uploaded
+             </p>
+                <!-- <input type="file" name="imageProduct"
+                       id="img"
+                       #imageProduct="ngModel"
+                       [(ngModel)]="productDetail.img"
+                       (change)="getFiles($event)" /> -->
+          </th>
           <th>
              <table class="table">
               <tbody>
@@ -62,7 +75,7 @@
                           <td *ngIf="edit==1 || new==1">
                           <td *ngIf="edit==1 || new==1">
                             <label for="formGroup">Select the Type: *</label>
-                               <select class="form-control"
+                               <select class="custom-select form-control"
                                        name="productType"
                                        id="productType"
                                        #productType="ngModel"

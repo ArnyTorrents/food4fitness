@@ -154,6 +154,7 @@ private downloadInitData  () : void {
      {
        if(outPutData[0]=== true)
        {
+         this.productsType =[];
          // this.productsType = [];
          for (let i:number = 0; i < outPutData[1].length; i++) {
              let productType = new ProductType();

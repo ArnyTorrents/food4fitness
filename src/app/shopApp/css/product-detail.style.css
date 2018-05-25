@@ -1,6 +1,6 @@
 .imgProduct {
-  height: 250px;
-  width: 250px;
+  height: 75%;
+  width: 75%;
   padding-right: 10%;
   padding-top: 25%;
   vertical-align: top;
@@ -17,6 +17,7 @@
 
 .tableCenter {
   margin: 10px auto;
+
 }
 
 .insert {
