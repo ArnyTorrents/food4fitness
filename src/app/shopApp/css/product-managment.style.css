@@ -1,3 +1,43 @@
 .productsTable{
   vertical-align: inherit;
 }
+
+.imgProduct {
+  height: 40%;
+  width: 40%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+
+.product-single {
+  display: block;
+  padding: 4px;
+  line-height: 20px;
+  border: 1px solid gray;
+  /* border: 1px solid #ddd; */
+  margin: 5% 15% 5% 15%;
+  border-radius: 10%;
+  text-align: center;
+  max-width: 45%;
+  max-height: 43%;
+  min-width: 20%;
+  min-height: 20%;
+}
+
+.product-single > a {
+  margin: 3%;
+
+}
+
+.filter {
+
+}
+
+.paginate {
+  text-align: center;
+}
+
+.viewIcon {
+  border-top: white;
+
+}

@@ -1,16 +1,17 @@
 <div *ngIf="shopAction == 0">
-<nav class="nav d-flex justify-content-between">
-  <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
-  <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
-  <a class="p-2 text-muted" (click)="shopAction=2">
-    {{cartCont}}
-    <img src="http://icons-for-free.com/icon/download-basket_cart_purchase_shop_shopping_shopping_cart_shopping_trolleys_icon-603390.ico" width="50 " height="auto">
-  </a>
-</nav>
-</div>
+    <div>
+      <nav class="nav d-flex justify-content-between">
+        <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
+        <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
+        <a class="p-2 text-muted" (click)="shopAction=2">
+          {{cartCont}}
+          <img src="http://icons-for-free.com/icon/download-basket_cart_purchase_shop_shopping_shopping_cart_shopping_trolleys_icon-603390.ico" width="50 " height="auto">
+        </a>
+      </nav>
+    </div>
     <!-- Filter the Products   -->
-    <div class="panel-body" *ngIf="shopAction==0">
-        <div class="row">
+    <div class="panel-body">
+        <div class="row filter">
             <div class="col-md-2">Filter by:</div>
             <div class="col-md-4">
                 <input type="text"
@@ -62,12 +63,16 @@
                                 currentPage:currentPage,
                                 id: '1'};
                                 let i = index;">
-                        <td><img class="imgProduct" style="height: 100px; width: 100px" src="app/shopApp/images/{{product.id}}.jpg"></td>
+                        <td>
+                          <img class="imgProduct"
+                          style="height: 100px; width: 100px"
+                          src="app/shopApp/images/{{product.id}}.jpg">
+                        </td>
                         <td class="productsTable"><a>
                             {{product.name}}
                             </a>
                         </td>
-                        <td class="productsTable">{{ product.price | currency: "€" }}</td>
+                        <td class="productsTable">{{ product.price  }} €</td>
                        <td class="productsTable">
                          <a class="btn btn-primary"
                          (click)="goToDetail(product)">
@@ -97,28 +102,33 @@
         </div>
         <div *ngIf="typeView==1" >
           <div *ngIf="products && products.length">
-            <div *ngFor="let product of productsFiltered
-                        | paginate: {itemsPerPage: itemsPerPage,
-                          currentPage:currentPage,
-                          id: '1'};
-                          let i = index;">
-              <div class="product-single" >
-                 <a href="#"><img class="imgProduct" style="height: 100px; width: 100px" src="app/shopApp/images/{{product.id}}.jpg"></a><br>
-                 <a href="#"><strong>{{product.name}}</strong></a>
-                 <div>
-                   {{ product.price | currency:"€" }}
-                 </div>
-                 <a class="btn btn-primary"
-                 (click)="goToDetail(product)">
-                   +
-                 </a>
-                 <a class="btn btn-success"
-                 (click)="addCart(product)">
-                   Add Cart
-                 </a>
-              </div>
-          </div>
-          <pagination-controls (pageChange)="currentPage = $event"
+            <table class="table" >
+               <tbody>
+                  <span *ngFor="let product of productsFiltered
+                            | paginate: {itemsPerPage: itemsPerPage,
+                              currentPage:currentPage,
+                              id: '1'};
+                              let i = index;">
+                          <div class="product-single" >
+                             <a href="#"><img class="imgProduct" src="app/shopApp/images/{{product.id}}.jpg"></a><br>
+                             <a href="#"><strong>{{product.name}}</strong></a>
+                             <div>
+                               {{ product.price }} €
+                             </div>
+                             <a class="btn btn-primary"
+                             (click)="goToDetail(product)">
+                               +
+                             </a>
+                             <a class="btn btn-success"
+                             (click)="addCart(product)">
+                               Add Cart
+                             </a>
+                        </div>
+                  </span>
+              </tbody >
+            </table>
+
+          <pagination-controls class="paginate" (pageChange)="currentPage = $event"
              id="1"
              maxSize="5"
              directionLinks="true"
@@ -127,6 +137,8 @@
         </div>
       </div>
     </div>
+</div>
+
 
 
 
@@ -140,5 +152,6 @@
 <product-detail *ngIf="shopAction==1"
 [productsType]="productsType"
 [productDetail]="productDetail"
+[products]="products"
 (setShopAction) = "setShopActionManagement($event)">
 </product-detail>

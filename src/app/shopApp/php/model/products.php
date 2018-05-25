@@ -47,7 +47,7 @@ class Products implements EntityInterface {
     return $this->totalFat;
   }
   public function getStock(){
-    return $this->$stock;
+    return $this->stock;
   }
   public function getGoodFor(){
     return $this->goodFor;
@@ -97,7 +97,7 @@ class Products implements EntityInterface {
   public function getAll(){
     $data = array();
     $data["id"] = $this->id;
-    $data["productType"] = $this->productType;//->getAll()
+    $data["productType"] = $this->productType->getAll();
     $data["name"] = $this->name;
     $data["price"] = $this->price;
     $data["description"] = $this->description;

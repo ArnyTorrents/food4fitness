@@ -106,7 +106,7 @@ class ProductControllerClass implements ControllerInterface {
 			} else {
 				$outPutData[0] = false;
 				$errors[]="No ProductType found in the data base";
-				error_log("ProductControllerClass (downloadInitData): No ProductType found in the data base");
+				//error_log("ProductControllerClass (downloadInitData): No ProductType found in the data base");
 			}
 
 			if($outPutData[0])
@@ -121,45 +121,42 @@ class ProductControllerClass implements ControllerInterface {
 
 	private function insertProduct () {
 		//We get all data from client
+		$outPutData = array();
 		$ProductObj = json_decode(stripslashes($this->getJsonData()));
 
-		$product = new Products();
+		try {
 
-		$productType = new ProductType();
-		$productType->setAll(
-			$ProductObj->productType->id,
-			$ProductObj->productType->name,
-			$ProductObj->productType->description);
+			$product = new Products();
 
-		$product->setAll(0, $ProductObj->id,
-									$productType,
-									$ProductObj->name,
-									$ProductObj->price,
-									$ProductObj->description,
-									$ProductObj->calories,
-									$ProductObj->proteins,
-									$ProductObj->carbohydrates,
-									$ProductObj->totalFat,
-									$ProductObj->stock,
-									$ProductObj->goodFor,
-									$ProductObj->img
-		);
+			$productType = new ProductType();
+			$productType->setAll(
+				$ProductObj->productType->id,
+				$ProductObj->productType->name,
+				$ProductObj->productType->description);
 
-		$product->setId(ProductADO::create($product));
+			$product->setAll($ProductObj->id,
+										$productType,
+										$ProductObj->name,
+										$ProductObj->price,
+										$ProductObj->description,
+										$ProductObj->calories,
+										$ProductObj->proteins,
+										$ProductObj->carbohydrates,
+										$ProductObj->totalFat,
+										$ProductObj->stock,
+										$ProductObj->goodFor,
+										$ProductObj->img
+			);
 
-		// foreach ($product->getSpecialRequests() as $specialRequest) {
-		// 	$ProductsSpecialRequests = new ProductsSpecialRequests();
-		// 	$ProductsSpecialRequests->setAll(0,
-		// 		$Product->getId(),
-		// 		$specialRequest->getId()
-		// 	);
-		//
-		// 	ProductsSpecialRequestsADO::create($ProductsSpecialRequests);
-		// }
+			$product->setId(ProductADO::create($product));
 
-		$outPutData = array();
-		$outPutData[]= true;
-		$outPutData[]= array($product->getAll());
+			$outPutData[]= true;
+			$outPutData[]= array($product->getAll());
+
+		} catch (Exception $e) {
+			$outPutData[]= "false";
+			echo 'ProductControllerClass(InsertProduct) Caught exception: ',  $e->getMessage(), "\n";
+		}
 
 		return $outPutData;
 	}
@@ -170,70 +167,38 @@ class ProductControllerClass implements ControllerInterface {
 		$outPutData = array();
 
 		$ProductObj = json_decode(stripslashes($this->getJsonData()));
+		try {
+			$ProductType = new ProductType();
+			$ProductType->setAll($ProductObj->productType->id,
+			 										 $ProductObj->productType->name,
+													 $ProductObj->productType->description);
 
-		$ProductType = new ProductType();
-		$ProductType->setAll($ProductObj->ProductType->id, $ProductObj->ProductType->name,$ProductObj->ProductType->description);
+			$product = new Products();
+			$product->setAll($ProductObj->id,
+												$ProductType,
+												$ProductObj->name,
+												$ProductObj->price,
+												$ProductObj->description,
+												$ProductObj->calories,
+												$ProductObj->proteins,
+												$ProductObj->carbohydrates,
+												$ProductObj->totalFat,
+												$ProductObj->stock,
+												$ProductObj->goodFor,
+												$ProductObj->img);
 
-		$product = new Products();
-		$product->setAll(0, $ProductObj->id,
-											$ProductType,
-											$ProductObj->name,
-											$ProductObj->price,
-											$ProductObj->description,
-											$ProductObj->calories,
-											$ProductObj->proteins,
-											$ProductObj->carbohydrates,
-											$ProductObj->totalFat,
-											$ProductObj->stock,
-											$ProductObj->goodFor,
-											$ProductObj->img);
+			ProductADO::update($product);
 
-		ProductADO::update($product);
-
-		//the senetnce returns de id of the Product inserted
-		$outPutData[]= "true";
-		$outPutData[]= $product->getAll();
+			//the senetnce returns de id of the Product inserted
+			$outPutData[]= "true";
+			$outPutData[]= $product->getAll();
+		} catch (Exception $e) {
+			$outPutData[]= "false";
+			echo 'ProductControllerClass(modifyProduct) Caught exception: ',  $e->getMessage(), "\n";
+		}
 
 		return $outPutData;
 	}
-
-	// private function removeProduct()
-	// {
-	// 	//Product modification
-	// 	$outPutData = array();
-	//
-	// 	$ProductObj = json_decode(stripslashes($this->getJsonData()));
-	// 	try {
-	//
-	// 		$ProductType = new ProductType();
-	// 		$ProductType->setAll($ProductObj->ProductType->id, $ProductObj->ProductType->name,$ProductObj->ProductType->description);
-	//
-	// 		$outPutData[]= "true";
-	// 		$product = new Products();
-	//
-	// 		$product->setId($ProductObj->id);
-	// 		$product->setProductType($ProductType);
-	// 		$product->setName($ProductObj->name);
-	// 		$product->setPrice($ProductObj->price);
-	// 		$product->setDescription($ProductObj->description);
-	// 		$product->setCalories($ProductObj->calories);
-	// 		$product->setProteins($ProductObj->proteins);
-	// 		$product->setCarbohydrates($ProductObj->carbohydrates);
-	// 		$product->setTotalFat($ProductObj->totalFat);
-	// 		$product->setStock($ProductObj->stock);
-	// 		$product->setGoodFor($ProductObj->goodFor);
-	// 		$product->setImg($ProductObj->img);
-	//
-	// 		$outPutData[1] = ProductADO::delete($product);
-	//
-	//
-	// 	} catch (Exception $e) {
-	// 		$outPutData[]= "false";
-	// 		echo 'ProductControllerClass(removeProduct) Caught exception: ',  $e->getMessage(), "\n";
-	// 	}
-	//
-	// 	return $outPutData;
-	// }
 
 	private function getAllProducts()
 	{

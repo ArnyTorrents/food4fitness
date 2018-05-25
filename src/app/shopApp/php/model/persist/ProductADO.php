@@ -294,9 +294,20 @@ class ProductADO implements EntityInterfaceADO {
       die();
     }
 
-    $cons="insert into ".ProductADO::$tableName." (`productType`, `name`, `price`, `description`, `calories`, `proteines`, `carbohydrates`, `total Fat`, `stock`, `good For`, `img`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $arrayValues= [$product->getProductType(), $product->getName(),$product->getPrice(), $product->getDescription(), $product->getCalories(), $product->getProteins(), $product->getCarbohydrates(),
-                   $product->getTotalFat(), $product->getStock(),$product->getGoodFor(), $product->getImg() ];
+    $cons="insert into ".ProductADO::$tableName." (`productType`, `name`, `price`, `description`, `calories`, `proteines`, `carbohydrates`, `totalFat`, `stock`, `goodFor`, `img`)
+            values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $arrayValues= [$product->getProductType()->getId(),
+                   $product->getName(),
+                   $product->getPrice(),
+                   $product->getDescription(),
+                   $product->getCalories(),
+                   $product->getProteins(),
+                   $product->getCarbohydrates(),
+                   $product->getTotalFat(),
+                   $product->getStock(),
+                   $product->getGoodFor(),
+                   $product->getImg() ];
 
     $id = $conn->executionInsert($cons, $arrayValues);
 
@@ -342,19 +353,20 @@ class ProductADO implements EntityInterfaceADO {
     }
 
     $cons="update `".ProductADO::$tableName."` set "
-                    .ProductADO::$colNameProductType." = ?, "
+                    .ProductADO::$colNameProductTypeId." = ?, "
                     .ProductADO::$colNameName." = ?, "
                     .ProductADO::$colNamePrice." = ?, "
                     .ProductADO::$colNameDescription." = ?, "
-                    .ProductADO::$colNameCaloreis." = ?, "
+                    .ProductADO::$colNameCalories." = ?, "
                     .ProductADO::$colNameProteines." = ?, "
                     .ProductADO::$colNameCarbohydrates." = ?, "
                     .ProductADO::$colNameTotalFat." = ?, "
-                    .ProductADO::$colNameGoodFor." = ? where "
-                    .ProductADO::$colNameImg." = ?"
+                    .ProductADO::$colNameStock." = ?, "
+                    .ProductADO::$colNameGoodFor." = ?, "
+                    .ProductADO::$colNameImg." = ? where "
                     .ProductADO::$colNameId." = ?" ;
 
-    $arrayValues= [$product->getProductType(),
+    $arrayValues= [$product->getProductType()->getId(),
                    $product->getName(),
                    $product->getPrice(),
                    $product->getDescription(),

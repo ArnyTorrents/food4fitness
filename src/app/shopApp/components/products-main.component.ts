@@ -18,7 +18,7 @@ import { ProductDataService } from './../services/product-data.service';
 export class ProductsMainComponent implements OnInit {
 
   shopAction: number;
-  productsType:ProductType[];
+  productsType:ProductType[] = [];
   products: Products[] = [];
 
   constructor(private productDataService : ProductDataService,
@@ -26,8 +26,7 @@ export class ProductsMainComponent implements OnInit {
 
   ngOnInit() {
     this.shopAction=0;
-    this.downloadInitData();
-
+    // this.downloadInitData();
   }
 
   private downloadInitData  () : void {
@@ -56,6 +55,7 @@ export class ProductsMainComponent implements OnInit {
        }
      }
    );
+   // console.log(this.productsType);
 
   }
 

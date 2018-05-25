@@ -1,64 +1,266 @@
-<div class="panel panel-primary productDetail" >
-    <div class="panel-heading" style="font-size:large">
-        {{pageTitle + ": " + productDetail.name}}
-        <div *ngIf="roleUser=='admin' || roleUser=='master'">
-          <input class="btn btn-default btn-success insert"
-                 type="button"
-                 value="Insert Product"
-                 />
+<form #productDetailForm="ngForm" (submit)="productMangment()" novalidate>
+  <div class="panel panel-primary productDetail" >
+      <div class="panel-heading" style="font-size:large">
+          {{pageTitle + ": " + productDetail.name}}
+          <div *ngIf="roleUser=='admin' || roleUser=='master'">
+            <input class="btn btn-default btn-success insert"
+                   type="button"
+                   value="Insert Product"
+                   (click)="insert()"
+                   />
 
+            <input class="btn btn-default btn-success insert"
+                  type="button"
+                  value="Modify Product"
+                  (click)="modify()"
+                  />
           <input class="btn btn-default btn-success"
                 type="button"
-                value="Modify Product"
+                value="View Product"
+                (click)="edit=0"
+                (click)="new=0"
                 />
-        </div>
-    </div>
+          </div>
+      </div>
 
-    <div class="table-responsive panel ">
-      <table class="tableCenter">
-        <th> <img class="imgProduct" src="app/shopApp/images/{{productDetail.id}}.jpg"></th>
-        <th>
-           <table class="table">
-            <tbody>
-                    <tr>
-                        <td>Name: </td>
-                        <td>{{productDetail.name}}</td>
-                    </tr>
-                    <tr>
-                        <td>Price: </td>
-                        <td>{{productDetail.price}} €</td>
-                    </tr>
-                    <tr>
-                        <td>Description: </td>
-                        <td>{{productDetail.description}}</td>
-                    </tr>
-                    <tr>
-                        <td>Calories: </td>
-                        <td>{{productDetail.calories}}</td>
-                    </tr>
-                    <tr>
-                        <td>Proteines: </td>
-                        <td>{{productDetail.proteins}}</td>
-                    </tr>
-                    <tr>
-                        <td>Carbohydrates: </td>
-                        <td>{{productDetail.carbohydrates}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Fat: </td>
-                        <td>{{productDetail.totalFat}}</td>
-                    </tr>
-                    <tr>
-                        <td>Good For:</td>
-                        <td>{{productDetail.goodFor}}</td>
-                    </tr>
-            </tbody>
-          </table>
-        </th>
-      </table>
-      <input class="btn btn-default btn-primary"
-             type="button"
-             value="Back"
-             (click)="setShopAction.emit(0)"/>
+      <div class="table-responsive panel ">
+        <table class="tableCenter">
+          <th *ngIf="edit==1 || new==0"> <img class="imgProduct" src="app/shopApp/images/{{productDetail.id}}.jpg"></th>
+          <th *ngIf="new==1">
+              <input class="form-control" type="file" file="image"
+                   accept="image/*"
+                   id="img"
+                   name="imgProduct"
+                   ngModel
+                   (change)="getFiles($event)"/>
+             <p class="help-block" *ngIf="!validFile" >
+               Your picture must be uploaded
+             </p>
+                <!-- <input type="file" name="imageProduct"
+                       id="img"
+                       #imageProduct="ngModel"
+                       [(ngModel)]="productDetail.img"
+                       (change)="getFiles($event)" /> -->
+          </th>
+          <th>
+             <table class="table">
+              <tbody>
+                      <tr>
+                          <td>Name: </td>
+                          <td *ngIf="edit==0 && new==0">{{productDetail.name}}</td>
+                          <td *ngIf="edit==1 || new==1">
+                            <input class="form-control" type="text" name="productName"
+      					              #productName = "ngModel"
+      					              [(ngModel)]="productDetail.name"
+      					              required />
+      		              		<div class="has-error"
+      				              *ngIf="productName.touched && productName.invalid">
+      				              <span
+      				                *ngIf="productName.errors.required"
+      				                id="help-block-matrix-range" class="help-block ">
+      				                  Please, name cannot be empty.
+      				              </span>
+      				              <span
+      				                *ngIf="productName.errors.isNotCorrect && !productName.errors.required"
+      				                id="help-block-matrix-range" class="help-block ">
+      				                  Please, name must have at least seven characters.
+      				              </span>
+      				            </div>
+          					    </td>
+
+                      </tr>
+                      <tr>
+                          <td *ngIf="new==0 && edit==0">Type: </td>
+                          <td *ngIf="new==0 && edit==0">{{productDetail.productType.name}}</td>
+                          <td *ngIf="edit==1 || new==1">
+                          <td *ngIf="edit==1 || new==1">
+                            <label for="formGroup">Select the Type: *</label>
+                               <select class="custom-select form-control"
+                                       name="productType"
+                                       id="productType"
+                                       #productType="ngModel"
+                                       [(ngModel)]="productDetail.productType">
+
+                                 <option *ngFor="let productType of productsType; let y = index"
+                                         [ngValue]="productType">
+                                   {{productType.getName()}}
+                                 </option>
+                               </select>
+          					    </td>
+
+                      </tr>
+                      <tr>
+                          <td>Price: </td>
+                          <td *ngIf="edit==0 && new==0">{{productDetail.price}} €</td>
+                          <td *ngIf="edit==1 || new==1">
+                            <input class="form-control" type="text"
+                           	      min="0"  name="productPrice"
+            				              #productPrice = "ngModel"
+            				              [(ngModel)]="productDetail.price"
+                                  currencyMask
+                                  [options]="{ prefix:'', suffix: ' €',
+                                              thousands: '.', decimal: ',' }"
+            				              required />
+
+            		              		<div class="has-error"
+            				              *ngIf="productPrice.touched && productPrice.invalid">
+            				              <span
+            				                *ngIf="productPrice.errors.required"
+            				                id="help-block-matrix-range" class="help-block ">
+            				                  Please, price cannot be empty.
+            				              </span>
+            				            </div>
+            					    </td>
+                      </tr>
+                      <tr>
+                          <td>Description: </td>
+                          <td *ngIf="edit==0 && new==0">{{productDetail.description}}</td>
+                          <td *ngIf="edit==1 || new==1">
+                            <input class="form-control" type="text"
+                           	min="0"  name="productDescription"
+        				              #productDescription = "ngModel"
+        				              [(ngModel)]="productDetail.description"
+        				              required />
+        		              		<div class="has-error"
+        				              *ngIf="productDescription.touched && productDescription.invalid">
+        				              <span
+        				                *ngIf="productDescription.errors.required"
+        				                id="help-block-matrix-range" class="help-block ">
+        				                  Please, description cannot be empty.
+        				              </span>
+        				            </div>
+  					              </td>
+                      </tr>
+                      <tr>
+                          <td>Calories: </td>
+                          <td *ngIf="edit==0 && new==0">{{productDetail.calories}}</td>
+                          <td *ngIf="edit==1 || new==1">
+                            <input class="form-control" type="number"
+                           	      min="0"  name="productCalories"
+            				              #productCalories = "ngModel"
+            				              [(ngModel)]="productDetail.calories"
+            				              required />
+            		              		<div class="has-error"
+            				              *ngIf="productCalories.touched && productCalories.invalid">
+            				              <span
+            				                *ngIf="productCalories.errors.required"
+            				                id="help-block-matrix-range" class="help-block ">
+            				                  Please, Calories cannot be empty.
+            				              </span>
+            				            </div>
+            					    </td>
+
+                      </tr>
+                      <tr>
+                          <td>Proteines: </td>
+                          <td *ngIf="edit==0 && new==0">{{productDetail.proteins}}</td>
+                          <td *ngIf="edit==1 || new==1">
+                            <input class="form-control" type="number"
+                           	      min="0"  name="productProteines"
+            				              #productProteines = "ngModel"
+            				              [(ngModel)]="productDetail.proteins"
+            				              required />
+            		              		<div class="has-error"
+            				              *ngIf="productProteines.touched && productProteines.invalid">
+            				              <span
+            				                *ngIf="productProteines.errors.required"
+            				                id="help-block-matrix-range" class="help-block ">
+            				                  Please, Proteines cannot be empty.
+            				              </span>
+            				            </div>
+            					    </td>
+
+                      </tr>
+                      <tr>
+                          <td>Carbohydrates: </td>
+                          <td *ngIf="edit==0 && new==0">{{productDetail.carbohydrates}}</td>
+                          <td *ngIf="edit==1 || new==1">
+                            <input class="form-control" type="number"
+                           	      min="0"  name="productCarbohydrates"
+            				              #productCarbohydrates = "ngModel"
+            				              [(ngModel)]="productDetail.carbohydrates"
+            				              required />
+            		              		<div class="has-error"
+            				              *ngIf="productCarbohydrates.touched && productCarbohydrates.invalid">
+            				              <span
+            				                *ngIf="productCarbohydrates.errors.required"
+            				                id="help-block-matrix-range" class="help-block ">
+            				                  Please, carbohydrates cannot be empty.
+            				              </span>
+            				            </div>
+            					    </td>
+                      </tr>
+                      <tr>
+                          <td>Total Fat: </td>
+                          <td *ngIf="edit==0 && new==0">{{productDetail.totalFat}}</td>
+                          <td *ngIf="edit==1 || new==1">
+                            <input class="form-control" type="number"
+                           	      min="0"  name="productTotalFat"
+            				              #productTotalFat = "ngModel"
+            				              [(ngModel)]="productDetail.totalFat"
+            				              required />
+            		              		<div class="has-error"
+            				              *ngIf="productTotalFat.touched && productTotalFat.invalid">
+            				              <span
+            				                *ngIf="productTotalFat.errors.required"
+            				                id="help-block-matrix-range" class="help-block ">
+            				                  Please, Total Fat cannot be empty.
+            				              </span>
+            				            </div>
+            					    </td>
+                      </tr>
+                      <tr *ngIf="edit==1 || new==1">
+                          <td>Stock: </td>
+                          <td>
+                            <input class="form-control" type="number"
+                           	      min="0"  name="productStock"
+            				              #productStock = "ngModel"
+            				              [(ngModel)]="productDetail.stock"
+            				              required />
+            		              		<div class="has-error"
+            				              *ngIf="productStock.touched && productStock.invalid">
+            				              <span
+            				                *ngIf="productStock.errors.required"
+            				                id="help-block-matrix-range" class="help-block ">
+            				                  Please, price cannot be empty.
+            				              </span>
+            				            </div>
+            					    </td>
+                      </tr>
+
+                      <tr>
+                          <td>Good For:</td>
+                          <td *ngIf="edit==0 && new==0">{{productDetail.goodFor}}</td>
+                          <td *ngIf="edit==1 || new==1">
+                            <input class="form-control" type="text"
+                              name="productGoodFor"
+                              #productGoodFor = "ngModel"
+                              [(ngModel)]="productDetail.goodFor"
+                              required />
+                              <div class="has-error"
+                              *ngIf="productGoodFor.touched && productGoodFor.invalid">
+                              <span
+                                *ngIf="productGoodFor.errors.required"
+                                id="help-block-matrix-range" class="help-block ">
+                                  Please, Good For cannot be empty.
+                              </span>
+                            </div>
+                          </td>
+                      </tr>
+              </tbody>
+            </table>
+          </th>
+        </table>
+        <input class="btn btn-default btn-primary"
+               type="button"
+               value="Back"
+               (click)="setShopAction.emit(0)"/>
+        <button *ngIf="edit==1 || new==1" type="submit"
+           class="btn btn-success"
+           [disabled]="productDetailForm.invalid">
+           Submit
+        </button>
+
+    </div>
   </div>
-</div>
+</form>
