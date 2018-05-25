@@ -82,6 +82,7 @@ export class ProductDetailComponent implements OnInit {
   productMangment() : void {
 
     if(this.new==1){
+      console.log(this.productDetail);
       this.productDataService.insertProducts(this.productDetail).subscribe(
         outPutData => {
           if(Array.isArray(outPutData) && outPutData.length > 0)
@@ -138,6 +139,7 @@ export class ProductDetailComponent implements OnInit {
     this.edit = 0;
 
     this.productDetail = new Products();
+    this.productDetail.setProductType (this.productsType[0]);
     console.log(this.productsType);
     // this.productDetail.setId(this.products.length+1);
     console.log(this.productDetail);

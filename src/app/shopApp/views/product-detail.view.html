@@ -66,9 +66,9 @@
                                        #productType="ngModel"
                                        [(ngModel)]="productDetail.productType">
 
-                                 <option *ngFor="let productTypeName of productsType; let y = index"
-                                         [ngValue]="productTypeName" value="{{productTypeName.getName()}}">
-                                   {{productTypeName.getName()}}
+                                 <option *ngFor="let productType of productsType; let y = index"
+                                         [ngValue]="productType">
+                                   {{productType.getName()}}
                                  </option>
                                </select>
           					    </td>

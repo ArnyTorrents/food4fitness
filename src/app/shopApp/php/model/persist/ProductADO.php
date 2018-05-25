@@ -297,7 +297,7 @@ class ProductADO implements EntityInterfaceADO {
     $cons="insert into ".ProductADO::$tableName." (`productType`, `name`, `price`, `description`, `calories`, `proteines`, `carbohydrates`, `totalFat`, `stock`, `goodFor`, `img`)
             values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    $arrayValues= [$product->getProductType(),
+    $arrayValues= [$product->getProductType()->getId(),
                    $product->getName(),
                    $product->getPrice(),
                    $product->getDescription(),
