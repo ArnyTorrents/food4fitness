@@ -51,7 +51,7 @@ export class ProductManagmentComponent implements OnInit {
   nameFilter:string;
 
   //@Input() means this variables come from another component
-  @Input() productsType : ProductType[];
+  productsType : ProductType[]=[];
 
   // We'll use
   //setShopAction.emit(variable Content to comunicate)
@@ -64,6 +64,8 @@ export class ProductManagmentComponent implements OnInit {
               private cookieService: CookieService ) { }
 
   ngOnInit() {
+    this.downloadInitData();
+    console.log();
     this.typeView = 0;
     // this.shopAction = 0;
     this.productDataService.getAllProducts().subscribe(
@@ -74,10 +76,9 @@ export class ProductManagmentComponent implements OnInit {
 
              Object.assign(product,productJSON);
 
-             // console.log(product.getProductType());
-             // let productType = new ProductType();
-             // productType = this.productsType.find(productType =>
-             //   productType.getId()==product.getProductType().id);
+             let productType = new ProductType();
+             productType = this.productsType.find(productType =>
+               productType.getId()==product.getProductType().id);
 
              product.setProductType(product.getProductType());
              this.products.push(product);
@@ -104,6 +105,8 @@ export class ProductManagmentComponent implements OnInit {
    this.priceFilter = 500;
    this.productsFiltered = this.products;
    this.shopAction = 0;
+   console.log(this.productsFiltered.length);
+
 
    if(this.cookieService.check("user")){
      let cookieObj:any =
@@ -123,6 +126,40 @@ export class ProductManagmentComponent implements OnInit {
    let date = new Date();
    this.comanda.setDate(date);
    this.comanda.setStatus("To Delivery");
+
+}
+
+private downloadInitData  () : void {
+  this.productDataService.downloadInitData().subscribe(
+   outPutData => {
+     if(Array.isArray(outPutData) && outPutData.length > 0)
+     {
+       if(outPutData[0]=== true)
+       {
+         // this.productsType = [];
+         for (let i:number = 0; i < outPutData[1].length; i++) {
+             let productType = new ProductType();
+             Object.assign(productType,outPutData[1][i]);
+             // console.log(productType);
+             this.productsType.push(productType);
+
+         }
+         console.log(this.productsType);
+       } else {
+         alert("There has been an error, try later");
+         console.log("Error in ProductsMainComponent (downloadInitData): outPutData is false: "
+                 + JSON.stringify(outPutData));
+         this.router.navigate(["userApp"]);
+       }
+     } else {
+       alert("There has been an error, try later");
+       console.log("Error in ProductsMainComponent (downloadInitData): outPutData is not array"
+               + JSON.stringify(outPutData));
+       this.router.navigate(["userApp"]);
+     }
+   }
+ );
+ // console.log(this.productsType);
 
 }
 
@@ -164,12 +201,14 @@ export class ProductManagmentComponent implements OnInit {
         }
       },
       error => {
-        // if(error.text=="Error executing query"){
-        //   console.log("Prova");
-        // }
-        alert("Sorry, there has been an error, try later");
-        console.log("ProductManagmentComponent (removeProduct). Error happened: " + JSON.stringify(error));
-        this.router.navigate(["products"]);
+        if(error.error.text.includes("Error executing query")){
+          alert("Sorry, This product can not be removed for you to order, try later");
+        }
+        else{
+          alert("Sorry, there has been an error, try later");
+          console.log("ProductManagmentComponent (removeProduct). Error happened: " + JSON.stringify(error));
+          this.router.navigate(["products"]);
+        }
       }
     );
   }

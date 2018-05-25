@@ -18,7 +18,7 @@ import { ProductDataService } from './../services/product-data.service';
 export class ProductsMainComponent implements OnInit {
 
   shopAction: number;
-  productsType:ProductType[];
+  productsType:ProductType[] = [];
   products: Products[] = [];
 
   constructor(private productDataService : ProductDataService,
@@ -26,7 +26,7 @@ export class ProductsMainComponent implements OnInit {
 
   ngOnInit() {
     this.shopAction=0;
-    this.downloadInitData();
+    // this.downloadInitData();
   }
 
   private downloadInitData  () : void {
@@ -36,14 +36,15 @@ export class ProductsMainComponent implements OnInit {
        {
          if(outPutData[0]=== true)
          {
-           this.productsType = [];
+           // this.productsType = [];
            for (let i:number = 0; i < outPutData[1].length; i++) {
                let productType = new ProductType();
                Object.assign(productType,outPutData[1][i]);
-               //console.log(productType);
+               // console.log(productType);
                this.productsType.push(productType);
-           }
 
+           }
+           console.log(this.productsType);
          } else {
            alert("There has been an error, try later");
            console.log("Error in ProductsMainComponent (downloadInitData): outPutData is false: "
@@ -58,6 +59,7 @@ export class ProductsMainComponent implements OnInit {
        }
      }
    );
+   // console.log(this.productsType);
 
   }
 
