@@ -13,7 +13,7 @@
         <a class="p-2 text-dark" (click)="productManagment()">Shop</a>
       </nav>
 
-      <a *ngIf="userLogged==1" class="btn btn-outline-primary" (click)="logOut()">Sign Out</a>
+      <a *ngIf="userLogged==1" class="btn btn-danger" (click)="logOut()">Sign Out</a>
       <a *ngIf="userLogged==0" class="btn btn-outline-primary" (click)="logIn()">Sign up</a>
 </div>
 

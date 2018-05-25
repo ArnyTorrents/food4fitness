@@ -2,14 +2,15 @@ import {ComandaProducts} from "./comanda-products"
 export class Comanda {
   id:number;
   idUser: number;
-  productsComanda: ComandaProducts;
+  productsComanda: ComandaProducts[]=[];
   totalPrice: number;
   date: any;
   status: string;
   //constructor
-  constructor (id?:number,idUser?:number,productsComanda?:ComandaProducts ,totalPrice?:number,date?:any,status?:string) {
+  constructor (id?:number,idUser?:number,productsComanda?:ComandaProducts[] ,totalPrice?:number,date?:any,status?:string) {
     this.setId(id);
     this.setIdUser(idUser);
+    this.setProductsComanda(productsComanda);
     this.setTotalPrice(totalPrice);
     this.setDate(date);
     this.setStatus(status);
@@ -21,7 +22,7 @@ export class Comanda {
   getIdUser() : number {
     return this.idUser;
   }
-  getProductsComanda():ComandaProducts{
+  getProductsComanda():ComandaProducts[]{
     return this.productsComanda;
   }
   getTotalPrice() : number {
@@ -40,7 +41,7 @@ export class Comanda {
   setIdUser(idUser:number) : void {
     this.idUser = idUser;
   }
-  setProductsComanda(productsComanda:ComandaProducts):void{
+  setProductsComanda(productsComanda:ComandaProducts[]):void{
     this.productsComanda = productsComanda;
   }
   setTotalPrice(totalPrice:number) : void {

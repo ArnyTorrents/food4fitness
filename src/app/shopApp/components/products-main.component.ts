@@ -34,17 +34,13 @@ export class ProductsMainComponent implements OnInit {
      outPutData => {
        if(Array.isArray(outPutData) && outPutData.length > 0)
        {
-         if(outPutData[0]=== true)
-         {
-           // this.productsType = [];
+         if(outPutData[0]=== true){
+           this.productsType = [];
            for (let i:number = 0; i < outPutData[1].length; i++) {
                let productType = new ProductType();
                Object.assign(productType,outPutData[1][i]);
-               // console.log(productType);
                this.productsType.push(productType);
-
            }
-           console.log(this.productsType);
          } else {
            alert("There has been an error, try later");
            console.log("Error in ProductsMainComponent (downloadInitData): outPutData is false: "

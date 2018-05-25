@@ -65,7 +65,9 @@ export class ProductManagmentComponent implements OnInit {
 
   ngOnInit() {
     this.downloadInitData();
-    console.log();
+    this.comandaProducts = [];
+    this.productsFiltered = [];
+    this.products = [];
     this.typeView = 0;
     // this.shopAction = 0;
     this.productDataService.getAllProducts().subscribe(
@@ -84,7 +86,7 @@ export class ProductManagmentComponent implements OnInit {
              this.products.push(product);
 
            }
-           console.log(this.products);
+
          } else {
            alert("Sorry, there has been an error, try later");
            console.log("ProductManagmentComponent (ngOnInit): outPutData is false or not array: "
@@ -108,14 +110,30 @@ export class ProductManagmentComponent implements OnInit {
    console.log(this.productsFiltered.length);
 
 
-   if(this.cookieService.check("user")){
-     let cookieObj:any =
-           JSON.parse(this.cookieService.get("user"));
+   if(sessionStorage.getItem('connectedUser')){
+     let cookieObj:any =   JSON.parse(sessionStorage.getItem("connectedUser"));
      let userConnected = new User();
      Object.assign(userConnected,cookieObj);
      this.roleUser = cookieObj.role;
-   }else{
-     console.log("No sessio Conectada")
+   }
+
+
+  if(this.cookieService.check("cart")){
+    this.cartCont = 0;
+     let cart:any =
+           JSON.parse(this.cookieService.get("cart"));
+     for(let i=0;i<cart.length;i++){
+        this.cartCont++;
+        let comandaProducts = new ComandaProducts();
+        Object.assign(comandaProducts,cart[i]);
+        this.comandaProducts.push(comandaProducts);
+     }
+
+     let cartCont:any =
+           JSON.parse(this.cookieService.get("cartCont"));
+
+     //Object.assign(this.cartCont,cartCont);
+     this.cartCont = cartCont;
    }
 
 
@@ -216,15 +234,13 @@ private downloadInitData  () : void {
   goToDetail (product : Products) : void {
     this.productDetail = product;
     this.shopAction = 1;
-    console.log("Detail");
-
   }
 
 
 
   setShopActionManagement(action:number): void{
-
     this.shopAction=action;
+    this.ngOnInit();
   }
 
   addCart(product: Products):void{
@@ -233,6 +249,7 @@ private downloadInitData  () : void {
 
     //cart cont items
     this.cartCont++;
+    this.cookieService.set('cartCont',JSON.stringify(this.cartCont));
     //select the values of the comanda values
     this.comandaPs.setIdComanda(0);
     //comprove if the product its in the comanda
@@ -243,48 +260,27 @@ private downloadInitData  () : void {
           this.quantitat = this.quantitat + 1;
           this.comandaProducts[i].setQuantitat(this.quantitat);
           flag = false;
+          this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
           break;
         }else{
           this.comandaPs.setQuantitat(1);
           this.comandaPs.setIdProducto(product.id);
-          //comanda=>id,idUser,productsComanda,totalPrice,date,status
-          //this.comanda.setProductsComanda(this.comandaPs);
-          /*let totalPrice = this.calculateTotalPrice();
-          this.comanda.setTotalPrice(totalPrice);*/
-          //this.comandaProducts.push(this.comandaPs);
           flag = true;
         }
       }
       if(flag){
-        /*let contArr = 0;
-        for(let j = 0;j<this.comandaProducts.length;j++){
-          if(this.comandaProducts[j].idProducto == product.id){
-            contArr++;
-          }
-        }*/
 
-
-        console.log(flag);
-        this.comanda.setProductsComanda(this.comandaPs);
         this.comandaProducts.push(this.comandaPs);
+        this.comanda.setProductsComanda(this.comandaProducts);
+        this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
       }
     }else{
       this.comandaPs.setQuantitat(1);
       this.comandaPs.setIdProducto(product.id);
-      this.comanda.setProductsComanda(this.comandaPs);
-
       this.comandaProducts.push(this.comandaPs);
+      this.comanda.setProductsComanda(this.comandaProducts);
+      this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
     }
-
-
-
-
-
-
-
-
-
-    console.log(this.comandaProducts);
   }
 
   calculateTotalPrice(){

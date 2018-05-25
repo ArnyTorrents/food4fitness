@@ -1,14 +1,13 @@
 <div *ngIf="shopAction == 0">
-  <nav class="nav d-flex justify-content-between">
-    <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
-    <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
-    <a class="p-2 text-muted" href="#">
-      {{cartCont}}
-      <img src="http://icons-for-free.com/icon/download-basket_cart_purchase_shop_shopping_shopping_cart_shopping_trolleys_icon-603390.ico" width="50 " height="auto">
-    </a>
-  </nav>
-  <!-- <img src="app/shopApp/images/1.jpg"/> -->
-
+<nav class="nav d-flex justify-content-between">
+  <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
+  <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
+  <a class="p-2 text-muted" (click)="shopAction=2">
+    {{cartCont}}
+    <img src="http://icons-for-free.com/icon/download-basket_cart_purchase_shop_shopping_shopping_cart_shopping_trolleys_icon-603390.ico" width="50 " height="auto">
+  </a>
+</nav>
+</div>
     <!-- Filter the Products   -->
     <div class="panel-body">
         <div class="row filter">
@@ -35,6 +34,7 @@
                 <h3>Filtered by: {{nameFilter}} </h3>
             </div>
         </div>
+
 
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
          <div *ngIf="typeView==0" > <!--class="table-responsive" -->
@@ -129,11 +129,14 @@
         </div>
       </div>
     </div>
-</div>
 
 
 
 <main-comanda *ngIf="shopAction==2"
+[comandaProducts]="comandaProducts"
+[products]="products"
+[comanda]="comanda"
+(setShopActionManagement) = "setShopActionManagement($event)"
 ></main-comanda>
 
 <product-detail *ngIf="shopAction==1"

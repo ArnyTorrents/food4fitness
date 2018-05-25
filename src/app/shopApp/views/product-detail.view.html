@@ -26,7 +26,9 @@
       <div class="table-responsive panel ">
         <table class="tableCenter">
           <th *ngIf="edit==1 || new==0"> <img class="imgProduct" src="app/shopApp/images/{{productDetail.id}}.jpg"></th>
-          <th *ngIf="new==1"> <input type="file" name="file" id="file" (change)="onFileChanged($event)" /></th>
+          <th *ngIf="new==1">
+                <input type="file" name="imageProduct"
+                       id="file" (change)="onFileChanged($event)" /></th>
           <th>
              <table class="table">
               <tbody>
