@@ -9,6 +9,11 @@
   margin-top: 5%;
 }
 
+@media only screen and (min-width: 680px) {
+
+}
+
+
 .product-single {
   display: block;
   padding: 4px;
@@ -18,15 +23,18 @@
   margin: 5% 15% 5% 15%;
   border-radius: 10%;
   text-align: center;
-  max-width: 45%;
-  max-height: 43%;
+  max-width: 30%;
+  max-height: 29%;
   min-width: 20%;
   min-height: 20%;
 }
 
+.listIcons {
+  text-align: center;
+}
+
 .product-single > a {
   margin: 3%;
-
 }
 
 .filter {

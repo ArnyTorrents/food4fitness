@@ -32,6 +32,7 @@ export class ProductDetailComponent implements OnInit {
   product: Products;
   validFile: boolean = false;
   userImageFile: File;
+  IdImage:number;
 
 
   @Input() productDetail : Products;
@@ -51,16 +52,16 @@ export class ProductDetailComponent implements OnInit {
     this.edit = 0;
     this.new = 0;
     this.product = new Products();
-    if(this.cookieService.check("user")){
-      let cookieObj:any =
-            JSON.parse(this.cookieService.get("user"));
+
+    if(sessionStorage.getItem('connectedUser')){
+      let cookieObj:any =   JSON.parse(sessionStorage.getItem("connectedUser"));
       let userConnected = new User();
       Object.assign(userConnected,cookieObj);
       this.roleUser = cookieObj.role;
-
     }else{
       console.log("No sessio conectada")
     }
+
 
     console.log(this.productsType);
 
@@ -80,9 +81,6 @@ export class ProductDetailComponent implements OnInit {
 
 
   productMangment() : void {
-
-    let filesNames : string [] = [];
-    filesNames.push(this.user.nick);
 
     if(this.new==1){
       console.log(this.productDetail);
@@ -116,27 +114,31 @@ export class ProductDetailComponent implements OnInit {
         }
       );
 
-      this.productDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
-      outPutData => {
-        if(Array.isArray(outPutData) && outPutData.length > 0)
-        {
-          if(outPutData[0]=== true)
-          {
-              //We will go again to the server in order to
-              //insert user details in database
-          }
-        } else {
-          alert("There has been an error, try later");
-          console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): outPutData is not array"
-                  + JSON.stringify(outPutData));
-        }
-      },
-      error => {
-        alert("There has been an error, try later");
-        console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): "
-                    +JSON.stringify(error));
-      }
-    );
+      // let filesNames : string [] = [];
+      // filesNames.push(this.IdImage);
+      // console.log(this.IdImage));
+
+    //   this.productDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
+    //   outPutData => {
+    //     if(Array.isArray(outPutData) && outPutData.length > 0)
+    //     {
+    //       if(outPutData[0]=== true)
+    //       {
+    //           //We will go again to the server in order to
+    //           //insert user details in database
+    //       }
+    //     } else {
+    //       alert("There has been an error, try later");
+    //       console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): outPutData is not array"
+    //               + JSON.stringify(outPutData));
+    //     }
+    //   },
+    //   error => {
+    //     alert("There has been an error, try later");
+    //     console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): "
+    //                 +JSON.stringify(error));
+    //   }
+    // );
 
 
     }
@@ -163,10 +165,11 @@ export class ProductDetailComponent implements OnInit {
   insert() : void {
     this.new = 1;
     this.edit = 0;
-
+    this.IdImage =  this.products.length+5;
+    // console.log(this.IdImage));
     this.productDetail = new Products();
     //this.productDetail.setProductType (this.productsType[0]);
-    console.log(this.productsType);
+    // console.log(this.productsType);
     // this.productDetail.setId(this.products.length+1);
     console.log(this.productDetail);
 
@@ -177,6 +180,13 @@ export class ProductDetailComponent implements OnInit {
     this.edit = 1;
 
     console.log(this.productDetail);
+
+  }
+
+  nextproduct() : void {
+    // this.productDetail = this.products[this.productDetail.id+1];
+    console.log(this.products);
+    console.log(this.products[this.productDetail.id]);
 
   }
 
