@@ -38,7 +38,7 @@
 			$outPutData = $comandaController->doAction();
 		}
 		if($controller=="comandaProducts"){
-			$comandaController = new ComandaControllerClass( $action, $jsonData);
+			$comandaController = new ComandaProductsControllerClass( $action, $jsonData);
 			$outPutData = $comandaController->doAction();
 		}
 

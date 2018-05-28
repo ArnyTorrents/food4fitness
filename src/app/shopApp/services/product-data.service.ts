@@ -37,6 +37,7 @@ export class ProductDataService {
 
   insertProducts(product : Products) : Observable<any[]> {
       this.body = {
+        controller: 'product',
         action: '10010',
         jsonData: JSON.stringify(product)
       }
@@ -46,6 +47,7 @@ export class ProductDataService {
 
   modifyProducts(product:Products): Observable<any[]> {
     this.body = {
+          controller: 'product',
           action: "10030",
           jsonData: JSON.stringify(product)
     }
@@ -55,6 +57,7 @@ export class ProductDataService {
 
   removeProducts(product:Products): Observable<any[]> {
     this.body = {
+          controller: 'product',
           action: "10040",
           jsonData: JSON.stringify(product)
     }

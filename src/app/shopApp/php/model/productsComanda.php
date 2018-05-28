@@ -3,7 +3,7 @@ require_once "EntityInterface.php";
 class ProductsComanda implements EntityInterface {
 
   private $idComanda;
-  private $idUser;
+  private $idProducto;
   private $quantitat;
 
   function __construct() {
@@ -12,8 +12,8 @@ class ProductsComanda implements EntityInterface {
   public function getIdComanda(){
     return $this->idComanda;
   }
-  public function getIdUser(){
-    return $this->idUser;
+  public function getIdProduct(){
+    return $this->idProducto;
   }
   public function getQuantitat(){
     return $this->quantitat;
@@ -22,8 +22,8 @@ class ProductsComanda implements EntityInterface {
   public function setIdComanda($idComanda){
     $this->idComanda = $idComanda;
   }
-  public function setIdUser($idUser){
-    $this->idUser = $idUser;
+  public function setIdProducto($idProducto){
+    $this->idProducto = $idProducto;
   }
   public function setQuantitat($quantitat){
     $this->quantitat = $quantitat;
@@ -32,13 +32,13 @@ class ProductsComanda implements EntityInterface {
   public function getAll(){
     $data = array();
     $data["idComanda"] = $this->idComanda;
-    $data["idUser"] = $this->idUser;
+    $data["idProducto"] = $this->idProducto;
     $data["quantitat"] = $this->quantitat;
   }
   //setAllFunction
-  public function setAll($idComanda,$idUser,$quantitat){
+  public function setAll($idComanda,$idProducto,$quantitat){
     $this->setIdComanda($idComanda);
-    $this->setIdUser($idUser);
+    $this->setIdProducto($idProducto);
     $this->setQuantitat($quantitat);
   }
 

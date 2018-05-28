@@ -42,14 +42,11 @@ export class AppComponent implements OnInit {
     }
 
     if(sessionStorage.getItem('connectedUser')){
-
         let cookieObj:any =   JSON.parse(sessionStorage.getItem("connectedUser"));
         //console.log(cookieObj);
         let userConnected = new User();
         Object.assign(userConnected,cookieObj);
         //this.roleUser = cookieObj.role;
-
-
       this.userConnected = userConnected;
       this.userLogged = 1;
     }else{

@@ -55,21 +55,26 @@ class ComandaProductsControllerClass implements ControllerInterface {
 
 	private function insertComanda () {
 		//We get all data from client
-		$comandaProduct = json_decode(stripslashes($this->getJsonData()));
+		$comProduct = json_decode(stripslashes($this->getJsonData()));
+		$idProducto = $comProduct->idProducto;
 
 		$comandaProduct = new ProductsComanda();
 
-		$comanda->setAll(
-                  $comandaProduct->idComanda,
-									$comandaProduct->idUser,
-									$comandaProduct->quantitat
+		$comandaProduct->setAll(
+                  $comProduct->idComanda,
+									$idProducto,
+									$comProduct->quantitat
 		);
 
-		$comanda->setId(ComandaProductADO::create($comanda));
+
+
+		//error_log(print_r($comandaProduct ."PRODUCTO ",TRUE));
+
+		$id = ComandaProductADO::create($comandaProduct);
 
 		$outPutData = array();
 		$outPutData[]= true;
-		$outPutData[]= array($comanda->getAll());
+		$outPutData[]= array($comandaProduct->getAll());
 
 		return $outPutData;
 	}

@@ -31,7 +31,7 @@ export class ProductDetailComponent implements OnInit {
   new: number;
   product: Products;
   validFile: boolean = false;
-
+  userImageFile: string;
 
 
   @Input() productDetail : Products;

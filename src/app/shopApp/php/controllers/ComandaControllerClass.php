@@ -73,7 +73,7 @@ class ComandaControllerClass implements ControllerInterface {
 
 		$outPutData = array();
 		$outPutData[]= true;
-		$outPutData[]= array($comanda->getAll());
+		$outPutData[]= $comanda->getId();
 
 		return $outPutData;
 	}

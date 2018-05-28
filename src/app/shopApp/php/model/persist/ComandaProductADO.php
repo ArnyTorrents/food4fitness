@@ -15,7 +15,7 @@ require_once "../model/productsComanda.php";
 class ComandaProductADO{
 
   //----------Data base Values---------------------------------------
-  private static $tableName = "Comanda-Products";
+  private static $tableName = "ComandaProducts";
   private static $colNameIdComanda = "idComanda";
   private static $colNameIdProducto = "idProduct";
   private static $colNameQuantitat = "quantitat";
@@ -102,16 +102,16 @@ class ComandaProductADO{
       die();
     }
 
-    $cons="insert into ".ComandaProductADO::$tableName." (`idComanda`, `idUser`, `quantitat`) values (?, ?, ?)";
+    $cons="insert into ComandaProducts (`idComanda`, `idProduct`, `quantitat`) values (?, ?, ?)";
     $arrayValues= [$comanda->getIdComanda(),
-                   $comanda->getIdUser(),
+                   $comanda->getIdProduct(),
                    $comanda->getQuantitat()];
 
     $id = $conn->executionInsert($cons, $arrayValues);
 
-    $comanda->setId($id);
+    $comanda->setIdComanda($id);
 
-    return $comanda->getId();
+    return $comanda->getIdComanda();
   }
 
 

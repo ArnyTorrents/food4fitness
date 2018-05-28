@@ -66,14 +66,14 @@
       <div *ngIf="validCard===true"  class="alert alert-success">
           Insert a valid Credit Card
       </div>
-      
+
     </div>
 
   </div>
   <div class="jumbotron">
     <h5><b>Products in your cart: {{cont}}</b></h5>
     <h5><b>Final Price: {{comanda.totalPrice}}</b></h5>
-    <button class="btn btn-primary" [disabled]="comanda.methodsOfPayment===undefinned || validCard!=true" (click)="confirm()">Confirm</button>
+    <button class="btn btn-primary" [disabled]="comanda.methodsOfPayment===undefinned" (click)="confirm()">Confirm</button>
   </div>
 
 </div>
