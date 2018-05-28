@@ -1,3 +1,4 @@
+<form  name="comandaDetails" #comandaDetails="ngForm" >
 <div class="container">
 <h1>Details of your purchase</h1>
 <!--<h3>Products in your cart: {{cont}}</h3>-->
@@ -45,42 +46,37 @@
   <div class="form-row">
     <h5><b>Methods of Payment</b></h5>
   </div>
-  <!--<table class="table">
-    <tr>
-      <th>Paypal</th>
-      <th>Credit Card</th>
-      <th>Cash on delivery </th>
-    </tr>
-    <tr>
-      <td>
-        <img src="https://seeklogo.com/images/P/paypal-logo-C83095A82C-seeklogo.com.png" width="50">
-        <input type="checkbox" class="form-control" [(ngModel)]="methodsOfPayment" />
-      </td>
-      <td>
-        <img src="https://www.mbna.co.uk/uploads/bricks/CompareCreditCards_v2.png" width="100">
-        <input type="checkbox" class="form-control" [(ngModel)]="methodsOfPayment" />
-      </td>
-      <td>
-        <img src="https://www.enigma-phil.com.ph/images/COD.jpg" width="100">
-        <input type="checkbox" class="form-control" [(ngModel)]="methodsOfPayment" />
-      </td>
-    </tr>
-  </table>-->
-  <div class="form-group">
-  <label class="col-sm-2 control-label" for="formGroup">Methods of Payment</label>
-  <div class="col-sm-4">
+
+  <div class="jumbotron">
     <div>
       <span *ngFor="let methods of methodsOfPayment; let i = index">
-        <input type="checkbox"
-        (click)="addRemoveSpecialRequest(i)"/>
-        <label for="">{{methods}}</label>
+        <input type="radio" name="method" [(ngModel)]="comanda.methodsOfPayment" [value]="methods"
+         (ngModelChange)="addRemoveSpecialRequest($event)"
+         >
+        {{methods}}
       </span>
     </div>
+    <div *ngIf="comanda.methodsOfPayment=='Credit Card'">
+      <label> <b>Nº Credit Card: </b></label>
+      <input class="form-control"  type="text" name="creditCard" [(ngModel)]="creditCard" (ngModelChange)="cardValidation(creditCard)"/>
+
+      <div *ngIf="validCard===false"  class="alert alert-danger">
+          Insert a valid Credit Card
+      </div>
+      <div *ngIf="validCard===true"  class="alert alert-success">
+          Insert a valid Credit Card
+      </div>
+      
+    </div>
+
   </div>
+  <div class="jumbotron">
+    <h5><b>Products in your cart: {{cont}}</b></h5>
+    <h5><b>Final Price: {{comanda.totalPrice}}</b></h5>
+    <button class="btn btn-primary" [disabled]="comanda.methodsOfPayment===undefinned || validCard!=true" (click)="confirm()">Confirm</button>
+  </div>
+
 </div>
 
-  <h5><b>Products in your cart: {{cont}}</b></h5>
-  <h5><b>Final Price: {{comanda.totalPrice}}</b></h5>
-  <button class="btn btn-primary" (click)="confirm()">Confirm</button>
 
-</div>
+</form>

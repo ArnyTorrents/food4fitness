@@ -17,6 +17,7 @@ export class ProductDataService {
 
   downloadInitData() : Observable<any[]> {
       this.body = {
+        controller: 'product',
         action: '10000',
         jsonData: ""
       }
@@ -26,6 +27,7 @@ export class ProductDataService {
 
   getAllProducts(): Observable<any[]> {
     this.body = {
+         controller: 'product',
          action: "10020",
          jsonData: ""
     }

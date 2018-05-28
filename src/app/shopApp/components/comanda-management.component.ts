@@ -87,13 +87,7 @@ export class ComandaManagement implements OnInit {
       for(let j=0;j<this.comandaProducts.length;j++){
         this.cartCont = this.cartCont+this.comandaProducts[j].quantitat;
       }
-
       this.cookieService.set('cartCont',JSON.stringify(this.cartCont));
-
-      /*let cartCont:any =
-            JSON.parse(this.cookieService.get("cartCont"));
-
-      console.log(cartCont);*/
     }else{
       alert("You Must Be Logged to Make the payment");
     }
