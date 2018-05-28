@@ -7,7 +7,6 @@
         </a>
       </a>
         <a *ngIf="userLogged==1" class="p-2 text-dark" >Welcome: {{userConnected.name}}</a>
-        <a *ngIf="userLogged==1" class="p-2 text-dark" (click)="userOptions()">Options</a>
 
         <a class="p-2 text-dark" (click)="home()">Home</a>
         <a class="p-2 text-dark" (click)="productManagment()">Shop</a>
@@ -17,7 +16,32 @@
       <a *ngIf="userLogged==0" class="btn btn-outline-primary" (click)="logIn()">Sign up</a>
 </div>
 
+<!--<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Start Bootstrap</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sign Up</a>
+          <a *ngIf="userLogged==0" class="nav-link" (click)="logIn()">Sign up</a>
+          <a *ngIf="userLogged==1" class="nav-link" (click)="logOut()">Sign Out</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Log In</a>
+        </li>
+        <li class="nav-item" *ngIf="userLogged==1">
+          <a *ngIf="userConnected.role=='master' || userConnected.role=='admin'" (click)="usersCrud()">
+            Nuestros Usuarios
+          </a>
+        </li>
 
+      </ul>
+    </div>
+  </div>
+</nav>-->
 <router-outlet></router-outlet>
 <!--<div id="foot" class="container well">
   <button class="btn btn-primary pull-left" (click)="logOut()">Log out</button>
