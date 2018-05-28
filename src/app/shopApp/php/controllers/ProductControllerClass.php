@@ -56,6 +56,12 @@ class ProductControllerClass implements ControllerInterface {
 			case 10040:
 				$outPutData = $this->removeProduct();
 				break;
+			case 10050:
+				$outPutData = $this->uploadProductImages();
+				break;
+			case 10060:
+				$otuPutData = $this->removeUsersImages();
+				break;
 			default:
 				echo "There has been an error in the server";
 				error_log("Action not correct in ShopControllerClass, value: ".$this->getAction());
@@ -268,5 +274,57 @@ class ProductControllerClass implements ControllerInterface {
 
 		return $outPutData;
 	}
+
+	private function uploadProductImages() {
+
+	$filesNames = json_decode(stripslashes($this->getJsonData()));
+
+	$outPutData = array();
+	$outPutData[]= true;
+	$newFilesName = array();
+
+	$i=0;
+
+	try {
+		foreach($_FILES['images']['error'] as $key => $error){
+			if($error == UPLOAD_ERR_OK){
+				$name = $_FILES['images']['name'][$key];
+				$fileNameParts = explode(".", $name);
+				$nameWithoutExtension = $fileNameParts[0];
+				$extension = end($fileNameParts);
+				$newFileName = $filesNames[$i].".".$extension;
+				move_uploaded_file($_FILES['images']['tmp_name'][$key], '../../images/' . $newFileName);
+
+				$newFilesName[]='images/'.$newFileName;
+			}
+		}
+	} catch (PDOException $e) {
+		error_log("ProductControllerClass (uploadProductImages): error uploading files: " . $e->getMessage() . " ");
+		$errors = array();
+		$outPutData[]=false;
+		$errors[]="Sorry, there has been an error. Try later";
+		$outPutData[]=$errors;
+	}
+	$outPutData[]=$newFilesName;
+	return $outPutData;
+
+}
+
+private function removeUsersImages()
+{
+	$outPutData = array();
+
+	$filesToDeleteArray = json_decode(stripslashes($this->getJsonData()));
+
+	foreach($filesToDeleteArray as $filename){
+		if(file_exists('../../'.$filename)) unlink('../../'.$filename);
+	}
+
+	$outPutData[]=true;
+
+	return $outPutData;
+}
+
+
 }
 ?>

@@ -49,6 +49,7 @@ export class ProductManagmentComponent implements OnInit {
   //Filter properties
   priceFilter: number;
   nameFilter:string;
+  typefilter:string;
 
   //@Input() means this variables come from another component
   productsType : ProductType[]=[];
@@ -104,7 +105,7 @@ export class ProductManagmentComponent implements OnInit {
    this.itemsPerPage = 4;
    this.currentPage = 1;
    this.totalItems= this.products.length;
-   this.priceFilter = 500;
+   this.priceFilter = 100;
    this.productsFiltered = this.products;
    this.shopAction = 0;
    console.log(this.productsFiltered.length);
@@ -186,6 +187,7 @@ private downloadInitData  () : void {
    this.productsFiltered = this.products.filter( product => {
        let priceValid = false;
        let nameValid = false;
+       let typeValid = false;
 
        if(product.getPrice()<= this.priceFilter) {
          priceValid = true;
@@ -199,6 +201,12 @@ private downloadInitData  () : void {
          } else {nameValid = false;}
        } else {
          nameValid = true;
+       }
+
+       if(this.typefilter != "" && this.typefilter != undefined) {
+         if(productTypr.getName().toLowerCase().indexOf(this.typefilter.toLowerCase())!= -1) {
+           typeValid = true;
+         } else {typeValid = false;}
        }
 
        return (nameValid && priceValid);

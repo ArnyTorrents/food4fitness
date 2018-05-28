@@ -251,10 +251,12 @@
             </table>
           </th>
         </table>
+
         <input class="btn btn-default btn-primary"
                type="button"
                value="Back"
                (click)="setShopAction.emit(0)"/>
+
         <button *ngIf="edit==1 || new==1" type="submit"
            class="btn btn-success"
            [disabled]="productDetailForm.invalid">

@@ -47,9 +47,9 @@ export class ProductDataService {
 
   modifyProducts(product:Products): Observable<any[]> {
     this.body = {
-          controller: 'product',
-          action: "10030",
-          jsonData: JSON.stringify(product)
+        controller: 'product',
+        action: "10030",
+        jsonData: JSON.stringify(product)
     }
 
     return this.accessServer();
@@ -57,13 +57,29 @@ export class ProductDataService {
 
   removeProducts(product:Products): Observable<any[]> {
     this.body = {
-          controller: 'product',
-          action: "10040",
-          jsonData: JSON.stringify(product)
+        controller: 'product',
+        action: "10040",
+        jsonData: JSON.stringify(product)
     }
 
     return this.accessServer();
   }
+
+  uploadFiles (file : File, filesNames: string[]): Observable<any[]> {
+
+
+    this.httpParams = new HttpParams()
+      .append('controller','product')
+      .append('action', "10050")
+      .append('jsonData', JSON.stringify(filesNames));
+
+    let fileFormData : FormData = new FormData();
+    fileFormData.append("images[]",file, file.name);
+
+    this.body = fileFormData;
+
+    return this.accessServer();
+}
 
   private accessServer() : Observable<any[]> {
 

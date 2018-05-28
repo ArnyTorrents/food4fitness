@@ -23,7 +23,7 @@
 							<div>Price Range:</div>
               <input type="range"
                 min="1"
-                max="500"
+                max="100"
                 (change)="filter()"
                 name="priceFilter"
                 [(ngModel)]="priceFilter"/>
@@ -103,15 +103,15 @@
         <div *ngIf="typeView==1" >
           <div *ngIf="products && products.length">
             <table class="table" >
-               <tbody>
-                  <span *ngFor="let product of productsFiltered
+               <tbody class="listIcons">
+                <span *ngFor="let product of productsFiltered
                             | paginate: {itemsPerPage: itemsPerPage,
                               currentPage:currentPage,
                               id: '1'};
                               let i = index;">
                           <div class="product-single" >
-                             <a href="#"><img class="imgProduct" src="app/shopApp/images/{{product.id}}.jpg"></a><br>
-                             <a href="#"><strong>{{product.name}}</strong></a>
+                             <a (click)="goToDetail(product)"><img class="imgProduct" src="app/shopApp/images/{{product.id}}.jpg"></a><br>
+                             <a><strong>{{product.name}}</strong></a>
                              <div>
                                {{ product.price }} €
                              </div>
@@ -124,8 +124,8 @@
                                Add Cart
                              </a>
                         </div>
-                  </span>
-              </tbody >
+                    </span>
+                  </tbody>
             </table>
 
           <pagination-controls class="paginate" (pageChange)="currentPage = $event"
