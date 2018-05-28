@@ -60,6 +60,19 @@ export class ProductDataService {
     return this.accessServer();
   }
 
+  uploadFiles (file : File, filesNames: string[]): Observable<any[]> {
+    this.httpParams = new HttpParams()
+      .append('action', "10050")
+      .append('jsonData', JSON.stringify(filesNames));
+
+    let fileFormData : FormData = new FormData();
+    fileFormData.append("images[]",file, file.name);
+
+    this.body = fileFormData;
+
+    return this.accessServer();
+}
+
   private accessServer() : Observable<any[]> {
 
     let httpHeaders : HttpHeaders = new HttpHeaders();
