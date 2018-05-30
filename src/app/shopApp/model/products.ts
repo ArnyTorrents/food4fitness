@@ -12,9 +12,10 @@ export class Products {
   totalFat: number;
   stock: number;
   goodFor: string;
+  img: string;
 
   constructor (id?:number,productType?: ProductType,name?:string,price?:number,description?:string,calories?:number,
-              proteins?:number,carbohydrates?:number,totalFat?:number,stock?:number,goodFor?:string){
+              proteins?:number,carbohydrates?:number,totalFat?:number,stock?:number,goodFor?:string,img?:string){
     this.setId(id);
     this.setProductType(productType);
     this.setName(name);
@@ -26,6 +27,7 @@ export class Products {
     this.setTotalFat(totalFat);
     this.setStock(stock);
     this.setGoodFor(goodFor);
+    this.setImg(img);
   }
   //GETTERS
   getId(): number{
@@ -61,6 +63,9 @@ export class Products {
   getGoodFor():string{
     return this.goodFor;
   }
+  getImg():string{
+    return this.img;
+  }
   //setters
   setId(id:number):void{
     this.id = id;
@@ -94,5 +99,8 @@ export class Products {
   }
   setGoodFor(goodFor:string):void{
     this.goodFor = goodFor;
+  }
+  setImg(img:string):void{
+    this.img = img;
   }
 }

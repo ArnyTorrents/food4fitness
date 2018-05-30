@@ -90,6 +90,31 @@ export class ProductDetailComponent implements OnInit {
           {
             if(outPutData[0]=== true)
             {
+                    let filesNames : string [] = [];
+                    filesNames.push(outPutData[1][0].id);
+                    this.IdImage = outPutData[1][0].id;
+                    this.productDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
+                    outPutData => {
+                      if(Array.isArray(outPutData) && outPutData.length > 0)
+                      {
+                        if(outPutData[0]=== true)
+                        {
+                            //We will go again to the server in order to
+                            //insert user details in database
+                        }
+                      } else {
+                        alert("There has been an error, try later");
+                        console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): outPutData is not array"
+                                + JSON.stringify(outPutData));
+                      }
+                    },
+                    error => {
+                      alert("There has been an error, try later");
+                      console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): "
+                                  +JSON.stringify(error));
+                    }
+                  );
+
               alert("Product inserted correctly");
               this.setShopAction.emit(0);
 
@@ -113,32 +138,6 @@ export class ProductDetailComponent implements OnInit {
           this.router.navigate(["userApp"]);
         }
       );
-
-      // let filesNames : string [] = [];
-      // filesNames.push(this.IdImage);
-      // console.log(this.IdImage));
-
-    //   this.productDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
-    //   outPutData => {
-    //     if(Array.isArray(outPutData) && outPutData.length > 0)
-    //     {
-    //       if(outPutData[0]=== true)
-    //       {
-    //           //We will go again to the server in order to
-    //           //insert user details in database
-    //       }
-    //     } else {
-    //       alert("There has been an error, try later");
-    //       console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): outPutData is not array"
-    //               + JSON.stringify(outPutData));
-    //     }
-    //   },
-    //   error => {
-    //     alert("There has been an error, try later");
-    //     console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): "
-    //                 +JSON.stringify(error));
-    //   }
-    // );
 
 
     }
@@ -165,12 +164,12 @@ export class ProductDetailComponent implements OnInit {
   insert() : void {
     this.new = 1;
     this.edit = 0;
-    this.IdImage =  this.products.length+5;
-    // console.log(this.IdImage));
+
     this.productDetail = new Products();
     //this.productDetail.setProductType (this.productsType[0]);
     // console.log(this.productsType);
-    // this.productDetail.setId(this.products.length+1);
+    this.productDetail.setId(0);
+    this.productDetail.setImg("Image " + this.IdImage);
     console.log(this.productDetail);
 
 

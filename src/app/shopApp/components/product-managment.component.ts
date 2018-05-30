@@ -49,7 +49,7 @@ export class ProductManagmentComponent implements OnInit {
   //Filter properties
   priceFilter: number;
   nameFilter:string;
-  typefilter:string;
+  typefilter:ProductType;
 
   //@Input() means this variables come from another component
   productsType : ProductType[]=[];
@@ -203,13 +203,13 @@ private downloadInitData  () : void {
          nameValid = true;
        }
 
-       if(this.typefilter != "" && this.typefilter != undefined) {
-         if(productTypr.getName().toLowerCase().indexOf(this.typefilter.toLowerCase())!= -1) {
+       if(this.typefilter != undefined) {
+         if(product.getProductType().name.indexOf(this.typefilter.name)!= -1) {
            typeValid = true;
          } else {typeValid = false;}
        }
-
-       return (nameValid && priceValid);
+       // console.log(this.typefilter.name);
+       return (nameValid && priceValid && typeValid);
      }
    );
  }
