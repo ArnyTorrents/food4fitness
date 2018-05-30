@@ -226,17 +226,16 @@ private downloadInitData  () : void {
          nameValid = true;
        }
 
-<<<<<<< HEAD
        if(this.typefilter != undefined) {
          if(product.getProductType().name.indexOf(this.typefilter.name)!= -1) {
-=======
-       if(this.typefilter != "" && this.typefilter != undefined) {
-         /*if(productTypr.getName().toLowerCase().indexOf(this.typefilter.toLowerCase())!= -1) {
->>>>>>> 549ac73ece91c15f7440f227945c3d1ba0f23588
            typeValid = true;
-         } else {typeValid = false;}*/
+         } else {
+           typeValid = false;
+         }
        }
-       // console.log(this.typefilter.name);
+       // console.log(priceValid);
+       // console.log(product.getPrice());
+       // console.log(this.priceFilter);
        return (nameValid && priceValid && typeValid);
      }
    );

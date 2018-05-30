@@ -12,14 +12,15 @@
     <!-- Filter the Products   -->
     <div class="container">
         <div class="row filter">
-            <div class="col-md-2">Filter by:</div>
+            <!-- <div class="col-md-2">Filter by:</div> -->
             <div class="col-md-4">
-                <input type="text"
+              <label for="formGroup">Name: </label>
+                <input type="text" class="form-control"
                        (keyup)="filter()"
                        name="nameFilter"
                        [(ngModel)]="nameFilter" />
             </div>
-            <div class="col-md-4"><!--price-range-->
+            <!-- <div class="col-md-4">
 							<div>Price Range:</div>
               <input type="range"
                 min="1"
@@ -29,20 +30,24 @@
                 name="priceFilter"
                 [(ngModel)]="priceFilter"/>
                  {{priceFilter | currency: "€"}}
-               </div>
-						</div>
-            <div class="col-md-4">
-              <label for="formGroup">Select the Type: *</label>
-                 <select class="form-control"
-                         name="typefilter"
-                         (change)="filter()"
-                         [(ngModel)]="typefilter">
+               </div> -->
 
-                   <option *ngFor="let productType of productsType; let y = index"
-                           [ngValue]="productType">
-                     {{productType.getName()}}
-                   </option>
-                 </select>
+              <div class="col-md-4">
+                <label for="formGroup">Select the Type: *</label>
+                   <select class="form-control select"
+                           name="typefilter"
+                           (change)="filter()"
+                           [(ngModel)]="typefilter">
+                     <option>All</option>
+                     <option *ngFor="let productType of productsType; let y = index"
+                             [ngValue]="productType">
+                       {{productType.getName()}}
+                     </option>
+                   </select>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-success">Success</button>
+              </div>
             </div>
         <div class="row" *ngIf="listFilter">
             <div class="col-md-6">
@@ -68,6 +73,9 @@
                         <th>More Info</th>
                         <th>Add Cart</th>
                         <th *ngIf="roleUser=='admin' || roleUser=='master'">Delete</th>
+                        <!-- <th *ngIf="roleUser=='admin' || roleUser=='master'">
+                          <button type="button" class="btn btn-dark">Dark</button>
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody >
@@ -120,7 +128,7 @@
               <h1 class="m-0 text-center text-white">Our Products</h1>
             </header>
           <div *ngIf="products && products.length">
-          <div class="row">
+          <div class="row productIcons">
             <div class="col-lg-4 col-md-6 mb-4"  *ngFor="let product of productsFiltered">
               <div class="card h-100">
                 <a (click)="goToDetail(product)">
@@ -134,20 +142,13 @@
                   <p class="card-text">{{product.description}}</p>
                 </div>
                 <div class="card-footer">
-                  <a class="btn btn-primary" (click)="goToDetail(product)">+</a>
+                  <a class="btn btn-primary buttonDetail" (click)="goToDetail(product)">+</a>
                   <a class="btn btn-success" (click)="addCart(product)">
                     Add Cart
                   </a>
                 </div>
               </div>
             </div>
-
-          <pagination-controls class="paginate" (pageChange)="currentPage = $event"
-             id="1"
-             maxSize="5"
-             directionLinks="true"
-             autoHide="true">
-         </pagination-controls>
         </div>
       </div>
 

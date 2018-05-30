@@ -9,8 +9,8 @@ import { ComandaProducts } from './../model/comanda-products';
 @Injectable()
 export class ComandaProductsDataService {
 
-  private mainUrl : string = "http://provenapps.cat/~daw1801/food4fitness/src/app/shopApp/php/controllers/MainController.php";
-  // private mainUrl : string = "http://localhost/food4fitness/src/app/shopApp/php/controllers/MainController.php";
+  // private mainUrl : string = "http://provenapps.cat/~daw1801/food4fitness/src/app/shopApp/php/controllers/MainController.php";
+  private mainUrl : string = "http://localhost/food4fitness/src/app/shopApp/php/controllers/MainController.php";
 
   private httpParams: HttpParams;
   private body: any;
