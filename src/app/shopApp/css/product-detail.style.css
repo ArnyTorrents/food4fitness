@@ -23,3 +23,10 @@
 .insert {
   margin-right: 1%;
 }
+.divContainer{
+    position: relative;
+    top: 100px;
+}
+.price{
+    color:  	#DC143C;
+}

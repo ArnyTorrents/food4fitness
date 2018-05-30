@@ -12,7 +12,10 @@
 @media only screen and (min-width: 680px) {
 
 }
-
+.divContainer{
+    position: relative;
+    top: 100px;
+}
 
 .product-single {
   display: block;
