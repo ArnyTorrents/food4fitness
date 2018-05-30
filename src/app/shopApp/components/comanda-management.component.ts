@@ -33,32 +33,64 @@ export class ComandaManagement implements OnInit {
   product: any;
   shopAction:number;
   cartCont: number=0;
+  comandaProductsFinal: ComandaProducts[]=[];
+  productsInCart: Products[]=[];
 
   constructor(private cookieService: CookieService) { }
 
   ngOnInit() {
 
     this.productsSelected = [];
-    this.shopAction = 1;
+    /*this.shopAction = 1;
     let total = 0;
-    let finalPrice = 0;
-    if(this.comandaProducts.length>0){
-      for(let i=0;i<this.comandaProducts.length;i++){
-        for(let j=0;j<this.products.length;j++){
-          if(this.comandaProducts[i].idProducto == this.products[j].id){
-            let price = this.products[j].price;
-            let quantity = this.comandaProducts[i].quantitat;
-            total = price*quantity;
-            finalPrice = finalPrice+total;
-            this.productsSelected.push(this.products[j]);
-            this.comanda.setTotalPrice(finalPrice);
-          }
-        }
-      }
-    }else{
+    let finalPrice = 0;*/
+    if(this.comandaProducts.length<=0){
       this.shopAction = 3;
+    }else{
+      this.shopAction = 1;
     }
 
+
+    if(this.cookieService.check("cart")){
+
+      this.comandaProductsFinal = [];
+      this.cartCont = 0;
+       let cart:any =
+             JSON.parse(this.cookieService.get("cart"));
+       for(let i=0;i<cart.length;i++){
+          this.cartCont++;
+          let comandaProducts = new ComandaProducts();
+          Object.assign(comandaProducts,cart[i]);
+          this.comandaProductsFinal.push(comandaProducts);
+       }
+       let cartCont:any =
+             JSON.parse(this.cookieService.get("cartCont"));
+
+       this.cartCont = cartCont;
+       //console.log(this.comandaProductsFinal);
+     }
+     //set total price;
+     let total = 0;
+     let finalPrice = 0;
+
+     for(let i=0;i<this.comandaProductsFinal.length;i++){
+        for(let j=0;j<this.products.length;j++){
+          //console.log(this.products.length);
+          //this.productsSelected.push(this.products[j]);
+          if(this.comandaProductsFinal[i].idProducto == this.products[j].id){
+            //console.log(this.comandaProductsFinal[i].idProducto);
+            //console.log(this.products[j].id);
+            let price = this.products[j].price;
+            let quantity = this.comandaProductsFinal[i].quantitat;
+            total = price*quantity;
+            finalPrice = finalPrice+total;
+            this.comanda.setTotalPrice(finalPrice);
+
+            this.productsSelected.push(this.products[j]);
+          }
+
+        }
+     }
   }
 
   calculateTotalPrice():void{
@@ -94,7 +126,7 @@ export class ComandaManagement implements OnInit {
   }
 
   deleteProduct(product: Products):void{
-    let cont=0;
+    this.cartCont = 0;
     for(let i=0;i<this.comandaProducts.length;i++){
       if(this.comandaProducts[i].idProducto==product.id){
         this.comandaProducts.splice(i,1);
@@ -104,11 +136,10 @@ export class ComandaManagement implements OnInit {
     for(let j=0;j<this.comandaProducts.length;j++){
       this.cartCont = this.cartCont+this.comandaProducts[j].quantitat;
     }
-
+    console.log(this.cartCont);
     this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
     this.cookieService.set('cartCont',JSON.stringify(this.cartCont));
     this.ngOnInit();
-
   }
 
 }

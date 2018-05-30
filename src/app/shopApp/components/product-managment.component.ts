@@ -77,7 +77,9 @@ export class ProductManagmentComponent implements OnInit {
     this.downloadInitData();
     this.comandaProducts = [];
     this.productsFiltered = [];
-    //this.products = [];
+
+    this.products = [];
+
     this.typeView = 0;
     let contFilter = 0;
     // this.shopAction = 0;
@@ -141,8 +143,8 @@ export class ProductManagmentComponent implements OnInit {
      this.roleUser = cookieObj.role;
    }
 
-
   if(this.cookieService.check("cart")){
+    this.comandaProducts = [];
     this.cartCont = 0;
      let cart:any =
            JSON.parse(this.cookieService.get("cart"));
@@ -158,6 +160,8 @@ export class ProductManagmentComponent implements OnInit {
 
      //Object.assign(this.cartCont,cartCont);
      this.cartCont = cartCont;
+
+     //console.log(this.comandaProducts);
    }
 
 

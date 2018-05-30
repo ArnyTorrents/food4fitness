@@ -115,34 +115,6 @@ export class ProductDetailComponent implements OnInit {
           this.router.navigate(["userApp"]);
         }
       );
-
-      // let filesNames : string [] = [];
-      // filesNames.push(this.IdImage);
-      // console.log(this.IdImage));
-
-    //   this.productDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
-    //   outPutData => {
-    //     if(Array.isArray(outPutData) && outPutData.length > 0)
-    //     {
-    //       if(outPutData[0]=== true)
-    //       {
-    //           //We will go again to the server in order to
-    //           //insert user details in database
-    //       }
-    //     } else {
-    //       alert("There has been an error, try later");
-    //       console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): outPutData is not array"
-    //               + JSON.stringify(outPutData));
-    //     }
-    //   },
-    //   error => {
-    //     alert("There has been an error, try later");
-    //     console.log("Error in ProductDetailComponent (productMangment NEW - uploadFiles): "
-    //                 +JSON.stringify(error));
-    //   }
-    // );
-
-
     }
     else{
       this.productDataService.modifyProducts(this.productDetail).subscribe( outPutData => {

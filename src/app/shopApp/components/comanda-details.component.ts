@@ -46,7 +46,7 @@ export class ComandaDetails implements OnInit {
               private router : Router) { }
 
   ngOnInit() {
-      //console.log(this.products);
+      console.log(this.products);
 
       this.methodsOfPayment = ["Credit Card","Cash on delivery"];
 
