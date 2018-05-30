@@ -1,16 +1,16 @@
-<div *ngIf="shopAction == 0">
+<div *ngIf="shopAction == 0" class="divContainer container">
     <div>
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
         <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
         <a class="p-2 text-muted" (click)="shopAction=2">
           {{cartCont}}
-          <img src="http://icons-for-free.com/icon/download-basket_cart_purchase_shop_shopping_shopping_cart_shopping_trolleys_icon-603390.ico" width="50 " height="auto">
+          <img src="app/shopApp/images/shopping-cart.png" width="50 " height="auto">
         </a>
       </nav>
     </div>
     <!-- Filter the Products   -->
-    <div class="panel-body">
+    <div class="container">
         <div class="row filter">
             <div class="col-md-2">Filter by:</div>
             <div class="col-md-4">
@@ -36,19 +36,18 @@
             </div>
         </div>
 
-
+    </div>
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
          <div *ngIf="typeView==0" > <!--class="table-responsive" -->
+          <header class="py-5 bg-image-full" style="background-image: url('https://mealplans.motionfitnessbali.com/images/slide.jpg');">
+            <h1 class="m-0 text-center text-white">Our Products</h1>
+          </header>
             <table class="table"
                    *ngIf="products && products.length">
                 <thead class="thead-light">
                     <tr>
                         <th>
                           Image
-                            <!-- <button class="btn btn-primary"
-                                (click)="toggleImage()">
-                                {{showImage ? "Hide" : "Show"}} Image
-                            </button> -->
                         </th>
                         <th>Name</th>
                         <th>Price</th>
@@ -75,7 +74,8 @@
                         <td class="productsTable">{{ product.price  }} €</td>
                        <td class="productsTable">
                          <a class="btn btn-primary"
-                         (click)="goToDetail(product)">
+                         (click)="goToDetail(product);
+                                  typeView=1">
                            +
                          </a>
                         </td>
@@ -100,33 +100,33 @@
                autoHide="true">
            </pagination-controls>
         </div>
-        <div *ngIf="typeView==1" >
+
+        <div *ngIf="typeView==1" class="container">
+            <header class="py-5 bg-image-full" style="background-image: url('https://mealplans.motionfitnessbali.com/images/slide.jpg');">
+              <h1 class="m-0 text-center text-white">Our Products</h1>
+            </header>
           <div *ngIf="products && products.length">
-            <table class="table" >
-               <tbody class="listIcons">
-                <span *ngFor="let product of productsFiltered
-                            | paginate: {itemsPerPage: itemsPerPage,
-                              currentPage:currentPage,
-                              id: '1'};
-                              let i = index;">
-                          <div class="product-single" >
-                             <a (click)="goToDetail(product)"><img class="imgProduct" src="app/shopApp/images/{{product.id}}.jpg"></a><br>
-                             <a><strong>{{product.name}}</strong></a>
-                             <div>
-                               {{ product.price }} €
-                             </div>
-                             <a class="btn btn-primary"
-                             (click)="goToDetail(product)">
-                               +
-                             </a>
-                             <a class="btn btn-success"
-                             (click)="addCart(product)">
-                               Add Cart
-                             </a>
-                        </div>
-                    </span>
-                  </tbody>
-            </table>
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4"  *ngFor="let product of productsFiltered">
+              <div class="card h-100">
+                <a (click)="goToDetail(product)">
+                  <img class="card-img-top" src="app/shopApp/images/{{product.id}}.jpg">
+                </a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#">{{product.name}}</a>
+                  </h4>
+                  <h5>{{product.price}} €</h5>
+                  <p class="card-text">{{product.description}}</p>
+                </div>
+                <div class="card-footer">
+                  <a class="btn btn-primary" (click)="goToDetail(product)">+</a>
+                  <a class="btn btn-success" (click)="addCart(product)">
+                    Add Cart
+                  </a>
+                </div>
+              </div>
+            </div>
 
           <pagination-controls class="paginate" (pageChange)="currentPage = $event"
              id="1"
@@ -136,7 +136,8 @@
          </pagination-controls>
         </div>
       </div>
-    </div>
+
+      </div>
 </div>
 
 

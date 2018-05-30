@@ -44,7 +44,7 @@ class DBConnect{
   /*Realitza la connexió a la base de dades.*/
   private function connection(){
     try{
-      $this->link=new PDO('mysql:dbname='.$this->dataBase.';host='.$this->server, $this->user, $this->password,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+      $this->link=new PDO('mysql:dbname='.$this->dataBase.';host='.$this->server, $this->user, $this->password,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
     }catch(PDOException $e){
       $this->link=null;
       echo "Error connecting to database.";

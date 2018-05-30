@@ -28,7 +28,14 @@ export class ProductManagmentComponent implements OnInit {
   pageTitle: string = "Products"
   productDetail: Products;
   products: Products[]=[];
+  product: Products;
+
   productsFiltered: Products[]=[];
+
+  arrayAux: Products[]=[];
+  productsFiltered1: Products[]=[];
+  productsFiltered2: Products[]=[];
+
   shopAction: number;
   typeView: number = 0 ;
   roleUser: string;
@@ -45,6 +52,8 @@ export class ProductManagmentComponent implements OnInit {
   itemsPerPage: number;
   currentPage: number;
   totalItems: number;
+
+  productsLength: number=0;
 
   //Filter properties
   priceFilter: number;
@@ -68,25 +77,36 @@ export class ProductManagmentComponent implements OnInit {
     this.downloadInitData();
     this.comandaProducts = [];
     this.productsFiltered = [];
-    this.products = [];
+    //this.products = [];
     this.typeView = 0;
+    let contFilter = 0;
     // this.shopAction = 0;
     this.productDataService.getAllProducts().subscribe(
       outPutData => {
          if(outPutData.length > 0 && Array.isArray(outPutData) && JSON.parse(outPutData[0]) == true) {
            for (let productJSON of outPutData[1]) {
              let product = new Products();
-
              Object.assign(product,productJSON);
-
+             this.product = product;
              let productType = new ProductType();
              productType = this.productsType.find(productType =>
-               productType.getId()==product.getProductType().id);
-
+             productType.getId()==product.getProductType().id);
              product.setProductType(product.getProductType());
-             this.products.push(product);
 
+             this.products.push(this.product);
+
+             contFilter += 1;
            }
+           this.arrayAux = this.products;
+           for(let i=0;i<this.arrayAux.length/2;i++){
+             this.productsFiltered1.push(this.arrayAux[i]);
+           }
+           let number =  0;
+           number = this.arrayAux.length /2;
+           for(let j=number;j<this.arrayAux.length;j++){
+             this.productsFiltered2.push(this.arrayAux[j]);
+           }
+
 
          } else {
            alert("Sorry, there has been an error, try later");
@@ -107,8 +127,11 @@ export class ProductManagmentComponent implements OnInit {
    this.totalItems= this.products.length;
    this.priceFilter = 100;
    this.productsFiltered = this.products;
+
+
+
    this.shopAction = 0;
-   console.log(this.productsFiltered.length);
+   //console.log(this.arrayAux);
 
 
    if(sessionStorage.getItem('connectedUser')){
@@ -164,7 +187,7 @@ private downloadInitData  () : void {
              this.productsType.push(productType);
 
          }
-         console.log(this.productsType);
+         //console.log(this.productsType);
        } else {
          alert("There has been an error, try later");
          console.log("Error in ProductsMainComponent (downloadInitData): outPutData is false: "
@@ -179,7 +202,7 @@ private downloadInitData  () : void {
      }
    }
  );
- // console.log(this.productsType);
+ //console.log(this.productsType);
 
 }
 
@@ -204,9 +227,9 @@ private downloadInitData  () : void {
        }
 
        if(this.typefilter != "" && this.typefilter != undefined) {
-         if(productTypr.getName().toLowerCase().indexOf(this.typefilter.toLowerCase())!= -1) {
+         /*if(productTypr.getName().toLowerCase().indexOf(this.typefilter.toLowerCase())!= -1) {
            typeValid = true;
-         } else {typeValid = false;}
+         } else {typeValid = false;}*/
        }
 
        return (nameValid && priceValid);

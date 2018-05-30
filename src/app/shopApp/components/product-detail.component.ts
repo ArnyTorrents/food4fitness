@@ -49,6 +49,8 @@ export class ProductDetailComponent implements OnInit {
               private cookieService: CookieService) { }
 
   ngOnInit() {
+    console.log(this.productDetail);
+
     this.edit = 0;
     this.new = 0;
     this.product = new Products();
