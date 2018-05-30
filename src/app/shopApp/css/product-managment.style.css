@@ -9,9 +9,6 @@
   margin-top: 5%;
 }
 
-@media only screen and (min-width: 680px) {
-
-}
 .divContainer{
     position: relative;
     top: 100px;
@@ -34,6 +31,18 @@
 
 .listIcons {
   text-align: center;
+}
+
+.select {
+  margin-bottom: 5%;
+}
+
+.productIcons{
+  margin-top: 2%;
+}
+
+.buttonDetail{
+  margin-right: 3%;
 }
 
 .product-single > a {

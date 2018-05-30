@@ -153,6 +153,7 @@ class ProductControllerClass implements ControllerInterface {
 										$ProductObj->goodFor,
 										$ProductObj->img
 			);
+			// echo $ProductObj->id;
 
 			$product->setId(ProductADO::create($product));
 

@@ -23,6 +23,8 @@ class DBConnect{
 
     $this->server='localhost';
     $this->dataBase='food4fitness';
+    // $this->user='daw1801';
+    // $this->password='Ew1kaer6';
     $this->user='admin';
     $this->password='admin';
   }
