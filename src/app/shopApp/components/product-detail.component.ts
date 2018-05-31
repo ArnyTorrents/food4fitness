@@ -102,6 +102,10 @@ export class ProductDetailComponent implements OnInit {
                     let filesNames : string [] = [];
                     filesNames.push(outPutData[1][0].id);
                     this.IdImage = outPutData[1][0].id;
+
+                    this.productDetail.setId(0);
+                    this.productDetail.setImg("Image " + this.IdImage);
+
                     this.productDataService.uploadFiles(this.userImageFile,filesNames).subscribe(
                     outPutData => {
                       if(Array.isArray(outPutData) && outPutData.length > 0)
@@ -142,7 +146,7 @@ export class ProductDetailComponent implements OnInit {
         },
         error => {
           alert("There has been an error, try later");
-          console.log("Error in UserLoginComponent (connection): "
+          console.log("Error in Product Detail (productMangment): "
                       +JSON.stringify(error));
           this.router.navigate(["userApp"]);
         }
@@ -173,8 +177,6 @@ export class ProductDetailComponent implements OnInit {
     this.edit = 0;
 
     this.productDetail = new Products();
-    //this.productDetail.setProductType (this.productsType[0]);
-    // console.log(this.productsType);
     this.productDetail.setId(0);
     this.productDetail.setImg("Image " + this.IdImage);
     console.log(this.productDetail);
