@@ -9,6 +9,7 @@ require_once "../model/products.php";
 require_once "../model/productType.php";
 require_once "../model/productsComanda.php";
 require_once "../model/comanda.php";
+require_once "../model/User.php";
 //ados
 require_once "../model/persist/ComandaADO.php";
 
@@ -44,6 +45,9 @@ class ComandaControllerClass implements ControllerInterface {
 			case 10010:
 				$outPutData = $this->insertComanda();
 				break;
+			case 10020:
+				$outPutData = $this->listComandas();
+				break;	
 			default:
 				echo "There has been an error in the server";
 				error_log("Action not correct in Comanda Controller, value: ".$this->getAction());
@@ -74,6 +78,30 @@ class ComandaControllerClass implements ControllerInterface {
 		$outPutData = array();
 		$outPutData[]= true;
 		$outPutData[]= $comanda->getId();
+
+		return $outPutData;
+	}
+
+	private function listComandas(){
+		$userObj = json_decode(stripslashes($this->getJsonData()));
+		//$comanda = new Comanda();
+		$id = $userObj->id;
+
+		$outPutData = array();
+		$comandas = array();
+
+		$comandaList = ComandaADO::findAll($id);
+
+		if (count($comandaList)!=0)
+		{
+			foreach ($comandaList as $comanda)
+			{
+				$comandas[]=$comanda->getAll();
+			}
+		}
+		$outPutData[] = "true";
+		//$outPutData[]=count($ProductsList);
+		$outPutData[] = $comandas;
 
 		return $outPutData;
 	}

@@ -22,6 +22,7 @@ export class UsersCrudComponent implements OnInit {
   userDetails: User;
   actionUser:number=0;
   userAction:number=0;
+  userOptions:number=0;
 
   ngOnInit(): void {
       this.usersArray = [];
@@ -87,6 +88,8 @@ export class UsersCrudComponent implements OnInit {
     this.userDetails = userDetails;
     this.actionUser = 1;
     this.userAction = 2;
+    this.userOptions = 2;
+    //console.log(this.userOptions);
   }
 
   goBack(userAction: number) {

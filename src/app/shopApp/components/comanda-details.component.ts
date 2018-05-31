@@ -143,14 +143,13 @@ export class ComandaDetails implements OnInit {
       for(let j=0;j<this.products.length;j++){
         if(this.products[j].id==this.comanda.productsComanda[i].idProducto){
           let stock = this.products[j].stock
-          //console.log("ACTUAL STOCK: "+this.products[j].stock);
           this.products[j].stock = stock - this.comanda.productsComanda[i].quantitat;
 
           this.productDataService.modifyProducts(this.products[j]).subscribe(
             outPutData => {
               if(Array.isArray(outPutData) && outPutData.length > 0){
                 if(outPutData[0]=== true){
-                    //alert("Your order is now in Delivery");
+                  alert("Thanks For Buying in food 4 fitness, please, your order is now in delivery");
                     //console.log("Stock Updated");
                 }
               } else {

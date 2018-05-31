@@ -41,6 +41,7 @@ export class ComandaManagement implements OnInit {
   ngOnInit() {
 
     this.productsSelected = [];
+    //console.log(this.shopAction);
     /*this.shopAction = 1;
     let total = 0;
     let finalPrice = 0;*/
@@ -68,6 +69,8 @@ export class ComandaManagement implements OnInit {
 
        this.cartCont = cartCont;
        //console.log(this.comandaProductsFinal);
+     }else{
+       this.shopAction = 3;
      }
      //set total price;
      let total = 0;

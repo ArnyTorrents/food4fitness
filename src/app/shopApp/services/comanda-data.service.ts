@@ -5,12 +5,13 @@ import {Observable} from 'rxjs/Rx';
 
 import { Comanda } from './../model/comanda';
 
+import { User} from './../model/user';
 
 @Injectable()
 export class ComandaDataService {
 
   private mainUrl : string = "http://localhost/food4fitness/src/app/shopApp/php/controllers/MainController.php";
-  // private mainUrl : string = "http://provenapps.cat/~daw1801/food4fitness/src/app/shopApp/php/controllers/MainController.php";
+  //private mainUrl : string = "http://provenapps.cat/~daw1801/food4fitness/src/app/shopApp/php/controllers/MainController.php";
 
   private httpParams: HttpParams;
   private body: any;
@@ -26,6 +27,16 @@ export class ComandaDataService {
 
       return this.accessServer();
   }
+
+  listComanda(user: User):  Observable<any[]> {
+    this.body = {
+      controller: 'comanda',
+      action: '10020',
+      jsonData: JSON.stringify(user)
+    }
+
+    return this.accessServer();
+}
 
   modifyComanda(comanda:Comanda): Observable<any[]> {
     this.body = {

@@ -16,7 +16,7 @@ export class UserLoginComponent implements OnInit {
   users: User[];
   userConnected: User;
   validUserData = true;
-
+  userOptions: number=0;
   @Output() goBack = new EventEmitter<number>();
 
 
@@ -27,6 +27,7 @@ export class UserLoginComponent implements OnInit {
 
 
   ngOnInit(): void {
+      this.userOptions = 3;
       this.userConnected = new User();
 
       this.userDataService.sessionControl().subscribe(
@@ -84,5 +85,9 @@ export class UserLoginComponent implements OnInit {
                         +JSON.stringify(error));
           }
         );
+  }
+
+  goBackLogin(userAction: number) {
+    this.userOptions = userAction;
   }
 }

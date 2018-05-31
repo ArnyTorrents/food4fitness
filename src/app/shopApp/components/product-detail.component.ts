@@ -27,8 +27,8 @@ export class ProductDetailComponent implements OnInit {
   shopAction: number;
   errorMessage: string;
   roleUser: string;
-  edit: number;
-  new: number;
+  //edit: number;
+  //new: number;
   product: Products;
   validFile: boolean = false;
   userImageFile: File;
@@ -39,6 +39,9 @@ export class ProductDetailComponent implements OnInit {
   @Input() products : Products[];
   @Input() productsType : ProductType[]=[];
 
+
+  @Input() edit:number;
+  @Input() new:number;
   // We'll use
   //setShopAction.emit(variable Content to comunicate)
   @Output() setShopAction:EventEmitter<number>
@@ -49,10 +52,14 @@ export class ProductDetailComponent implements OnInit {
               private cookieService: CookieService) { }
 
   ngOnInit() {
-    console.log(this.productDetail);
+    console.log(this.new);
 
-    this.edit = 0;
-    this.new = 0;
+    if(this.new==1){
+      let product = new Products();
+      this.productDetail = product;
+    }
+    //this.edit = 0;
+    //this.new = 0;
     this.product = new Products();
 
     if(sessionStorage.getItem('connectedUser')){
@@ -177,7 +184,6 @@ export class ProductDetailComponent implements OnInit {
   modify() : void {
     this.new = 0;
     this.edit = 1;
-
     console.log(this.productDetail);
 
   }

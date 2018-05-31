@@ -1,3 +1,5 @@
+<div class="container divContainer">
+  <h1>Users Management</h1>
 <table class="table table-striped" *ngIf="actionUser==0">
   <tr>
     <th>Name</th>
@@ -23,10 +25,11 @@
   </tr>
   <!--<button type="button" class="btn btn-primary" >Back to the index</button>-->
 </table>
-
+</div>
 <user-management *ngIf="actionUser==1"
 [userAction]="userAction"
 [userDetails]="userDetails"
 [user]="user"
+[userOptions]="userOptions"
 (goBack) = "goBack($event)"
 ></user-management>
