@@ -47,7 +47,10 @@ class ComandaControllerClass implements ControllerInterface {
 				break;
 			case 10020:
 				$outPutData = $this->listComandas();
-				break;	
+				break;
+			case 10030:
+				$outPutData = $this->modifyComanda();
+				break;
 			default:
 				echo "There has been an error in the server";
 				error_log("Action not correct in Comanda Controller, value: ".$this->getAction());
@@ -102,6 +105,32 @@ class ComandaControllerClass implements ControllerInterface {
 		$outPutData[] = "true";
 		//$outPutData[]=count($ProductsList);
 		$outPutData[] = $comandas;
+
+		return $outPutData;
+	}
+
+	private function modifyComanda(){
+		$outPutData = array();
+		$comandaObj = json_decode(stripslashes($this->getJsonData()));
+		try {
+			$comanda = new Comanda();
+			$comanda->setAll($comandaObj->id,
+											 $comandaObj->idUser,
+											 $comandaObj->totalPrice,
+											 $comandaObj->date,
+											 $comandaObj->methodOfPayment,
+											 $comandaObj->paid,
+										   $comandaObj->status);
+
+			ComandaADO::update($comanda);
+
+			//the senetnce returns de id of the Product inserted
+			$outPutData[]= "true";
+			$outPutData[]= $comanda->getAll();
+		} catch (Exception $e) {
+			$outPutData[]= "false";
+			echo 'ComandaControler Class(modifyProduct) Caught exception: ',  $e->getMessage(), "\n";
+		}
 
 		return $outPutData;
 	}

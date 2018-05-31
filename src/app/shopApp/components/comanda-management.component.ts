@@ -113,6 +113,7 @@ export class ComandaManagement implements OnInit {
   }
 
   checkandPay():void{
+    console.log(this.comanda);
     if(sessionStorage.getItem('connectedUser')){
       let cookieObj:any =   JSON.parse(sessionStorage.getItem("connectedUser"));
       this.shopAction = 2;

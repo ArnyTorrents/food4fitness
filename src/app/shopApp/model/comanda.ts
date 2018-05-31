@@ -5,7 +5,7 @@ export class Comanda {
   productsComanda: ComandaProducts[]=[];
   totalPrice: number;
   date: any;
-  methodsOfPayment: string;
+  methodOfPayment: string;
   paid: number;
   status: string;
   //constructor
@@ -37,7 +37,7 @@ export class Comanda {
     return this.date;
   }
   getMethodOfPayment(){
-    return this.methodsOfPayment;
+    return this.methodOfPayment;
   }
   getPaid(){
     return this.paid;
@@ -61,8 +61,8 @@ export class Comanda {
   setDate(date:any):void{
     this.date = date;
   }
-  setMethodOfPayment(methodsOfPayment:string){
-    this.methodsOfPayment = methodsOfPayment;
+  setMethodOfPayment(methodOfPayment:string){
+    this.methodOfPayment = methodOfPayment;
   }
   setPaid(paid:number){
     this.paid = paid;
