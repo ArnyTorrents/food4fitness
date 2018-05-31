@@ -8,8 +8,8 @@ import {User} from '../model/user';
 @Injectable()
 export class UserDataService {
 
-  private mainUrl : string = "http://provenapps.cat/~daw1801/food4fitness/src/app/userApp/php/controllers/MainController.php";
-  // private mainUrl : string = "http://localhost/food4fitness/src/app/userApp/php/controllers/MainController.php";
+  // private mainUrl : string = "http://provenapps.cat/~daw1801/food4fitness/src/app/userApp/php/controllers/MainController.php";
+  private mainUrl : string = "http://localhost/food4fitness/src/app/userApp/php/controllers/MainController.php";
 
   private httpParams: HttpParams;
   private body: any;
