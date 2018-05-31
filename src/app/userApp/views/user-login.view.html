@@ -1,4 +1,4 @@
-<div class="container well">
+<!--<div class="container well">
   <fieldset>
     <legend>Login</legend>
     <form #userLogginForm="ngForm" (ngSubmit)="connection()">
@@ -35,4 +35,38 @@
       </div>
     </form>
   </fieldset>
+</div>-->
+<div class="container divContainer" *ngIf="userOptions==3">
+  <div class="card card-container">
+      <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+      <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+      <p id="profile-name" class="profile-name-card"></p>
+      <form class="form-signin" #userLogginForm="ngForm" (ngSubmit)="connection()">
+          <span id="reauth-email" class="reauth-email"></span>
+          <!--NickName-->
+          <input type="text"  id="nickName" name="nickName" #nickName="ngModel" class="form-control"
+                [(ngModel)]="userConnected.nickName" placeholder="Nick Name" required autofocus />
+          <div [hidden]="nickName.valid || nickName.pristine"
+                        class="alert alert-danger">
+              Nick is required
+          </div>
+          <!--Password-->
+          <input type="password" id="password" name="password" #password="ngModel"  class="form-control"
+          [(ngModel)]="userConnected.password" placeholder="Password" required />
+          <div [hidden]="password.valid || password.pristine"
+                        class="alert alert-danger">
+              Password is required
+          </div>
+          <input class="btn btn-success btn-block btn-signin"
+                [disabled]="userLogginForm.invalid || userLogginForm.pristine"
+                 type="submit"
+                 value="Login" />
+          <button class="btn btn-primary btn-block btn-primary" 
+          (click)="userOptions=1" value="Register" >Sign Up</button>
+      </form>
+  </div>
 </div>
+<user-management *ngIf="userOptions==1"
+(goBackLogin)="goBackLogin($event)"
+[userOptions]="userOptions"
+></user-management>

@@ -39,7 +39,10 @@ export class ProductManagmentComponent implements OnInit {
   shopAction: number;
   typeView: number = 0 ;
   roleUser: string;
+  conectedUser: number=0;
 
+  new:number=0;
+  edit:number=0;
 
   quantitat: number=0;
   //Cart
@@ -77,10 +80,14 @@ export class ProductManagmentComponent implements OnInit {
     this.downloadInitData();
     this.comandaProducts = [];
     this.productsFiltered = [];
-    //this.products = [];
+
+    this.products = [];
+
     this.typeView = 0;
     let contFilter = 0;
-    // this.shopAction = 0;
+    
+    //console.log(this.roleUser);
+
     this.productDataService.getAllProducts().subscribe(
       outPutData => {
          if(outPutData.length > 0 && Array.isArray(outPutData) && JSON.parse(outPutData[0]) == true) {
@@ -139,10 +146,14 @@ export class ProductManagmentComponent implements OnInit {
      let userConnected = new User();
      Object.assign(userConnected,cookieObj);
      this.roleUser = cookieObj.role;
+     this.conectedUser = 1;
+   }else{
+     this.roleUser = "user";
+     this.conectedUser = 0;
    }
 
-
   if(this.cookieService.check("cart")){
+    this.comandaProducts = [];
     this.cartCont = 0;
      let cart:any =
            JSON.parse(this.cookieService.get("cart"));
@@ -158,6 +169,8 @@ export class ProductManagmentComponent implements OnInit {
 
      //Object.assign(this.cartCont,cartCont);
      this.cartCont = cartCont;
+
+     //console.log(this.comandaProducts);
    }
 
 
@@ -270,9 +283,16 @@ private downloadInitData  () : void {
   goToDetail (product : Products) : void {
     this.productDetail = product;
     this.shopAction = 1;
+    this.new = 0;
+    this.edit = 0;
   }
 
-
+  create():void{
+    this.typeView = 3;
+    this.shopAction = 1;
+    this.new = 1;
+    this.edit = 0;
+  }
 
   setShopActionManagement(action:number): void{
     this.shopAction=action;

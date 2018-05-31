@@ -13,7 +13,7 @@ import {UserDataService} from './../services/user-data.service';
 
 export class UserManagementComponent implements OnInit {
   userNew: User;
-  userOptions: number = 1;
+  //userOptions: number = 1;
   userImageFile: File;
   validFile: boolean = false;
   passControl: string;
@@ -22,14 +22,15 @@ export class UserManagementComponent implements OnInit {
   @Input() userDetails : User;
   @Input() userAction : number;
   @Input() user : User;
-  //@Input() userOption : number;
+  @Input() userOptions : number;
 
   @ViewChild('useManagementForm') useManagementForm: HTMLFormElement;
 
-  @Output() goBack:EventEmitter<number>
+  @Output() goBackLogin:EventEmitter<number>
               = new EventEmitter<number>();
 
-
+  @Output() goBack:EventEmitter<number>
+              = new EventEmitter<number>();
 
 
   constructor(private router: Router,
@@ -39,12 +40,15 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
       console.log(this.userOptions);
+      //console.log(this.userOptions);
       this.userNew = new User();
-      this.userOptions = this.userAction;
+      
+      //this.userOptions = this.userAction;
       if(this.userOptions==2){
-        this.userNew = this.userDetails;
+        this.userNew = this.userDetails;        
       }if(this.userOptions==1){
         this.userNew.role = "user";
+        this.userNew = new User();
       }
       if(this.user!=undefined){
         if(this.user.role == "master"){
@@ -77,7 +81,9 @@ export class UserManagementComponent implements OnInit {
 
   registeruserNew (): void {
     console.log(this.userAction);
-    if(this.userAction==3){
+    if(this.userOptions==1){
+      this.userNew.id = 0;
+      this.userNew.img = "userImg";
       this.userNew.role = "user";
       console.log(this.userNew);
       this.userDataService.createUser(this.userNew).subscribe(

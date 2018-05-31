@@ -1,16 +1,18 @@
 <div *ngIf="shopAction == 0" class="divContainer container">
     <div>
       <nav class="nav d-flex justify-content-between">
-        <a class="p-2 text-muted" (click)="typeView=0">List Detail</a>
-        <a class="p-2 text-muted" (click)="typeView=1">List Icons</a>
-        <a class="p-2 text-muted" (click)="shopAction=2">
+        <a class="p-2 text-muted" (click)="typeView=0">Product List</a>
+        <a class="p-2 text-muted" *ngIf="conectedUser==1" (click)="shopAction=4">My Orders</a>
+        <a class="p-2 text-muted" *ngIf="roleUser=='admin' || roleUser=='master'" (click)="create()">Create a Product</a>
+        <a class="p-2 text-muted" *ngIf="roleUser=='admin' || roleUser=='master'" (click)="typeView=1">Crud Products</a>
+        <a class="p-2 text-muted" (click)="shopAction=3">
           {{cartCont}}
           <img src="app/shopApp/images/shopping-cart.png" width="50 " height="auto">
         </a>
       </nav>
     </div>
     <!-- Filter the Products   -->
-    <div class="container">
+    <div class="container" *ngIf="typeView==0 || typeView==1"> 
         <div class="row filter">
             <!-- <div class="col-md-2">Filter by:</div> -->
             <div class="col-md-4">
@@ -45,9 +47,9 @@
                      </option>
                    </select>
               </div>
-              <div class="col-md-4">
+              <!--<div class="col-md-4">
                 <button type="button" class="btn btn-success">Success</button>
-              </div>
+              </div>-->
             </div>
         <div class="row" *ngIf="listFilter">
             <div class="col-md-6">
@@ -57,7 +59,7 @@
 
     </div>
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
-         <div *ngIf="typeView==0" > <!--class="table-responsive" -->
+         <div *ngIf="typeView==1" > <!--class="table-responsive" -->
           <header class="py-5 bg-image-full" style="background-image: url('https://mealplans.motionfitnessbali.com/images/slide.jpg');">
             <h1 class="m-0 text-center text-white">Our Products</h1>
           </header>
@@ -123,7 +125,7 @@
            </pagination-controls>
         </div>
 
-        <div *ngIf="typeView==1" class="container">
+        <div *ngIf="typeView==0" class="container">
             <header class="py-5 bg-image-full" style="background-image: url('https://mealplans.motionfitnessbali.com/images/slide.jpg');">
               <h1 class="m-0 text-center text-white">Our Products</h1>
             </header>
@@ -158,16 +160,20 @@
 
 
 
-<main-comanda *ngIf="shopAction==2"
+<main-comanda *ngIf="shopAction==3"
 [comandaProducts]="comandaProducts"
 [products]="products"
 [comanda]="comanda"
 (setShopActionManagement) = "setShopActionManagement($event)"
 ></main-comanda>
 
-<product-detail *ngIf="shopAction==1"
+<product-detail *ngIf="shopAction==1 || shopAction==2"
 [productsType]="productsType"
 [productDetail]="productDetail"
 [products]="products"
-(setShopAction) = "setShopActionManagement($event)">
+(setShopAction) = "setShopActionManagement($event)"
+[new]="new"
+[edit]="edit"
+>
 </product-detail>
+<my-orders *ngIf="shopAction==4"></my-orders>

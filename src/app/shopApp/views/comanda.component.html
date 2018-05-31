@@ -30,18 +30,22 @@
         <tr>
           <th></th>
           <th></th>
-          <th>Total Price</th>
-          <th>{{comanda.totalPrice}}</th>
+          <th>Total Price
+          <!--<th>{{comanda.totalPrice}}</th>-->
+          <input class="form-control" currencyMask [(ngModel)]="comanda.totalPrice" [options]="{ prefix:'', suffix: ' €',
+                        thousands: '.', decimal: ',' }" disabled/></th>
         </tr>
       </table>
-      <input type="button" class="btn btn-success" (click)="checkandPay()" value="Pay" />
+
+  </div>
+  <div *ngIf="shopAction==3" class="emptyCart">
+    <img src="app/shopApp/images/empty-cart.png" width="500" height="350"/>
   </div>
   <comanda-details
   [comanda]="comanda"
   [products]="products"
   *ngIf="shopAction==2"></comanda-details>
-  <div *ngIf="shopAction==3" class="container">
-    <img src="app/shopApp/images/empty-cart.png" width="500" height="350"/>
-  </div>
-  <button class="btn btn-primary" value="back To The Shop" (click)="setShopActionManagement.emit(0)">Back to the Shop</button>
+
+  <input *ngIf="shopAction==1" type="button" class="btn btn-success" (click)="checkandPay()" value="Pay" />
+  <button class="btn btn-primary" value="back To The Shop" (click)="setShopActionManagement.emit(0)">Back</button>
 </div>

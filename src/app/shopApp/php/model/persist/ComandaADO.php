@@ -129,6 +129,13 @@ class ComandaADO{
     return $comanda->getId();
   }
 
+  public function findAll($id){
+    $cons = "select * from `".ComandaADO::$tableName."` WHERE idUser  = ?";
+    $arrayValues = [$id];
+
+    return ComandaADO::findByQuery( $cons, $arrayValues );
+  }
+
 
 
 }

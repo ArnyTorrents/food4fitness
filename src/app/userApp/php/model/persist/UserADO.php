@@ -4,7 +4,7 @@
 * autor  Roberto Plana
 * version 2012/09
 */
-require_once "BDRestaurant.php";
+require_once "BDUser.php";
 require_once "EntityInterfaceADO.php";
 require_once "../model/User.php";
 

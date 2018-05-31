@@ -2,9 +2,8 @@
   <!--Controlls-->
   <div class="divContainer container">
     <nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-muted" (click)="insert()">Insert Product</a>
-      <a class="p-2 text-muted" (click)="modify()">Modify Product</a>
-      <!--<a class="p-2 text-muted" (click)="edit=0">View Product</a>-->
+      <!--<a class="p-2 text-muted" (click)="insert()">Insert Product</a>-->
+      <a class="p-2 text-muted" *ngIf="roleUser=='master' || roleUser=='admin'" (click)="modify()">Modify Product</a>
     </nav>
   </div>
   <!--Product Details-->

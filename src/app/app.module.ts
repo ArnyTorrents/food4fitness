@@ -25,6 +25,7 @@ import { ProductManagmentComponent } from './shopApp/components/product-managmen
 import { ProductDetailComponent } from './shopApp/components/product-detail.component';
 import { ComandaManagement } from './shopApp/components/comanda-management.component';
 import { ComandaDetails } from './shopApp/components/comanda-details.component';
+import {MyOrdersManagement} from './shopApp/components/myOrders-management.component';
 //Pagination
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -53,7 +54,8 @@ import {AppRoutingModule} from './mainApp/routing/app.routing';
     ProductManagmentComponent,
     ProductDetailComponent,
     ComandaManagement,
-    ComandaDetails
+    ComandaDetails,
+    MyOrdersManagement
   ],
   imports: [
     BrowserModule,
