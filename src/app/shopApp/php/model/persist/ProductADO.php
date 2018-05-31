@@ -275,7 +275,7 @@ class ProductADO implements EntityInterfaceADO {
   public static function findAll( ) {
     $cons = "select * from `".ProductADO::$tableName."`";
     $arrayValues = [];
-
+    //error_log(print_r($arrayValues, TRUE)); 
     return ProductADO::findByQuery( $cons, $arrayValues );
   }
 

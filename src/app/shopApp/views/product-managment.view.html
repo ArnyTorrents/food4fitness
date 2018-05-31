@@ -1,4 +1,4 @@
-<div *ngIf="shopAction == 0" class="divContainer container">
+<div *ngIf="shopAction == 0" class="divContainer container" >
     <div>
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" (click)="typeView=0">Product List</a>
@@ -127,7 +127,8 @@
               <h1 class="m-0 text-center text-white">Our Products</h1>
             </header>
           <div *ngIf="products && products.length">
-          <div class="row productIcons">
+          <!--<div class="row productIcons" (ngModelChange)="calculateStock(product)">-->
+          <div class="row productIcons" >
             <div class="col-lg-4 col-md-6 mb-4"  *ngFor="let product of productsFiltered">
               <div class="card h-100">
                 <a (click)="goToDetail(product)">
@@ -139,12 +140,16 @@
                   </h4>
                   <h5>{{product.price}} €</h5>
                   <p class="card-text">{{product.description}}</p>
+                  <p *ngIf="product.stock==0 || product.stock<0" class="p-2 text-muted"> There is no stock of this product in this moment, try later</p>
+                  <p *ngIf="product.stock<30 && product.stock>1" class="p-2 text-muted">Wait till we add more stock</p>
+                  <p *ngIf="product.stock==30" class="p-2 text-muted"> wait till we add more stock</p>
                 </div>
                 <div class="card-footer">
                   <a class="btn btn-primary buttonDetail" (click)="goToDetail(product)">+</a>
-                  <a class="btn btn-success" (click)="addCart(product)">
+                  <a  *ngIf="product.stock>30" class="btn btn-success" (click)="addCart(product)">
                     Add Cart
                   </a>
+
                 </div>
               </div>
             </div>
@@ -173,4 +178,5 @@
 [edit]="edit"
 >
 </product-detail>
-<my-orders *ngIf="shopAction==4"></my-orders>
+<my-orders *ngIf="shopAction==4"
+(setShopActionManagement) = "setShopActionManagement($event)"></my-orders>

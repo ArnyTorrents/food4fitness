@@ -33,8 +33,8 @@ export class ProductManagmentComponent implements OnInit {
   productsFiltered: Products[]=[];
 
   arrayAux: Products[]=[];
-  productsFiltered1: Products[]=[];
-  productsFiltered2: Products[]=[];
+  productsAux: Products[]=[];
+  //productsFiltered2: Products[]=[];
 
   shopAction: number;
   typeView: number = 0 ;
@@ -85,7 +85,7 @@ export class ProductManagmentComponent implements OnInit {
 
     this.typeView = 0;
     let contFilter = 0;
-    
+
     //console.log(this.roleUser);
 
     this.productDataService.getAllProducts().subscribe(
@@ -105,14 +105,14 @@ export class ProductManagmentComponent implements OnInit {
              contFilter += 1;
            }
            this.arrayAux = this.products;
-           for(let i=0;i<this.arrayAux.length/2;i++){
+           /*for(let i=0;i<this.arrayAux.length/2;i++){
              this.productsFiltered1.push(this.arrayAux[i]);
            }
            let number =  0;
            number = this.arrayAux.length /2;
            for(let j=number;j<this.arrayAux.length;j++){
              this.productsFiltered2.push(this.arrayAux[j]);
-           }
+           }*/
 
 
          } else {
@@ -162,6 +162,8 @@ export class ProductManagmentComponent implements OnInit {
         let comandaProducts = new ComandaProducts();
         Object.assign(comandaProducts,cart[i]);
         this.comandaProducts.push(comandaProducts);
+
+
      }
 
      let cartCont:any =
@@ -170,7 +172,7 @@ export class ProductManagmentComponent implements OnInit {
      //Object.assign(this.cartCont,cartCont);
      this.cartCont = cartCont;
 
-     //console.log(this.comandaProducts);
+     //this.products = this.checkStock();
    }
 
 
@@ -220,6 +222,8 @@ private downloadInitData  () : void {
 }
 
   filter (): void {
+
+  //console.log(this.typefilter);
    this.productsFiltered = this.products.filter( product => {
        let priceValid = false;
        let nameValid = false;
@@ -327,7 +331,6 @@ private downloadInitData  () : void {
         }
       }
       if(flag){
-
         this.comandaProducts.push(this.comandaPs);
         this.comanda.setProductsComanda(this.comandaProducts);
         this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
@@ -339,6 +342,27 @@ private downloadInitData  () : void {
       this.comanda.setProductsComanda(this.comandaProducts);
       this.cookieService.set('cart',JSON.stringify(this.comandaProducts));
     }
+    //this.calculateStock(product,this.quantitat);
+  }
+
+  calculateStock(product:Products,quantitat: number):void{
+    let idProduct = product.id;
+    console.log(idProduct);
+    for(let i=0;i<this.products.length;i++){
+      if(this.products[i].id == idProduct){
+        //console.log(this.products[i]);
+        this.products[i].stock = this.products[i].stock - quantitat;
+      }
+    }
+    this.productsAux = this.products;
+    //console.log(this.products[id]);
+    //console.log(quantitat);
+    //this.products[id].stock = this.products[id].stock - quantitat;
+    //console.log(this.products[id].stock);
+  }
+
+  checkStock(){
+    return this.productsAux;
   }
 
   calculateTotalPrice(){

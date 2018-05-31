@@ -1,4 +1,30 @@
 <div class="container divContainer">
     <h1>My Orders</h1>
+    <table class="table table-striped">
+      <tr>
+        <th>date:</th>
+        <th>method of Payment:</th>
+        <th>Delivered:</th>
+        <th>price:</th>
+        <th>Paid</th>
+        <th>Cancel Order</th>
+      </tr>
+      <tr *ngFor="let order of myOrders;">
+        <td>{{order.date}}</td>
+        <td>{{order.methodOfPayment}}</td>
+        <td>{{order.status}}</td>
+        <td>{{order.totalPrice}}</td>
+        <td>
+          <p *ngIf="order.paid==1">Paid</p>
+          <p *ngIf="order.paid==0">Not Paid</p>
+        </td>
+        <td>
+          <p *ngIf="order.status=='delivered'">You Can't cancell this order</p>
+          <p *ngIf="order.status=='canceled'">You Can't cancell this order</p>
+          <button *ngIf="order.status=='To Delivery'" class="btn btn-danger" (click)="cancelOrder(order)">Cancel Order</button>
 
+        </td>
+      </tr>
+    </table>
+      <button class="btn btn-primary" value="back To The Shop" (click)="setShopActionManagement.emit(0)">Back</button>
 </div>

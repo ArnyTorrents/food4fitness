@@ -6,7 +6,7 @@ class Comanda implements EntityInterface {
   //private $productsComanda;
   private $totalPrice;
   private $date;
-  private $methodsOfPayment;
+  private $methodOfPayment;
   private $paid;
   private $status;
 
@@ -29,7 +29,7 @@ class Comanda implements EntityInterface {
     return $this->date;
   }
   public function getMethodOfPayment(){
-    return $this->methodsOfPayment;
+    return $this->methodOfPayment;
   }
   public function getPaid(){
     return $this->paid;
@@ -53,8 +53,8 @@ class Comanda implements EntityInterface {
   public function setDate($date){
     $this->date = $date;
   }
-  public function setMethodOfPayment($methodsOfPayment){
-    $this->methodsOfPayment = $methodsOfPayment;
+  public function setMethodOfPayment($methodOfPayment){
+    $this->methodOfPayment = $methodOfPayment;
   }
   public function setPaid($paid){
     $this->paid = $paid;
@@ -68,22 +68,22 @@ class Comanda implements EntityInterface {
     $data["id"] = $this->id;
     $data["idUser"] = $this->idUser;
     //$data["productsComanda"] = $this->productsComanda;
-    $data["setTotalPrice"] = $this->totalPrice;
-    $data["setDate"] = $this->date;
-    $data["methodsOfPayment"] = $this->methodsOfPayment;
+    $data["totalPrice"] = $this->totalPrice;
+    $data["date"] = $this->date;
+    $data["methodOfPayment"] = $this->methodOfPayment;
     $data["paid"] = $this->paid;
     $data["status"] = $this->status;
 
     return $data;
   }
   //setAllFunction
-  public function setAll($id, $idUser,$totalPrice,$date,$methodsOfPayment,$paid,$status) {
+  public function setAll($id, $idUser,$totalPrice,$date,$methodOfPayment,$paid,$status) {
     $this->setId($id);
     $this->setIdUser($idUser);
     //$this->setProductsComanda($productsComanda);
     $this->setTotalPrice($totalPrice);
     $this->setDate($date);
-    $this->setMethodOfPayment($methodsOfPayment);
+    $this->setMethodOfPayment($methodOfPayment);
     $this->setPaid($paid);
     $this->setStatus($status);
   }

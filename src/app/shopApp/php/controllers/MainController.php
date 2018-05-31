@@ -39,6 +39,7 @@
 			case 'comanda':
 				$comandaController = new ComandaControllerClass( $action, $jsonData);
 				$outPutData = $comandaController->doAction();
+				
 				break;
 			case 'comandaProducts':
 				$comandaController = new ComandaProductsControllerClass( $action, $jsonData);

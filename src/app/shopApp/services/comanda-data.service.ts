@@ -40,6 +40,7 @@ export class ComandaDataService {
 
   modifyComanda(comanda:Comanda): Observable<any[]> {
     this.body = {
+          controller: 'comanda',
           action: "10030",
           jsonData: JSON.stringify(comanda)
     }

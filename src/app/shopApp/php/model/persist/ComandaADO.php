@@ -129,7 +129,28 @@ class ComandaADO{
     return $comanda->getId();
   }
 
+  public function update($comanda){
+    //Connection with the database
+    try {
+      $conn = DBConnect::getInstance();
+    }
+    catch (PDOException $e) {
+      print "Error connecting database: " . $e->getMessage() . " ";
+      die();
+    }
+
+    $cons="update `".ComandaADO::$tableName."` set "
+                    .ComandaADO::$colNameStatus." = ? where "
+                    .ComandaADO::$colNameId." = ?" ;
+
+    $arrayValues= [$comanda->getStatus(),
+                   $comanda->getId()];
+
+    $conn->execution($cons, $arrayValues);
+  }
+
   public function findAll($id){
+    //echo($id);
     $cons = "select * from `".ComandaADO::$tableName."` WHERE idUser  = ?";
     $arrayValues = [$id];
 
