@@ -98,7 +98,7 @@
                      {{productType.getName()}}
                    </option>-->
                    <option *ngFor="let productType of productsType; let i = index"
-                     value="{{productType}}">
+                     [ngValue]="productType">
                              {{productType.getName()}}
                    </option>
                  </select>

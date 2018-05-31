@@ -244,7 +244,7 @@ private downloadInitData  () : void {
        }
 
        if(this.typefilter != undefined) {
-         if(product.getProductType().name.indexOf(this.typefilter.name)!= -1) {
+         if(product.getProductType().name.indexOf(this.typefilter.name)!= -1 || JSON.stringify(this.typefilter) == '"All"') {
            typeValid = true;
          } else {
            typeValid = false;
@@ -252,7 +252,9 @@ private downloadInitData  () : void {
        }
        // console.log(priceValid);
        // console.log(product.getPrice());
-       // console.log(this.priceFilter);
+       // console.log(this.typefilter);
+       // console.log(JSON.stringify(this.typefilter));
+       // JSON.stringify(this.typefilter) == "All"
        return (nameValid && priceValid && typeValid);
      }
    );
